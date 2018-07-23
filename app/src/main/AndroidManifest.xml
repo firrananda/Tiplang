@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dev.zero.tiplangpdam">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:theme="@style/AppThemeNoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity android:name=".activity.baru.TerimaActivity" />
+        <activity android:name=".activity.baru.ProsesActivity" />
+        <activity android:name=".activity.baru.KirimActivity" />
+        <activity android:name=".activity.revisi.TerimaActivity" />
+        <activity android:name=".activity.revisi.ProsesActivity" />
+        <activity android:name=".activity.revisi.KirimActivity" />
+        <activity android:name=".activity.baru.FormRealisasiActivity" />
+        <activity android:name=".activity.baru.FormRealisasiProsesActivity"></activity>
+    </application>
+
+</manifest>

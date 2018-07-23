@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.baru.FormRealisasiActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardbatd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Berita Acara Tutup Dinas"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="No BATD"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:id="@+id/spn_batd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/test1"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal BA"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_tgl_ba"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No Pelanggan"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_no_pelanggan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Pelanggan"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_nama_pelanggan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Alamat"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_alamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardrealisasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardbatd"
+                android:elevation="10dp"
+                android:paddingTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Data Realisasi"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="Tanggal Realisasi"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_tgl_realisasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hasil Realissi"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_hasil_realisasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardcatatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardrealisasi"
+                android:elevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Catatan dan Pelanggaran"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kodepelanggaran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:text="Kode Pelanggaran"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:id="@+id/spn_pelanggaran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/test2"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Keterangan"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_keterangan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kondisi Stan Meter"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_kondisi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Catatan"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_catatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardtambahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardcatatan"
+                android:elevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Angkat"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_tgl_angkat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No Meter"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_no_meter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ukuran Meter"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_ukuran_meter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Angka Angkat"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_angka_angkat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Merk Meteran"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/edt_merk_meteran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Foto kondisi 1"-->
+                    <!--android:textColor="@color/black"/>-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/foto1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:src="@drawable/ic_camera"/>-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Foto kondisi 2"-->
+                    <!--android:textColor="@color/black"/>-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/foto2"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:src="@drawable/ic_camera"/>-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Foto kondisi 3"-->
+                    <!--android:textColor="@color/black"/>-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/foto3"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:src="@drawable/ic_camera"/>-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Foto kondisi 4"-->
+                    <!--android:textColor="@color/black"/>-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/foto4"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:clickable="true"-->
+                    <!--android:src="@drawable/ic_camera"/>-->
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/btn_proses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardtambahan"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_toLeftOf="@id/btn_kirim"
+                android:background="@drawable/bgbutton"
+                android:backgroundTint="#FFFF00"
+                android:text="PROSES"/>
+
+            <Button
+                android:id="@+id/btn_kirim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/cardtambahan"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bgbutton"
+                android:backgroundTint="#CCFF00"
+                android:text="KIRIM"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

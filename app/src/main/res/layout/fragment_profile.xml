@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ProfileFragment"
+    android:background="@drawable/bgfragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/foto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/user"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/txv_nip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/foto"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:drawableLeft="@drawable/ic_code"
+            android:text="21031610"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textAlignment="center" />
+
+        <View
+            android:id="@+id/linenip"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="2dp"
+            android:layout_below="@id/txv_nip"
+            android:background="@color/colorPrimaryDark"
+            />
+
+        <TextView
+            android:id="@+id/txv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linenip"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="30dp"
+            android:drawableLeft="@drawable/ic_nama"
+            android:text="ANDI BIMANTARA"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"/>
+
+        <View
+            android:id="@+id/linenama"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_height="2dp"
+            android:layout_below="@id/txv_name"
+            android:background="@color/colorPrimaryDark"
+            />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="Log Out"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/buttonlogin"
+            android:layout_below="@id/txv_name" />
+    </RelativeLayout>
+
+</FrameLayout>

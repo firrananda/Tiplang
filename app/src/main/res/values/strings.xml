@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TiplangPDAM</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="helplogintext">Pertama-tama silahkan login dengan mengisikan NIP dan password</string>
+    <string name="helpbaruterimatext">fhgsdfhbwfw</string>
+    <string name="helpbaruprosestext">fugabjfafuaerea</string>
+    <string-array name="test1">
+        <item>no 1</item>
+        <item>no 2</item>
+        <item>no 3</item>
+    </string-array>
+    <string-array name="test2">
+        <item> kode 1</item>
+        <item> kode 2</item>
+        <item> kode 3</item>
+    </string-array>
+</resources>
