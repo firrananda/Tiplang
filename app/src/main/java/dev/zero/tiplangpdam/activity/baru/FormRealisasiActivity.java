@@ -91,10 +91,14 @@ public class FormRealisasiActivity extends AppCompatActivity {
                     Realm realm = Realm.getDefaultInstance();
                     List<FormData> data = realm.where(FormData.class).findAll();
                     for (BATD batdModel1 : listBATD) {
+                        boolean proses = false;
                         for (FormData batd1 : data) {
-                            if (!batd1.getBatd().equals(batdModel1.getNomor_batd()))
-                                batd.add(batdModel1.getNomor_batd());
+                            if (batd1.getBatd().equals(batdModel1.getNomor_batd())){
+                                proses = true;
+                                break;
+                            }
                         }
+                        if (!proses) batd.add(batdModel1.getNomor_batd());
                     }
                     ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(FormRealisasiActivity.this, android.R.layout.simple_list_item_1, batd);
                     spnBatd.setAdapter(stringArrayAdapter);
