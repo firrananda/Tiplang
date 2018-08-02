@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.activity.baru.BarudataPelActivity;
 import dev.zero.tiplangpdam.activity.baru.FormRealisasiActivity;
 import dev.zero.tiplangpdam.model.SPK;
 
@@ -37,7 +38,7 @@ public class SPKAdapter extends RecyclerView.Adapter<SPKAdapter.ViewHolder> {
         final SPK listitem = listSPK.get(position);
 
         holder.btnSpk.setText(listitem.getNomor_spk());
-        final Intent intent = new Intent(context, FormRealisasiActivity.class);
+        final Intent intent = new Intent(context, BarudataPelActivity.class);
         holder.btnSpk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +47,6 @@ public class SPKAdapter extends RecyclerView.Adapter<SPKAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

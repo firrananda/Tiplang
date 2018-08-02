@@ -44,10 +44,10 @@
                         android:text="No BATD"
                         android:textColor="@color/black" />
 
-                    <Spinner
-                        android:id="@+id/spn_batd"
+                    <TextView
+                        android:id="@+id/tv_batd"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:entries="@array/test1"/>
 
                     <TextView
@@ -62,38 +62,6 @@
                         android:layout_height="wrap_content"
                         android:inputType="date"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="No Pelanggan"
-                        android:textColor="@color/black" />
-
-                    <EditText
-                        android:id="@+id/edt_no_pelanggan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Pelanggan"
-                        android:textColor="@color/black" />
-
-                    <EditText
-                        android:id="@+id/edt_nama_pelanggan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Alamat"
-                        android:textColor="@color/black" />
-
-                    <EditText
-                        android:id="@+id/edt_alamat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -120,17 +88,17 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:text="Tanggal Realisasi"
-                        android:textColor="@color/black" />
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="15dp"-->
+                        <!--android:text="Tanggal Realisasi"-->
+                        <!--android:textColor="@color/black" />-->
 
-                    <EditText
-                        android:id="@+id/edt_tgl_realisasi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <!--<EditText-->
+                        <!--android:id="@+id/edt_tgl_realisasi"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content" />-->
 
                     <TextView
                         android:layout_width="match_parent"

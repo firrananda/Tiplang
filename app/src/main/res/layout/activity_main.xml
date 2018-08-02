@@ -44,7 +44,7 @@
             app:tabBackground="@color/darkblue"
             app:tabIndicatorHeight="6dp"
             app:tabIndicatorColor="#B3F745"
-            app:tabSelectedTextColor="@color/black"
+            app:tabSelectedTextColor="#2C1791"
             app:tabTextColor="#2C1791">
 
             <android.support.design.widget.TabItem

@@ -6,6 +6,7 @@ import dev.zero.tiplangpdam.model.SPK;
 import dev.zero.tiplangpdam.model.response.BATDResponse;
 import dev.zero.tiplangpdam.model.response.Form;
 import dev.zero.tiplangpdam.model.response.Login;
+import dev.zero.tiplangpdam.model.response.PelangganResponse;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
 import dev.zero.tiplangpdam.model.response.SPKResponse;
@@ -58,5 +59,8 @@ public class ApiService {
 
         @GET("tiplang/api/get-pelanggaran")
         Call<PelanggaranResponse> getPelanggaran();
+
+        @GET("tiplang/api/get-pelanggan")
+        Call<PelangganResponse> getPelanggan(@Path("id") String id);
     }
 }

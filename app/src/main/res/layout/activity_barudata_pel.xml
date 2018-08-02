@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.baru.KirimActivity"
-    android:padding="10dp">
-
-</android.support.v7.widget.RecyclerView>
+    tools:context=".activity.baru.BarudataPelActivity"
+    android:padding="10dp"
+    android:id="@+id/rv_datapel"/>

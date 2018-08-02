@@ -35,18 +35,12 @@ import retrofit2.Response;
 
 public class FormRealisasiActivity extends AppCompatActivity {
 
-    @BindView(R.id.spn_batd)
-    Spinner spnBatd;
+    @BindView(R.id.tv_batd)
+    TextView tvbatd;
     @BindView(R.id.edt_tgl_ba)
     EditText edtTglBa;
-    @BindView(R.id.edt_no_pelanggan)
-    EditText edtNoPelanggan;
-    @BindView(R.id.edt_nama_pelanggan)
-    EditText edtNamaPelanggan;
-    @BindView(R.id.edt_alamat)
-    EditText edtAlamat;
-    @BindView(R.id.edt_tgl_realisasi)
-    EditText edtTglRealisasi;
+//    @BindView(R.id.edt_tgl_realisasi)
+//    EditText edtTglRealisasi;
     @BindView(R.id.edt_hasil_realisasi)
     EditText edtHasilRealisasi;
     @BindView(R.id.kodepelanggaran)
@@ -73,7 +67,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
     ArrayList<Pelanggaran> listPelanggaran;
     ArrayList<BATD> listBATD;
     String pelanggaranId = "";
-    String BATDId = "";
+    //String BATDId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +81,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<BATDResponse> call, @NonNull Response<BATDResponse> response) {
                 if (response.body().getCode() == 302) {
                     listBATD = response.body().getData();
-                    ArrayList<String> batd = new ArrayList<>();
+                    //ArrayList<String> batd = new ArrayList<>();
                     Realm realm = Realm.getDefaultInstance();
                     List<FormData> data = realm.where(FormData.class).findAll();
                     for (BATD batdModel1 : listBATD) {
@@ -101,8 +95,8 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         if (!proses) batd.add(batdModel1.getNomor_batd());
                     }
                     ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(FormRealisasiActivity.this, android.R.layout.simple_list_item_1, batd);
-                    spnBatd.setAdapter(stringArrayAdapter);
-                    spnBatd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    tvbatd.setAdapter(stringArrayAdapter);
+                    tvbatd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             BATDId = String.valueOf(listBATD.get(i).getId());
@@ -163,12 +157,9 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 FormDataSaveHelper.addDataString(
                         BATDId,
                         spk,
-                        spnBatd.getSelectedItem().toString(),
+                        tvbatd.getText().toString(),
                         edtTglBa.getText().toString(),
-                        edtNoPelanggan.getText().toString(),
-                        edtNamaPelanggan.getText().toString(),
-                        edtAlamat.getText().toString(),
-                        edtTglRealisasi.getText().toString(),
+                        //edtTglRealisasi.getText().toString(),
                         edtHasilRealisasi.getText().toString(),
                         spnPelanggaran.getSelectedItem().toString(),
                         edtKeterangan.getText().toString(),
@@ -192,8 +183,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         ,edtMerkMeteran.getText().toString()
                         ,BATDId
                         ,pelanggaranId
-                        ,edtHasilRealisasi.getText().toString()
-                        ,edtTglRealisasi.getText().toString()).enqueue(new Callback<RealisasiResponse>() {
+                        ,edtHasilRealisasi.getText().toString().enqueue(new Callback<RealisasiResponse>() {
                     @Override
                     public void onResponse(Call<RealisasiResponse> call ,retrofit2.Response<RealisasiResponse> response) {
                         if(response.body().getCode() == 302){
