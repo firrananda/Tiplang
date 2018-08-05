@@ -20,7 +20,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class ApiService {
-    public static String BASE_URL = "http://222.124.168.221";
+    public static String BASE_URL = "http://192.168.43.21";
 
     public static PostService service_post = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -60,7 +60,7 @@ public class ApiService {
         @GET("tiplang/api/get-pelanggaran")
         Call<PelanggaranResponse> getPelanggaran();
 
-        @GET("tiplang/api/get-pelanggan")
+        @GET("tiplang/api/get-pelanggan-by-batd/{id}")
         Call<PelangganResponse> getPelanggan(@Path("id") String id);
     }
 }

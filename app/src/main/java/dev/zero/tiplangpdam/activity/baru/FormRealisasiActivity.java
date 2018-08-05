@@ -65,9 +65,9 @@ public class FormRealisasiActivity extends AppCompatActivity {
     EditText edtMerkMeteran;
     String spk;
     ArrayList<Pelanggaran> listPelanggaran;
-    ArrayList<BATD> listBATD;
+    //ArrayList<BATD> listBATD;
     String pelanggaranId = "";
-    //String BATDId = "";
+    String BATDId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,46 +76,46 @@ public class FormRealisasiActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         String id = getIntent().getStringExtra("ID");
         spk = getIntent().getStringExtra("SPK");
-        ApiService.service_get.getBATD(id).enqueue(new Callback<BATDResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<BATDResponse> call, @NonNull Response<BATDResponse> response) {
-                if (response.body().getCode() == 302) {
-                    listBATD = response.body().getData();
-                    //ArrayList<String> batd = new ArrayList<>();
-                    Realm realm = Realm.getDefaultInstance();
-                    List<FormData> data = realm.where(FormData.class).findAll();
-                    for (BATD batdModel1 : listBATD) {
-                        boolean proses = false;
-                        for (FormData batd1 : data) {
-                            if (batd1.getBatd().equals(batdModel1.getNomor_batd())){
-                                proses = true;
-                                break;
-                            }
-                        }
-                        if (!proses) batd.add(batdModel1.getNomor_batd());
-                    }
-                    ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(FormRealisasiActivity.this, android.R.layout.simple_list_item_1, batd);
-                    tvbatd.setAdapter(stringArrayAdapter);
-                    tvbatd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            BATDId = String.valueOf(listBATD.get(i).getId());
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
-                } else {
-                    Log.d("Get BATD", "onResponse: " + response.body().getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BATDResponse> call, Throwable t) {
-                Log.d("Get BATD", "onFailure: " + t.getMessage());
-            }
-        });
+//        ApiService.service_get.getBATD(id).enqueue(new Callback<BATDResponse>() {
+//            @Override
+//            public void onResponse(@NonNull Call<BATDResponse> call, @NonNull Response<BATDResponse> response) {
+//                if (response.body().getCode() == 302) {
+//                    listBATD = response.body().getData();
+//                    //ArrayList<String> batd = new ArrayList<>();
+//                    Realm realm = Realm.getDefaultInstance();
+//                    List<FormData> data = realm.where(FormData.class).findAll();
+//                    for (BATD batdModel1 : listBATD) {
+//                        boolean proses = false;
+//                        for (FormData batd1 : data) {
+//                            if (batd1.getBatd().equals(batdModel1.getNomor_batd())){
+//                                proses = true;
+//                                break;
+//                            }
+//                        }
+//                        if (!proses) batd.add(batdModel1.getNomor_batd());
+//                    }
+//                    ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(FormRealisasiActivity.this, android.R.layout.simple_list_item_1, batd);
+//                    tvbatd.setAdapter(stringArrayAdapter);
+//                    tvbatd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                        @Override
+//                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                            BATDId = String.valueOf(listBATD.get(i).getId());
+//                        }
+//
+//                        @Override
+//                        public void onNothingSelected(AdapterView<?> adapterView) {
+//                        }
+//                    });
+//                } else {
+//                    Log.d("Get BATD", "onResponse: " + response.body().getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BATDResponse> call, Throwable t) {
+//                Log.d("Get BATD", "onFailure: " + t.getMessage());
+//            }
+//        });
 
         ApiService.service_get.getPelanggaran().enqueue(new Callback<PelanggaranResponse>() {
             @Override
@@ -159,7 +159,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         spk,
                         tvbatd.getText().toString(),
                         edtTglBa.getText().toString(),
-                        //edtTglRealisasi.getText().toString(),
+                        edtTglRealisasi.getText().toString(),
                         edtHasilRealisasi.getText().toString(),
                         spnPelanggaran.getSelectedItem().toString(),
                         edtKeterangan.getText().toString(),
@@ -181,7 +181,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         ,edtUkuranMeter.getText().toString()
                         ,edtAngkaAngkat.getText().toString()
                         ,edtMerkMeteran.getText().toString()
-                        ,BATDId
                         ,pelanggaranId
                         ,edtHasilRealisasi.getText().toString().enqueue(new Callback<RealisasiResponse>() {
                     @Override

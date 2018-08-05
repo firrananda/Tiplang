@@ -9,18 +9,18 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Nomor BATD : "-->
-            <!--android:textColor="@color/black"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nomor BATD : "
+            android:textColor="@color/black"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_batdpel"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="60dp"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:hint="Nomor BATD"/>-->
+        <TextView
+            android:id="@+id/tv_batdpel"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="@color/black"
+            android:hint="Nomor BATD"/>
 
         <TextView
             android:layout_width="match_parent"

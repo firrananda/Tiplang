@@ -17,15 +17,18 @@ import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.activity.baru.FormRealisasiActivity;
 import dev.zero.tiplangpdam.model.Pelanggan;
+import dev.zero.tiplangpdam.model.PelangganData;
 
 public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.ViewHolder> {
 
     private ArrayList <Pelanggan> listpelanggan;
+    private ArrayList <PelangganData> listpelanggandata;
     private Context context;
 
-    public PelangganAdapter (Context context, ArrayList<Pelanggan> listpelanggan){
+    public PelangganAdapter (Context context, ArrayList<Pelanggan> listpelanggan, ArrayList<PelangganData> listpelanggandata){
         this.context = context;
         this.listpelanggan = listpelanggan;
+        this.listpelanggandata = listpelanggandata;
     }
 
     @Override
@@ -37,7 +40,9 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
     @Override
     public void onBindViewHolder(PelangganAdapter.ViewHolder holder, int position) {
         final Pelanggan listitem = listpelanggan.get(position);
+        final PelangganData listitem2 = listpelanggandata.get(position);
 
+        holder.tvbatdpel.setText(listitem2.getNomor_batd());
         holder.tvnopel.setText(listitem.getNo_pelangan());
         holder.tvnamapel.setText(listitem.getNama());
         holder.tvzona.setText(listitem.getZona());
@@ -49,6 +54,7 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
             @Override
             public void onClick(View v) {
                 intent.putExtra("ID", String.valueOf(listitem.getId()));
+                intent.putExtra("BATD", String.valueOf(listitem2.getNomor_batd()));
                 context.startActivity(intent);
             }
         });
@@ -60,6 +66,8 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.tv_batdpel)
+            TextView tvbatdpel;
         @BindView(R.id.tv_nopel)
             TextView tvnopel;
         @BindView(R.id.tv_namapel)
@@ -69,7 +77,7 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
         @BindView(R.id.tv_alamat)
                 TextView tvalamat;
         @BindView(R.id.btn_entry)
-        Button btnentry;
+            Button btnentry;
 
         ViewHolder(View view) {
             super(view);
