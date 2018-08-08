@@ -1,31 +1,26 @@
 package dev.zero.tiplangpdam.helper;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import dev.zero.tiplangpdam.model.local.FormData;
 import io.realm.Realm;
+import okhttp3.RequestBody;
 
 public class FormDataSaveHelper {
-    public static void addDataString (String BATDId, String spk,String batd, String tglba, String noPelanggan, String namaPelanggan, String masukanalamat, String tglRealisasi, String hasilRealisasi, String pelanggaran, String keterangan, String kondisi, String catatan, String tglAngkat, String noMeter, String ukuranMeter, String angkaAngkat, String merkMeteran){
+    public static void addDataString (HashMap<String, String> dataSave){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormData data = realm.createObject(FormData.class);
-        data.setBatdId(BATDId);
-        data.setSpk(spk);
-        data.setBatd(batd);
-        data.setTglba(tglba);
-        data.setNamaPelanggan(noPelanggan);
-        data.setNamaPelanggan(namaPelanggan);
-        data.setAlamat(masukanalamat);
-        data.setTglRealisasi(tglRealisasi);
-        data.setHasilRealisasi(hasilRealisasi);
-        data.setPelanggaran(pelanggaran);
-        data.setKeterangan(keterangan);
-        data.setKondisi(kondisi);
-        data.setCatatan(catatan);
-        data.setTglAngkat(tglAngkat);
-        data.setNoMeter(noMeter);
-        data.setUkuranMeter(ukuranMeter);
-        data.setAngkaAngkat(angkaAngkat);
-        data.setMerkMeteran(merkMeteran);
+        data.setKondisi_stan_meter(dataSave.get("kondisi_stan_meter"));
+        data.setCatatan_stan_meter(dataSave.get("catatan_stan_meter"));
+        data.setTanggal_angkat(dataSave.get("tanggal_angkat"));
+        data.setNo_meter(dataSave.get("no_meter"));
+        data.setUkuran_meter(dataSave.get("ukuran_meter"));
+        data.setAngka_angkat(dataSave.get("angka_angkat"));
+        data.setMerk_meter(dataSave.get("merk_meter"));
+        data.setBatd_id(dataSave.get("batd_id"));
+        data.setPelanggaran(dataSave.get("pelanggaran"));
         realm.commitTransaction();
         realm.close();
     }
@@ -33,7 +28,7 @@ public class FormDataSaveHelper {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormData data = realm.where(FormData.class)
-                .equalTo("batdId", batdId).findFirst();
+                .equalTo("batd_id", batdId).findFirst();
         data.deleteFromRealm();
         realm.commitTransaction();
         realm.close();

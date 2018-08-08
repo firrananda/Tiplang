@@ -3,121 +3,84 @@ package dev.zero.tiplangpdam.model.local;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+
 import io.realm.RealmObject;
+import okhttp3.RequestBody;
 
-public class FormData extends RealmObject implements Parcelable {
-    private String batdId;
-    private String spk;
-    private String batd;
-    private String tglba;
-    private String noPelanggan;
-    private String namaPelanggan;
-    private String alamat;
-    private String tglRealisasi;
-    private String hasilRealisasi;
+public class FormData extends RealmObject {
+    private String kondisi_stan_meter;
+    private String catatan_stan_meter;
+    private String tanggal_angkat;
+    private String no_meter;
+    private String ukuran_meter;
+    private String angka_angkat;
+    private String merk_meter;
+    private String batd_id;
     private String pelanggaran;
-    private String keterangan;
-    private String kondisi;
-    private String catatan;
-    private String tglAngkat;
-    private String noMeter;
-    private String ukuranMeter;
-    private String angkaAngkat;
-    private String merkMeteran;
 
-    public FormData() {}
-
-    public FormData(String batdId, String spk, String batd, String tglba, String noPelanggan, String namaPelanggan, String alamat, String tglRealisasi, String hasilRealisasi, String pelanggaran, String keterangan, String kondisi, String catatan, String tglAngkat, String noMeter, String ukuranMeter, String angkaAngkat, String merkMeteran) {
-        this.batdId = batdId;
-        this.spk = spk;
-        this.batd = batd;
-        this.tglba = tglba;
-        this.noPelanggan = noPelanggan;
-        this.namaPelanggan = namaPelanggan;
-        this.alamat = alamat;
-        this.tglRealisasi = tglRealisasi;
-        this.hasilRealisasi = hasilRealisasi;
-        this.pelanggaran = pelanggaran;
-        this.keterangan = keterangan;
-        this.kondisi = kondisi;
-        this.catatan = catatan;
-        this.tglAngkat = tglAngkat;
-        this.noMeter = noMeter;
-        this.ukuranMeter = ukuranMeter;
-        this.angkaAngkat = angkaAngkat;
-        this.merkMeteran = merkMeteran;
+    public String getKondisi_stan_meter() {
+        return kondisi_stan_meter;
     }
 
-    public String getBatdId() {
-        return batdId;
+    public void setKondisi_stan_meter(String kondisi_stan_meter) {
+        this.kondisi_stan_meter = kondisi_stan_meter;
     }
 
-    public void setBatdId(String batdId) {
-        this.batdId = batdId;
+    public String getCatatan_stan_meter() {
+        return catatan_stan_meter;
     }
 
-    public String getSpk() {
-        return spk;
+    public void setCatatan_stan_meter(String catatan_stan_meter) {
+        this.catatan_stan_meter = catatan_stan_meter;
     }
 
-    public void setSpk(String spk) {
-        this.spk = spk;
+    public String getTanggal_angkat() {
+        return tanggal_angkat;
     }
 
-    public String getBatd() {
-        return batd;
+    public void setTanggal_angkat(String tanggal_angkat) {
+        this.tanggal_angkat = tanggal_angkat;
     }
 
-    public void setBatd(String batd) {
-        this.batd = batd;
+    public String getNo_meter() {
+        return no_meter;
     }
 
-    public String getTglba() {
-        return tglba;
+    public void setNo_meter(String no_meter) {
+        this.no_meter = no_meter;
     }
 
-    public void setTglba(String tglba) {
-        this.tglba = tglba;
+    public String getUkuran_meter() {
+        return ukuran_meter;
     }
 
-    public String getNoPelanggan() {
-        return noPelanggan;
+    public void setUkuran_meter(String ukuran_meter) {
+        this.ukuran_meter = ukuran_meter;
     }
 
-    public void setNoPelanggan(String noPelanggan) {
-        this.noPelanggan = noPelanggan;
+    public String getAngka_angkat() {
+        return angka_angkat;
     }
 
-    public String getNamaPelanggan() {
-        return namaPelanggan;
+    public void setAngka_angkat(String angka_angkat) {
+        this.angka_angkat = angka_angkat;
     }
 
-    public void setNamaPelanggan(String namaPelanggan) {
-        this.namaPelanggan = namaPelanggan;
+    public String getMerk_meter() {
+        return merk_meter;
     }
 
-    public String getAlamat() {
-        return alamat;
+    public void setMerk_meter(String merk_meter) {
+        this.merk_meter = merk_meter;
     }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public String getBatd_id() {
+        return batd_id;
     }
 
-    public String getTglRealisasi() {
-        return tglRealisasi;
-    }
-
-    public void setTglRealisasi(String tglRealisasi) {
-        this.tglRealisasi = tglRealisasi;
-    }
-
-    public String getHasilRealisasi() {
-        return hasilRealisasi;
-    }
-
-    public void setHasilRealisasi(String hasilRealisasi) {
-        this.hasilRealisasi = hasilRealisasi;
+    public void setBatd_id(String batd_id) {
+        this.batd_id = batd_id;
     }
 
     public String getPelanggaran() {
@@ -127,128 +90,4 @@ public class FormData extends RealmObject implements Parcelable {
     public void setPelanggaran(String pelanggaran) {
         this.pelanggaran = pelanggaran;
     }
-
-    public String getKeterangan() {
-        return keterangan;
-    }
-
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
-    }
-
-    public String getKondisi() {
-        return kondisi;
-    }
-
-    public void setKondisi(String kondisi) {
-        this.kondisi = kondisi;
-    }
-
-    public String getCatatan() {
-        return catatan;
-    }
-
-    public void setCatatan(String catatan) {
-        this.catatan = catatan;
-    }
-
-    public String getTglAngkat() {
-        return tglAngkat;
-    }
-
-    public void setTglAngkat(String tglAngkat) {
-        this.tglAngkat = tglAngkat;
-    }
-
-    public String getNoMeter() {
-        return noMeter;
-    }
-
-    public void setNoMeter(String noMeter) {
-        this.noMeter = noMeter;
-    }
-
-    public String getUkuranMeter() {
-        return ukuranMeter;
-    }
-
-    public void setUkuranMeter(String ukuranMeter) {
-        this.ukuranMeter = ukuranMeter;
-    }
-
-    public String getAngkaAngkat() {
-        return angkaAngkat;
-    }
-
-    public void setAngkaAngkat(String angkaAngkat) {
-        this.angkaAngkat = angkaAngkat;
-    }
-
-    public String getMerkMeteran() {
-        return merkMeteran;
-    }
-
-    public void setMerkMeteran(String merkMeteran) {
-        this.merkMeteran = merkMeteran;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.batdId);
-        dest.writeString(this.spk);
-        dest.writeString(this.batd);
-        dest.writeString(this.tglba);
-        dest.writeString(this.noPelanggan);
-        dest.writeString(this.namaPelanggan);
-        dest.writeString(this.alamat);
-        dest.writeString(this.tglRealisasi);
-        dest.writeString(this.hasilRealisasi);
-        dest.writeString(this.pelanggaran);
-        dest.writeString(this.keterangan);
-        dest.writeString(this.kondisi);
-        dest.writeString(this.catatan);
-        dest.writeString(this.tglAngkat);
-        dest.writeString(this.noMeter);
-        dest.writeString(this.ukuranMeter);
-        dest.writeString(this.angkaAngkat);
-        dest.writeString(this.merkMeteran);
-    }
-
-    protected FormData(Parcel in) {
-        this.batdId = in.readString();
-        this.spk = in.readString();
-        this.batd = in.readString();
-        this.tglba = in.readString();
-        this.noPelanggan = in.readString();
-        this.namaPelanggan = in.readString();
-        this.alamat = in.readString();
-        this.tglRealisasi = in.readString();
-        this.hasilRealisasi = in.readString();
-        this.pelanggaran = in.readString();
-        this.keterangan = in.readString();
-        this.kondisi = in.readString();
-        this.catatan = in.readString();
-        this.tglAngkat = in.readString();
-        this.noMeter = in.readString();
-        this.ukuranMeter = in.readString();
-        this.angkaAngkat = in.readString();
-        this.merkMeteran = in.readString();
-    }
-
-    public static final Parcelable.Creator<FormData> CREATOR = new Parcelable.Creator<FormData>() {
-        @Override
-        public FormData createFromParcel(Parcel source) {
-            return new FormData(source);
-        }
-
-        @Override
-        public FormData[] newArray(int size) {
-            return new FormData[size];
-        }
-    };
 }

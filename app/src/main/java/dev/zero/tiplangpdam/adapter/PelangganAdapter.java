@@ -2,7 +2,6 @@ package dev.zero.tiplangpdam.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,18 +16,15 @@ import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.activity.baru.FormRealisasiActivity;
 import dev.zero.tiplangpdam.model.Pelanggan;
-import dev.zero.tiplangpdam.model.PelangganData;
 
 public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.ViewHolder> {
 
     private ArrayList <Pelanggan> listpelanggan;
-    private ArrayList <PelangganData> listpelanggandata;
     private Context context;
 
-    public PelangganAdapter (Context context, ArrayList<Pelanggan> listpelanggan, ArrayList<PelangganData> listpelanggandata){
+    public PelangganAdapter (Context context, ArrayList<Pelanggan> listpelanggan){
         this.context = context;
         this.listpelanggan = listpelanggan;
-        this.listpelanggandata = listpelanggandata;
     }
 
     @Override
@@ -40,21 +36,20 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
     @Override
     public void onBindViewHolder(PelangganAdapter.ViewHolder holder, int position) {
         final Pelanggan listitem = listpelanggan.get(position);
-        final PelangganData listitem2 = listpelanggandata.get(position);
-
-        holder.tvbatdpel.setText(listitem2.getNomor_batd());
-        holder.tvnopel.setText(listitem.getNo_pelangan());
-        holder.tvnamapel.setText(listitem.getNama());
+        holder.tvbatdpel.setText(listitem.getNomor_batd());
+        holder.tvnopel.setText(listitem.getNomor_pelanggan());
+        holder.tvnamapel.setText(listitem.getNama_pelanggan());
         holder.tvzona.setText(listitem.getZona());
-        holder.tvalamat.setText(listitem.getJalan()+listitem.getGang()+listitem.getNo_jalan()+listitem.getNo_tambahan());
+        holder.tvalamat.setText(listitem.getJalan());
 
         final Intent intent = new Intent(context, FormRealisasiActivity.class);
 
         holder.btnentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("ID", String.valueOf(listitem.getId()));
-                intent.putExtra("BATD", String.valueOf(listitem2.getNomor_batd()));
+                intent.putExtra("nomor BATD", String.valueOf(listitem.getNomor_batd()));
+                intent.putExtra("BATD_ID", String.valueOf(listitem.getBatd_id()));
+                intent.putExtra("nomor SPK", String.valueOf(listitem.getNomor_spk()));
                 context.startActivity(intent);
             }
         });

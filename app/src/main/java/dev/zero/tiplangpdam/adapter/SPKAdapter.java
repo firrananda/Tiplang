@@ -42,7 +42,7 @@ public class SPKAdapter extends RecyclerView.Adapter<SPKAdapter.ViewHolder> {
         holder.btnSpk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("ID", String.valueOf(listitem.getId()));
+                intent.putExtra("SPK_ID", String.valueOf(listitem.getId()));
                 intent.putExtra("SPK", listitem.getNomor_spk());
                 context.startActivity(intent);
             }

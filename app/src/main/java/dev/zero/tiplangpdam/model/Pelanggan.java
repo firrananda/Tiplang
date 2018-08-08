@@ -1,19 +1,35 @@
 package dev.zero.tiplangpdam.model;
 
 public class Pelanggan {
-    private int id, no_jalan;
-    private String nama, zona, jalan, gang, no_tambahan, no_pelangan;
+    private int spk_id, batd_id, pelanggan_id;
+    private String nomor_spk, nomor_batd, nomor_pelanggan, nama_pelanggan, zona, jalan;
 
-    public int getId() {
-        return id;
+    public int getSpk_id() {
+        return spk_id;
     }
 
-    public int getNo_jalan() {
-        return no_jalan;
+    public int getBatd_id() {
+        return batd_id;
     }
 
-    public String getNama() {
-        return nama;
+    public int getPelanggan_id() {
+        return pelanggan_id;
+    }
+
+    public String getNomor_spk() {
+        return nomor_spk;
+    }
+
+    public String getNomor_batd() {
+        return nomor_batd;
+    }
+
+    public String getNomor_pelanggan() {
+        return nomor_pelanggan;
+    }
+
+    public String getNama_pelanggan() {
+        return nama_pelanggan;
     }
 
     public String getZona() {
@@ -22,17 +38,5 @@ public class Pelanggan {
 
     public String getJalan() {
         return jalan;
-    }
-
-    public String getGang() {
-        return gang;
-    }
-
-    public String getNo_tambahan() {
-        return no_tambahan;
-    }
-
-    public String getNo_pelangan() {
-        return no_pelangan;
     }
 }

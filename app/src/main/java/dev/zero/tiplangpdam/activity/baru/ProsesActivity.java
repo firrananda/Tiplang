@@ -5,14 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
-import dev.zero.tiplangpdam.adapter.ProsesAdapter;
-import dev.zero.tiplangpdam.adapter.SPKAdapter;
+import dev.zero.tiplangpdam.adapter.ProsesSPKAdapter;
 import dev.zero.tiplangpdam.model.local.FormData;
 import io.realm.Realm;
 
@@ -21,7 +19,7 @@ public class ProsesActivity extends AppCompatActivity {
     @BindView(R.id.rv_spk)
     RecyclerView rvSpk;
     Realm realm;
-    ProsesAdapter adapter;
+    ProsesSPKAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,7 @@ public class ProsesActivity extends AppCompatActivity {
         realm.executeTransaction(new Realm.Transaction() {
             @Override public void execute(Realm realm) {
                 List<FormData> data = realm.where(FormData.class).findAll();
-                adapter = new ProsesAdapter(ProsesActivity.this,data);
+                adapter = new ProsesSPKAdapter(ProsesActivity.this,data);
                 rvSpk.setAdapter(adapter);
             }
         });

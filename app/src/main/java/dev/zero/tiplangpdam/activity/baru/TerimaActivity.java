@@ -39,15 +39,17 @@ public class TerimaActivity extends AppCompatActivity {
         ApiService.service_get.getSPK(sessionManager.getKeyId()).enqueue(new Callback<SPKResponse>() {
             @Override
             public void onResponse(Call<SPKResponse> call, Response<SPKResponse> response) {
-                if (response.body().getCode() == 302) {
-                    ArrayList<SPK> listSPK = response.body().getDataSPK();
-                    adapter = new SPKAdapter(TerimaActivity.this, listSPK);
-                    rvSpk.setAdapter(adapter);
-                }
-                else {
-                    Toast.makeText(TerimaActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("Get SPK", "onResponse: " + response.body().getMessage());
-                }
+                if (response.code()==200) {
+                    if (response.body().getCode() == 302) {
+                        ArrayList<SPK> listSPK = response.body().getDataSPK();
+                        Log.d("Get SPK", "onResponse: " + listSPK.size());
+                        adapter = new SPKAdapter(TerimaActivity.this, listSPK);
+                        rvSpk.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(TerimaActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("Get SPK", "onResponse: " + response.body().getMessage());
+                    }
+                }else Log.d("Get SPK", "onResponse: " + response.message());
             }
 
             @Override

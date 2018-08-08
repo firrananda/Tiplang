@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -9,70 +11,119 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nomor BATD : "
-            android:textColor="@color/black"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nomor BATD : "
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/tv_batdpel"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:hint="Nomor BATD"/>
+            <TextView
+                android:id="@+id/tv_batdpel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/black"
+                android:hint="Nomor BATD"/>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nomor Pelanggan : "
-            android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/tv_nopel"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:hint="Nomor pelanggan"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Pelanggan: "
-            android:textColor="@color/black"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/tv_namapel"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:hint="Nama pelanggan"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nomor Pelanggan : "
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Zona : "
-            android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_nopel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/black"
+                android:hint="Nomor pelanggan"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_zona"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:hint="Zona"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alamat : "
-            android:textColor="@color/black"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/tv_alamat"
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nama Pelanggan: "
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv_namapel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/black"
+                android:hint="Nama pelanggan"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:hint="Alamat"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Zona : "
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv_zona"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="@color/black"
+                android:hint="Zona"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Alamat : "
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:hint="Alamat"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_entry"

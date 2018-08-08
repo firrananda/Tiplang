@@ -33,11 +33,12 @@ public class BarudataPelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barudata_pel);
         ButterKnife.bind(this);
+        String id_spk = getIntent().getStringExtra("SPK_ID");
         rv_datapel.setLayoutManager(new LinearLayoutManager(this));
         rv_datapel.setHasFixedSize(true);
         sessionManager = new SessionManager(this);
 
-        ApiService.service_get.getPelanggan(sessionManager.getKeyId()).enqueue(new Callback<PelangganResponse>() {
+        ApiService.service_get.getPelanggan(id_spk).enqueue(new Callback<PelangganResponse>() {
             @Override
             public void onResponse(Call<PelangganResponse> call, Response<PelangganResponse> response) {
                 if (response.body().getCode() == 302){

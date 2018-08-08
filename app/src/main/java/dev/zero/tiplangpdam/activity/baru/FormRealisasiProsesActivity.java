@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,8 @@ import dev.zero.tiplangpdam.model.local.FormData;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
 import dev.zero.tiplangpdam.service.ApiService;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -105,41 +108,33 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     }
 
     private void initLastData() {
-        edtTglBa.setText(data.getTglba());
-        edtNoPelanggan.setText(data.getNoPelanggan());
-        edtNamaPelanggan.setText(data.getNamaPelanggan());
-        edtAlamat.setText(data.getAlamat());
-        edtTglRealisasi.setText(data.getTglRealisasi());
-        edtHasilRealisasi.setText(data.getHasilRealisasi());
-//        spnPelanggaran.getSelectedItem().toString(),
-        edtKeterangan.setText(data.getKeterangan());
-        edtKondisi.setText(data.getKondisi());
-        edtCatatan.setText(data.getCatatan());
-        edtTglAngkat.setText(data.getTglba());
-        edtNoMeter.setText(data.getNoMeter());
-        edtUkuranMeter.setText(data.getUkuranMeter());
-        edtAngkaAngkat.setText(data.getAngkaAngkat());
-        edtMerkMeteran.setText(data.getMerkMeteran());
+//        edtTglBa.setText(data.getTglba());
+//        edtNoPelanggan.setText(data.getNoPelanggan());
+//        edtNamaPelanggan.setText(data.getNamaPelanggan());
+//        edtAlamat.setText(data.getAlamat());
+//        edtTglRealisasi.setText(data.getTglRealisasi());
+//        edtHasilRealisasi.setText(data.getHasilRealisasi());
+////        spnPelanggaran.getSelectedItem().toString(),
+//        edtKeterangan.setText(data.getKeterangan());
+//        edtKondisi.setText(data.getKondisi());
+//        edtCatatan.setText(data.getCatatan());
+//        edtTglAngkat.setText(data.getTglba());
+//        edtNoMeter.setText(data.getNoMeter());
+//        edtUkuranMeter.setText(data.getUkuranMeter());
+//        edtAngkaAngkat.setText(data.getAngkaAngkat());
+//        edtMerkMeteran.setText(data.getMerkMeteran());
     }
 
     @OnClick(R.id.btn_kirim)
     public void onViewClicked() {
-        ApiService.service_post.postForm(edtKondisi.getText().toString()
-                ,edtCatatan.getText().toString()
-                ,edtTglAngkat.getText().toString()
-                ,edtNoMeter.getText().toString()
-                ,edtUkuranMeter.getText().toString()
-                ,edtAngkaAngkat.getText().toString()
-                ,edtMerkMeteran.getText().toString()
-                ,data.getBatdId()
-                ,pelanggaranId
-                ,edtHasilRealisasi.getText().toString()
-                ,edtTglRealisasi.getText().toString()).enqueue(new Callback<RealisasiResponse>() {
+        HashMap<String, RequestBody> params = new HashMap<>();
+        ArrayList<MultipartBody.Part> parts = new ArrayList<>();
+        ApiService.service_post.postForm(params, parts).enqueue(new Callback<RealisasiResponse>() {
             @Override
             public void onResponse(Call<RealisasiResponse> call ,retrofit2.Response<RealisasiResponse> response) {
                 if(response.body().getCode() == 302){
                     Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    FormDataSaveHelper.deleteDataPerBATD(data.getBatdId());
+//                    FormDataSaveHelper.deleteDataPerBATD(data.getBatdId());
                     finish();
                 }else{
                     Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
