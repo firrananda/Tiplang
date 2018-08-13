@@ -3,12 +3,15 @@ package dev.zero.tiplangpdam.activity.baru;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,7 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
-import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggaran;
 import dev.zero.tiplangpdam.model.local.FormData;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
@@ -32,26 +34,27 @@ import retrofit2.Response;
 
 public class FormRealisasiProsesActivity extends AppCompatActivity {
 
-    @BindView(R.id.edt_tgl_ba)
-    EditText edtTglBa;
-    @BindView(R.id.edt_no_pelanggan)
-    EditText edtNoPelanggan;
-    @BindView(R.id.edt_nama_pelanggan)
-    EditText edtNamaPelanggan;
-    @BindView(R.id.edt_alamat)
-    EditText edtAlamat;
-    @BindView(R.id.edt_tgl_realisasi)
-    EditText edtTglRealisasi;
+    FormData data;
+    ArrayList<Pelanggaran> listPelanggaran;
+    String pelanggaranId;
+    @BindView(R.id.tv_batd)
+    TextView tvBatd;
+    @BindView(R.id.tv_tgl_ba)
+    TextView tvTglBa;
+    @BindView(R.id.cardbatd)
+    CardView cardbatd;
     @BindView(R.id.edt_hasil_realisasi)
     EditText edtHasilRealisasi;
+    @BindView(R.id.cardrealisasi)
+    CardView cardrealisasi;
     @BindView(R.id.spn_pelanggaran)
     Spinner spnPelanggaran;
-    @BindView(R.id.edt_keterangan)
-    EditText edtKeterangan;
     @BindView(R.id.edt_kondisi)
     EditText edtKondisi;
     @BindView(R.id.edt_catatan)
     EditText edtCatatan;
+    @BindView(R.id.cardcatatan)
+    CardView cardcatatan;
     @BindView(R.id.edt_tgl_angkat)
     EditText edtTglAngkat;
     @BindView(R.id.edt_no_meter)
@@ -62,9 +65,16 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     EditText edtAngkaAngkat;
     @BindView(R.id.edt_merk_meteran)
     EditText edtMerkMeteran;
-    FormData data;
-    ArrayList<Pelanggaran> listPelanggaran;
-    String pelanggaranId;
+    @BindView(R.id.iv_fotohasil1)
+    ImageView ivFotohasil1;
+    @BindView(R.id.iv_fotohasil2)
+    ImageView ivFotohasil2;
+    @BindView(R.id.iv_fotohasil3)
+    ImageView ivFotohasil3;
+    @BindView(R.id.iv_fotohasil4)
+    ImageView ivFotohasil4;
+    @BindView(R.id.cardtambahan)
+    CardView cardtambahan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +95,7 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
                     spnPelanggaran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            pelanggaranId = String.valueOf(listPelanggaran.get(i).getId());
+                            pelanggaranId = String.valueOf(listPelanggaran.get(i).getKeterangan());
                         }
 
                         @Override
@@ -108,21 +118,15 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     }
 
     private void initLastData() {
-//        edtTglBa.setText(data.getTglba());
-//        edtNoPelanggan.setText(data.getNoPelanggan());
-//        edtNamaPelanggan.setText(data.getNamaPelanggan());
-//        edtAlamat.setText(data.getAlamat());
-//        edtTglRealisasi.setText(data.getTglRealisasi());
-//        edtHasilRealisasi.setText(data.getHasilRealisasi());
-////        spnPelanggaran.getSelectedItem().toString(),
-//        edtKeterangan.setText(data.getKeterangan());
-//        edtKondisi.setText(data.getKondisi());
-//        edtCatatan.setText(data.getCatatan());
-//        edtTglAngkat.setText(data.getTglba());
-//        edtNoMeter.setText(data.getNoMeter());
-//        edtUkuranMeter.setText(data.getUkuranMeter());
-//        edtAngkaAngkat.setText(data.getAngkaAngkat());
-//        edtMerkMeteran.setText(data.getMerkMeteran());
+        edtHasilRealisasi.setText(data.getHasil());
+        spnPelanggaran.getSelectedItem().toString();
+        edtKondisi.setText(data.getKondisi_stan_meter());
+        edtCatatan.setText(data.getCatatan_stan_meter());
+        edtTglAngkat.setText(data.getTanggal_angkat());
+        edtNoMeter.setText(data.getNo_meter());
+        edtUkuranMeter.setText(data.getUkuran_meter());
+        edtAngkaAngkat.setText(data.getAngka_angkat());
+        edtMerkMeteran.setText(data.getMerk_meter());
     }
 
     @OnClick(R.id.btn_kirim)
@@ -131,12 +135,12 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         ArrayList<MultipartBody.Part> parts = new ArrayList<>();
         ApiService.service_post.postForm(params, parts).enqueue(new Callback<RealisasiResponse>() {
             @Override
-            public void onResponse(Call<RealisasiResponse> call ,retrofit2.Response<RealisasiResponse> response) {
-                if(response.body().getCode() == 302){
+            public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
+                if (response.body().getCode() == 302) {
                     Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 //                    FormDataSaveHelper.deleteDataPerBATD(data.getBatdId());
                     finish();
-                }else{
+                } else {
                     Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -146,5 +150,21 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
                 Toast.makeText(FormRealisasiProsesActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @OnClick({R.id.btn_foto1, R.id.btn_foto2, R.id.btn_foto3, R.id.btn_foto4, R.id.btn_kirim})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_foto1:
+                break;
+            case R.id.btn_foto2:
+                break;
+            case R.id.btn_foto3:
+                break;
+            case R.id.btn_foto4:
+                break;
+            case R.id.btn_kirim:
+                break;
+        }
     }
 }

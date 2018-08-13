@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.baru.FormRealisasiProsesActivity">
+    tools:context=".activity.revisi.FormRealProsesRevActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -123,6 +123,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/kodepelanggaran"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"

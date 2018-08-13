@@ -1,5 +1,6 @@
 package dev.zero.tiplangpdam.activity.baru;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,8 +35,12 @@ public class BarudataPelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_barudata_pel);
         ButterKnife.bind(this);
         String id_spk = getIntent().getStringExtra("SPK_ID");
-        rv_datapel.setLayoutManager(new LinearLayoutManager(this));
-        rv_datapel.setHasFixedSize(true);
+        //rv_datapel.setHasFixedSize(true);
+
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        llm.setOrientation(LinearLayoutManager.VERTICAL);
+//        rv_datapel.setLayoutManager(llm);
+        //rv_datapel.setLayoutManager(new LinearLayoutManager(this));
         sessionManager = new SessionManager(this);
 
         ApiService.service_get.getPelanggan(id_spk).enqueue(new Callback<PelangganResponse>() {
@@ -43,6 +48,8 @@ public class BarudataPelActivity extends AppCompatActivity {
             public void onResponse(Call<PelangganResponse> call, Response<PelangganResponse> response) {
                 if (response.body().getCode() == 302){
                     ArrayList<Pelanggan> listPelanggan = response.body().getData();
+                    rv_datapel.setHasFixedSize(true);
+                    rv_datapel.setLayoutManager(new LinearLayoutManager(BarudataPelActivity.this));
                     adapter = new PelangganAdapter(BarudataPelActivity.this, listPelanggan);
                     rv_datapel.setAdapter(adapter);
                 }
@@ -54,7 +61,7 @@ public class BarudataPelActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PelangganResponse> call, Throwable t) {
-                Toast.makeText(BarudataPelActivity.this , "Gagal emnghbung ke server " , Toast.LENGTH_SHORT).show();
+                Toast.makeText(BarudataPelActivity.this , "Gagal menghubung ke server " , Toast.LENGTH_SHORT).show();
                 Log.e("get Pelanggan" , "OnFailure" +t.getMessage(), t);
                 call.cancel();
             }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.baru.FormRealisasiProsesActivity">
+    tools:context=".activity.revisi.FormRealRevActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,7 +47,8 @@
                     <TextView
                         android:id="@+id/tv_batd"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/test1"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -87,10 +88,22 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="15dp"-->
+                    <!--android:text="Tanggal Realisasi"-->
+                    <!--android:textColor="@color/black" />-->
+
+                    <!--<EditText-->
+                    <!--android:id="@+id/edt_tgl_realisasi"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hasil Realissi"
+                        android:text="Hasil Realisasi"
                         android:textColor="@color/black" />
 
                     <EditText
@@ -123,6 +136,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/kodepelanggaran"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
@@ -329,6 +343,18 @@
             </android.support.v7.widget.CardView>
 
             <Button
+                android:id="@+id/btn_proses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardtambahan"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_toLeftOf="@id/btn_kirim"
+                android:background="@drawable/bgbutton"
+                android:backgroundTint="#FFFF00"
+                android:text="PROSES"/>
+
+            <Button
                 android:id="@+id/btn_kirim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -343,5 +369,6 @@
 
         </RelativeLayout>
     </ScrollView>
+
 
 </RelativeLayout>

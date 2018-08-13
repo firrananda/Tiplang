@@ -8,51 +8,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.activity.baru.BarudataPelActivity;
-import dev.zero.tiplangpdam.activity.baru.BarudataPelProsesActivity;
-import dev.zero.tiplangpdam.activity.baru.FormRealisasiProsesActivity;
-import dev.zero.tiplangpdam.model.local.FormData;
+import dev.zero.tiplangpdam.model.SPK;
 
-public class ProsesSPKAdapter extends RecyclerView.Adapter<ProsesSPKAdapter.ViewHolder>{
-    private List<FormData> listFormData;
+public class KirimSPKAdapter extends  RecyclerView.Adapter<KirimSPKAdapter.ViewHolder> {
+    private ArrayList<SPK> listSPK;
     private Context context;
 
-    public ProsesSPKAdapter(Context context, List<FormData> listFormData) {
+    public KirimSPKAdapter(Context context, ArrayList<SPK> listSPK) {
         this.context = context;
-        this.listFormData = listFormData;
+        this.listSPK = listSPK;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public KirimSPKAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spk, parent, false);
-        return new ViewHolder(view);
+        return new KirimSPKAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ProsesSPKAdapter.ViewHolder holder, int position) {
-        final FormData listitem = listFormData.get(position);
+    public void onBindViewHolder(KirimSPKAdapter.ViewHolder holder, int position) {
+        final SPK listitem = listSPK.get(position);
 
-        String textButton = listitem.getSPK();
-        holder.btnSpk.setText(textButton);
+        holder.btnSpk.setText(listitem.getNomor_spk());
+        final Intent intent = new Intent(context, BarudataPelActivity.class);
         holder.btnSpk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, BarudataPelProsesActivity.class);
-                intent.putExtra("spk", listitem.getSPK());
+                intent.putExtra("SPK_ID", String.valueOf(listitem.getId()));
+                intent.putExtra("SPK", listitem.getNomor_spk());
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return listFormData.size();
+        return listSPK.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -2,7 +2,7 @@ package dev.zero.tiplangpdam.model;
 
 public class Pelanggan {
     private int spk_id, batd_id, pelanggan_id;
-    private String nomor_spk, nomor_batd, nomor_pelanggan, nama_pelanggan, zona, jalan;
+    private String nomor_spk, nomor_batd, tanggal_batd, nomor_pelanggan, nama_pelanggan, zona, jalan;
 
     public int getSpk_id() {
         return spk_id;
@@ -23,6 +23,8 @@ public class Pelanggan {
     public String getNomor_batd() {
         return nomor_batd;
     }
+
+    public String getTanggal_batd() { return tanggal_batd; }
 
     public String getNomor_pelanggan() {
         return nomor_pelanggan;

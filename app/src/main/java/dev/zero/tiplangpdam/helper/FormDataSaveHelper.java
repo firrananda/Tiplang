@@ -12,6 +12,8 @@ public class FormDataSaveHelper {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormData data = realm.createObject(FormData.class);
+        data.setHasil(dataSave.get("hasil"));
+        data.setSPK(dataSave.get("spk"));
         data.setKondisi_stan_meter(dataSave.get("kondisi_stan_meter"));
         data.setCatatan_stan_meter(dataSave.get("catatan_stan_meter"));
         data.setTanggal_angkat(dataSave.get("tanggal_angkat"));
@@ -20,7 +22,7 @@ public class FormDataSaveHelper {
         data.setAngka_angkat(dataSave.get("angka_angkat"));
         data.setMerk_meter(dataSave.get("merk_meter"));
         data.setBatd_id(dataSave.get("batd_id"));
-        data.setPelanggaran(dataSave.get("pelanggaran"));
+        data.setPelanggaran(dataSave.get("pelanggaran_id"));
         realm.commitTransaction();
         realm.close();
     }

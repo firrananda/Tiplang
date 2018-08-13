@@ -3,8 +3,8 @@
     package="dev.zero.tiplangpdam">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -12,6 +12,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -38,7 +39,11 @@
         <activity android:name=".activity.revisi.KirimActivity" />
         <activity android:name=".activity.baru.FormRealisasiActivity" />
         <activity android:name=".activity.baru.FormRealisasiProsesActivity" />
-        <activity android:name=".activity.baru.BarudataPelActivity"></activity>
+        <activity android:name=".activity.baru.BarudataPelActivity" />
+        <activity android:name=".activity.revisi.RevdataPelActivity" />
+        <activity android:name=".activity.revisi.FormRealRevActivity" />
+        <activity android:name=".activity.revisi.FormRealProsesRevActivity" />
+        <activity android:name=".activity.baru.BarudataPelProsesActivity"></activity>
     </application>
 
 </manifest>

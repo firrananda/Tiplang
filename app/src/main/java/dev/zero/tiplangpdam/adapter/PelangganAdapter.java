@@ -37,6 +37,7 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
     public void onBindViewHolder(PelangganAdapter.ViewHolder holder, int position) {
         final Pelanggan listitem = listpelanggan.get(position);
         holder.tvbatdpel.setText(listitem.getNomor_batd());
+        holder.tvtglbatd.setText(listitem.getTanggal_batd());
         holder.tvnopel.setText(listitem.getNomor_pelanggan());
         holder.tvnamapel.setText(listitem.getNama_pelanggan());
         holder.tvzona.setText(listitem.getZona());
@@ -50,6 +51,7 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
                 intent.putExtra("nomor BATD", String.valueOf(listitem.getNomor_batd()));
                 intent.putExtra("BATD_ID", String.valueOf(listitem.getBatd_id()));
                 intent.putExtra("nomor SPK", String.valueOf(listitem.getNomor_spk()));
+                intent.putExtra("tanggal BATD", String.valueOf(listitem.getTanggal_batd()));
                 context.startActivity(intent);
             }
         });
@@ -63,6 +65,8 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.tv_batdpel)
             TextView tvbatdpel;
+        @BindView(R.id.tv_tgl_batd)
+            TextView tvtglbatd;
         @BindView(R.id.tv_nopel)
             TextView tvnopel;
         @BindView(R.id.tv_namapel)

@@ -8,7 +8,9 @@ import java.util.HashMap;
 import io.realm.RealmObject;
 import okhttp3.RequestBody;
 
-public class FormData extends RealmObject {
+public class FormData extends RealmObject implements Parcelable {
+    private String SPK;
+    private String hasil;
     private String kondisi_stan_meter;
     private String catatan_stan_meter;
     private String tanggal_angkat;
@@ -18,6 +20,22 @@ public class FormData extends RealmObject {
     private String merk_meter;
     private String batd_id;
     private String pelanggaran;
+
+    public String getSPK() {
+        return SPK;
+    }
+
+    public void setSPK(String SPK) {
+        this.SPK = SPK;
+    }
+
+    public String getHasil() {
+        return hasil;
+    }
+
+    public void setHasil(String hasil) {
+        this.hasil = hasil;
+    }
 
     public String getKondisi_stan_meter() {
         return kondisi_stan_meter;
@@ -90,4 +108,53 @@ public class FormData extends RealmObject {
     public void setPelanggaran(String pelanggaran) {
         this.pelanggaran = pelanggaran;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.SPK);
+        dest.writeString(this.hasil);
+        dest.writeString(this.kondisi_stan_meter);
+        dest.writeString(this.catatan_stan_meter);
+        dest.writeString(this.tanggal_angkat);
+        dest.writeString(this.no_meter);
+        dest.writeString(this.ukuran_meter);
+        dest.writeString(this.angka_angkat);
+        dest.writeString(this.merk_meter);
+        dest.writeString(this.batd_id);
+        dest.writeString(this.pelanggaran);
+    }
+
+    public FormData() {
+    }
+
+    protected FormData(Parcel in) {
+        this.SPK = in.readString();
+        this.hasil = in.readString();
+        this.kondisi_stan_meter = in.readString();
+        this.catatan_stan_meter = in.readString();
+        this.tanggal_angkat = in.readString();
+        this.no_meter = in.readString();
+        this.ukuran_meter = in.readString();
+        this.angka_angkat = in.readString();
+        this.merk_meter = in.readString();
+        this.batd_id = in.readString();
+        this.pelanggaran = in.readString();
+    }
+
+    public static final Parcelable.Creator<FormData> CREATOR = new Parcelable.Creator<FormData>() {
+        @Override
+        public FormData createFromParcel(Parcel source) {
+            return new FormData(source);
+        }
+
+        @Override
+        public FormData[] newArray(int size) {
+            return new FormData[size];
+        }
+    };
 }
