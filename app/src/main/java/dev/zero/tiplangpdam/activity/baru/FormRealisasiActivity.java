@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
+import dev.zero.tiplangpdam.model.Pelanggan;
 import dev.zero.tiplangpdam.model.Pelanggaran;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
@@ -131,19 +132,17 @@ public class FormRealisasiActivity extends AppCompatActivity {
     Button btnProses;
     @BindView(R.id.btn_kirim)
     Button btnKirim;
-    String SPK;
+    Pelanggan dataPelanggan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_realisasi);
         ButterKnife.bind(this);
-        String batd = getIntent().getStringExtra("nomor BATD");
-        BATD_ID = getIntent().getStringExtra("BATD_ID");
-        SPK = getIntent().getStringExtra("nomor SPK");
-        String tglbatd = getIntent().getStringExtra("tanggal BATD");
-        tvbatd.setText(batd);
-        tvTglBa.setText(tglbatd);
+        dataPelanggan = getIntent().getParcelableExtra("data_pelanggan");
+
+        tvbatd.setText(dataPelanggan.getNomor_batd());
+        tvTglBa.setText(dataPelanggan.getTanggal_batd());
 
         idPel = nolang;
 
@@ -190,7 +189,13 @@ public class FormRealisasiActivity extends AppCompatActivity {
             case R.id.btn_proses:
                 HashMap<String, String> paramsSave = new HashMap<>();
                 paramsSave.put("hasil", edtHasilRealisasi.getText().toString());
-                paramsSave.put("spk", SPK);
+                paramsSave.put("spk", dataPelanggan.getNomor_spk());
+                paramsSave.put("no_batd", dataPelanggan.getNomor_batd());
+                paramsSave.put("tanggal_batd", dataPelanggan.getTanggal_batd());
+                paramsSave.put("no_pelanggan", dataPelanggan.getNomor_pelanggan());
+                paramsSave.put("nama_pelanggan", dataPelanggan.getNama_pelanggan());
+                paramsSave.put("zona", dataPelanggan.getZona());
+                paramsSave.put("jalan", dataPelanggan.getJalan());
                 paramsSave.put("kondisi_stan_meter", edtKondisi.getText().toString());
                 paramsSave.put("catatan_stan_meter", edtCatatan.getText().toString());
                 paramsSave.put("tanggal_angkat", edtTglAngkat.getText().toString());

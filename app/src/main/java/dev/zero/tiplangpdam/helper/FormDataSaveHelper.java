@@ -14,6 +14,12 @@ public class FormDataSaveHelper {
         FormData data = realm.createObject(FormData.class);
         data.setHasil(dataSave.get("hasil"));
         data.setSPK(dataSave.get("spk"));
+        data.setNo_batd(dataSave.get("no_batd"));
+        data.setTanggal_batd(dataSave.get("tanggal_batd"));
+        data.setNo_pelanggan(dataSave.get("no_pelanggan"));
+        data.setNama_pelanggan(dataSave.get("nama_pelanggan"));
+        data.setZona(dataSave.get("zona"));
+        data.setJalan(dataSave.get("jalan"));
         data.setKondisi_stan_meter(dataSave.get("kondisi_stan_meter"));
         data.setCatatan_stan_meter(dataSave.get("catatan_stan_meter"));
         data.setTanggal_angkat(dataSave.get("tanggal_angkat"));
