@@ -35,12 +35,6 @@ public class BarudataPelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_barudata_pel);
         ButterKnife.bind(this);
         String id_spk = getIntent().getStringExtra("SPK_ID");
-        //rv_datapel.setHasFixedSize(true);
-
-//        LinearLayoutManager llm = new LinearLayoutManager(this);
-//        llm.setOrientation(LinearLayoutManager.VERTICAL);
-//        rv_datapel.setLayoutManager(llm);
-        //rv_datapel.setLayoutManager(new LinearLayoutManager(this));
         sessionManager = new SessionManager(this);
 
         ApiService.service_get.getPelanggan(id_spk).enqueue(new Callback<PelangganResponse>() {

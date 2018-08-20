@@ -43,7 +43,8 @@
         <activity android:name=".activity.revisi.RevdataPelActivity" />
         <activity android:name=".activity.revisi.FormRealRevActivity" />
         <activity android:name=".activity.revisi.FormRealProsesRevActivity" />
-        <activity android:name=".activity.baru.BarudataPelProsesActivity"></activity>
+        <activity android:name=".activity.baru.BarudataPelProsesActivity" />
+        <activity android:name=".activity.baru.FormRealisasiKirimActivity"></activity>
     </application>
 
 </manifest>

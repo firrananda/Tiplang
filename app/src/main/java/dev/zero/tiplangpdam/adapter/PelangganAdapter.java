@@ -48,10 +48,7 @@ public class PelangganAdapter extends RecyclerView.Adapter<PelangganAdapter.View
         holder.btnentry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("nomor BATD", String.valueOf(listitem.getNomor_batd()));
-                intent.putExtra("BATD_ID", String.valueOf(listitem.getBatd_id()));
-                intent.putExtra("nomor SPK", String.valueOf(listitem.getNomor_spk()));
-                intent.putExtra("tanggal BATD", String.valueOf(listitem.getTanggal_batd()));
+                intent.putExtra("data_pelanggan", listitem);
                 context.startActivity(intent);
             }
         });

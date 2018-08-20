@@ -1,5 +1,87 @@
 package dev.zero.tiplangpdam.adapter;
 
-public class ProsesPelangganAdapter {
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.activity.baru.FormRealisasiActivity;
+import dev.zero.tiplangpdam.activity.baru.FormRealisasiProsesActivity;
+import dev.zero.tiplangpdam.model.local.FormData;
+
+public class ProsesPelangganAdapter extends RecyclerView.Adapter<ProsesPelangganAdapter.ViewHolder> {
+
+
+    private ArrayList<FormData> listpelanggan;
+    private Context context;
+
+    public ProsesPelangganAdapter(ArrayList<FormData> listpelanggan, Context context) {
+        this.listpelanggan = listpelanggan;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_datapel, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final FormData data = listpelanggan.get(position);
+        holder.tvBatdpel.setText(data.getNo_batd());
+        holder.tvTglBatd.setText(data.getTanggal_batd());
+        holder.tvNopel.setText(data.getNo_pelanggan());
+        holder.tvNamapel.setText(data.getNama_pelanggan());
+        holder.tvZona.setText(data.getZona());
+        holder.tvAlamat.setText(data.getJalan());
+
+        final Intent intent = new Intent(context, FormRealisasiProsesActivity.class);
+
+        holder.btnEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("data", data);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return listpelanggan.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_batdpel)
+        TextView tvBatdpel;
+        @BindView(R.id.tv_tgl_batd)
+        TextView tvTglBatd;
+        @BindView(R.id.tv_nopel)
+        TextView tvNopel;
+        @BindView(R.id.tv_namapel)
+        TextView tvNamapel;
+        @BindView(R.id.tv_zona)
+        TextView tvZona;
+        @BindView(R.id.tv_alamat)
+        TextView tvAlamat;
+        @BindView(R.id.btn_entry)
+        Button btnEntry;
+
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
 }

@@ -89,7 +89,7 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
                     listPelanggaran = response.body().getData();
                     ArrayList<String> pelanggaran = new ArrayList<>();
                     for (Pelanggaran listPelanggaran2 : listPelanggaran)
-                        pelanggaran.add(listPelanggaran2.getKode_pelanggaran());
+                        pelanggaran.add(listPelanggaran2.getKeterangan());
                     ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(FormRealisasiProsesActivity.this, android.R.layout.simple_list_item_1, pelanggaran);
                     spnPelanggaran.setAdapter(stringArrayAdapter);
                     spnPelanggaran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -118,6 +118,8 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     }
 
     private void initLastData() {
+        tvBatd.setText(data.getNo_batd());
+        tvTglBa.setText(data.getTanggal_batd());
         edtHasilRealisasi.setText(data.getHasil());
         spnPelanggaran.getSelectedItem().toString();
         edtKondisi.setText(data.getKondisi_stan_meter());

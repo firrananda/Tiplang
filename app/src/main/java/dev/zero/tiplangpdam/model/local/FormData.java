@@ -10,6 +10,12 @@ import okhttp3.RequestBody;
 
 public class FormData extends RealmObject implements Parcelable {
     private String SPK;
+    private String no_batd;
+    private String tanggal_batd;
+    private String no_pelanggan;
+    private String nama_pelanggan;
+    private String zona;
+    private String jalan;
     private String hasil;
     private String kondisi_stan_meter;
     private String catatan_stan_meter;
@@ -27,6 +33,48 @@ public class FormData extends RealmObject implements Parcelable {
 
     public void setSPK(String SPK) {
         this.SPK = SPK;
+    }
+
+    public String getNo_batd() { return no_batd; }
+
+    public void setNo_batd(String no_batd) {
+        this.no_batd = no_batd;
+    }
+
+    public String getTanggal_batd() {
+        return tanggal_batd;
+    }
+
+    public void setTanggal_batd(String tanggal_batd) {
+        this.tanggal_batd = tanggal_batd;
+    }
+
+    public String getNo_pelanggan() {
+        return no_pelanggan;
+    }
+
+    public void setNo_pelanggan(String no_pelanggan) {
+        this.no_pelanggan = no_pelanggan;
+    }
+
+    public String getNama_pelanggan() {
+        return nama_pelanggan;
+    }
+
+    public void setNama_pelanggan(String nama_pelanggan) {
+        this.nama_pelanggan = nama_pelanggan;
+    }
+
+    public String getZona() { return zona; }
+
+    public void setZona(String zona) { this.zona = zona; }
+
+    public String getJalan() {
+        return jalan;
+    }
+
+    public void setJalan(String jalan) {
+        this.jalan = jalan;
     }
 
     public String getHasil() {
@@ -117,6 +165,11 @@ public class FormData extends RealmObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.SPK);
+        dest.writeString(this.no_batd);
+        dest.writeString(this.tanggal_batd);
+        dest.writeString(this.no_pelanggan);
+        dest.writeString(this.zona);
+        dest.writeString(this.jalan);
         dest.writeString(this.hasil);
         dest.writeString(this.kondisi_stan_meter);
         dest.writeString(this.catatan_stan_meter);
@@ -134,6 +187,12 @@ public class FormData extends RealmObject implements Parcelable {
 
     protected FormData(Parcel in) {
         this.SPK = in.readString();
+        this.no_batd = in.readString();
+        this.tanggal_batd = in.readString();
+        this.no_pelanggan = in.readString();
+        this.nama_pelanggan = in.readString();
+        this.zona = in.readString();
+        this.jalan = in.readString();
         this.hasil = in.readString();
         this.kondisi_stan_meter = in.readString();
         this.catatan_stan_meter = in.readString();
