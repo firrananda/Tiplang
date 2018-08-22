@@ -133,7 +133,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:layout_gravity="center_vertical"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:background="@drawable/bgbutton">
 
                 <ImageView
                     android:id="@+id/iv_terima"
@@ -180,7 +181,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:layout_gravity="center_vertical"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:background="@drawable/bgbutton">
 
                 <ImageView
                     android:id="@+id/iv_proses"
@@ -228,7 +230,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
                 android:padding="5dp"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bgbutton">
 
                 <ImageView
                     android:id="@+id/iv_kirim"
