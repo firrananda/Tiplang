@@ -5,5 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="darkblue">#0099CC</color>
+    <color name="darkblue">#33b5e5</color>
+    <color name="purple">#311b92</color>
+    <color name="indigo">#303f9f</color>
+    <color name="blue">#1976d2</color>
 </resources>

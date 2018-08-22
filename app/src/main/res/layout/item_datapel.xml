@@ -152,7 +152,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bgbutton"
+            android:backgroundTint="@color/colorPrimary"
             android:text="ENTRY DATA"
             android:textColor="@color/white"/>
     </LinearLayout>
