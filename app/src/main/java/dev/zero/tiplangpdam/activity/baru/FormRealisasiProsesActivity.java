@@ -135,7 +135,7 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     public void onViewClicked() {
         HashMap<String, RequestBody> params = new HashMap<>();
         ArrayList<MultipartBody.Part> parts = new ArrayList<>();
-        ApiService.service_post.postForm(params, parts).enqueue(new Callback<RealisasiResponse>() {
+        ApiService.service_post.postForm(params).enqueue(new Callback<RealisasiResponse>() {
             @Override
             public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
                 if (response.body().getCode() == 302) {

@@ -1,6 +1,7 @@
 package dev.zero.tiplangpdam.activity.baru;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -220,33 +221,54 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 params.put("ukuran_meter", RequestBody.create(MediaType.parse("text/plain"), edtUkuranMeter.getText().toString()));
                 params.put("angka_angkat", RequestBody.create(MediaType.parse("text/plain"), edtAngkaAngkat.getText().toString()));
                 params.put("merk_meter", RequestBody.create(MediaType.parse("text/plain"), edtMerkMeteran.getText().toString()));
-                params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), BATD_ID));
-                params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), spnPelanggaran.getSelectedItem().toString()));
+                params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(dataPelanggan.getBatd_id())));
+                params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
 
+                imagePath1 = new File(filename);
+                imagePath2 = new File(filename2);
+                imagePath3 = new File(filename3);
+                imagePath4 = new File(filename4);
                 RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
                 RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
                 RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
                 RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
+//                HashMap<String, MultipartBody.Part> parts = new HashMap<>();
+//
+//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath1.getName(), file1));
+//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath2.getName(), file2));
+//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath3.getName(), file3));
+//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath4.getName(), file4));
 
-                ArrayList<MultipartBody.Part> parts = new ArrayList<>();
-                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath1.getName(), file1));
-                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath2.getName(), file2));
-                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath3.getName(), file3));
-                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath4.getName(), file4));
-
-                ApiService.service_post.postForm(params, parts).enqueue(new Callback<RealisasiResponse>() {
+                final ProgressDialog dialog = new ProgressDialog(this);
+                dialog.setCancelable(false);
+                dialog.setMessage("Loading...");
+                dialog.setTitle("Mengirim data");
+                dialog.show();
+                ApiService.service_post.postForm(params).enqueue(new Callback<RealisasiResponse>() {
                     @Override
                     public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
-                        if (response.body().getCode() == 302) {
-                            Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        if (response.code() == 200) {
+                            if (response.body().getCode() == 302) {
+                                Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                            finish();
+                            } else {
+                                Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.d("Send Form Realisasi", "onResponse: " + response.body().getCode());
+                                Log.d("Send Form Realisasi", "onResponse: " + response.body().getMessage());
+                                Log.d("Send Form Realisasi", "onResponse: " + response.body().getDescription());
+                            }
+                        }else {
+                            Toast.makeText(FormRealisasiActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                            Log.d("Send Form Realisasi", "onResponse: " + response.code());
+                            Log.d("Send Form Realisasi", "onResponse: " + response.message());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<RealisasiResponse> call, Throwable t) {
+                        dialog.dismiss();
+                        Log.e("Error Send Form", "onFailure: " + t.getMessage(), t);
                         Toast.makeText(FormRealisasiActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

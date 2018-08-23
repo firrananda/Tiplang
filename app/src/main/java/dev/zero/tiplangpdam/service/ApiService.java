@@ -16,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -37,9 +38,9 @@ public class ApiService {
         @FormUrlEncoded
         Call<Login> postLogin(@Field("nip") String nip, @Field("password") String password);
 
+        @Multipart
         @POST("tiplang/api/add-realisasi")
-        @FormUrlEncoded
-        Call<RealisasiResponse> postForm(@PartMap Map<String, RequestBody> params, ArrayList<MultipartBody.Part> paramImage);
+        Call<RealisasiResponse> postForm(@PartMap Map<String, RequestBody> params);
     }
 
     public interface GetService{
