@@ -47,7 +47,9 @@
                     <TextView
                         android:id="@+id/tv_batd"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical|fill_vertical"
+                        android:hint="no BATD"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -58,8 +60,9 @@
                     <TextView
                         android:id="@+id/tv_tgl_ba"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="date"/>
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical|fill_vertical"
+                        android:hint="Tanggal BATD"/>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
