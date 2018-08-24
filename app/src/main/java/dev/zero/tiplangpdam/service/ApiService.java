@@ -3,6 +3,8 @@ package dev.zero.tiplangpdam.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import dev.zero.tiplangpdam.model.response.CountBaruResponse;
+import dev.zero.tiplangpdam.model.response.CountRevisiResponse;
 import dev.zero.tiplangpdam.model.response.Login;
 import dev.zero.tiplangpdam.model.response.PelangganResponse;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
@@ -52,5 +54,11 @@ public class ApiService {
 
         @GET("tiplang/api/get-pelanggan/{id}")
         Call<PelangganResponse> getPelanggan(@Path("id") String id);
+
+        @GET("tiplang/api/count-baru/{id}")
+        Call<CountBaruResponse> getCountBaru();
+
+        @GET("tiplang/api/count-revisi/{id}")
+        Call<CountRevisiResponse> getCountRevisi();
     }
 }
