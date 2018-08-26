@@ -5,8 +5,10 @@ import java.util.Map;
 
 import dev.zero.tiplangpdam.model.response.CountBaruResponse;
 import dev.zero.tiplangpdam.model.response.CountRevisiResponse;
+import dev.zero.tiplangpdam.model.response.List_RealisasiResponse;
 import dev.zero.tiplangpdam.model.response.Login;
 import dev.zero.tiplangpdam.model.response.PelangganResponse;
+import dev.zero.tiplangpdam.model.response.PelangganRevResponse;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
 import dev.zero.tiplangpdam.model.response.SPKResponse;
@@ -60,5 +62,11 @@ public class ApiService {
 
         @GET("tiplang/api/count-revisi/{id}")
         Call<CountRevisiResponse> getCountRevisi();
+
+        @GET("tiplang/api/list-realisasi/{id}")
+        Call<List_RealisasiResponse> getListRealisasi(@Path("id")String id);
+
+        @GET("tiplang/api/list-revisi/{id}")
+        Call<PelangganRevResponse> getPelangganRev(@Path("id") String id);
     }
 }

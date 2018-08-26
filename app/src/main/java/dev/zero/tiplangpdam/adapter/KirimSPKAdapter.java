@@ -14,15 +14,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.activity.baru.BarudataPelActivity;
+import dev.zero.tiplangpdam.activity.baru.BarudataPelKirimActivity;
+import dev.zero.tiplangpdam.activity.baru.KirimActivity;
 import dev.zero.tiplangpdam.model.SPK;
+import dev.zero.tiplangpdam.model.local.FormData;
 
 public class KirimSPKAdapter extends  RecyclerView.Adapter<KirimSPKAdapter.ViewHolder> {
-    private ArrayList<SPK> listSPK;
+    private ArrayList<FormData> listformdata;
+    private ArrayList<SPK> listspk;
     private Context context;
 
-    public KirimSPKAdapter(Context context, ArrayList<SPK> listSPK) {
+    public KirimSPKAdapter(Context context, ArrayList<FormData> listformdata, ArrayList<SPK> listspk) {
         this.context = context;
-        this.listSPK = listSPK;
+        this.listformdata = listformdata;
+        this.listspk = listspk;
+    }
+
+    public KirimSPKAdapter(KirimActivity kirimActivity, ArrayList<FormData> listSPK) {
     }
 
     @Override
@@ -33,15 +41,18 @@ public class KirimSPKAdapter extends  RecyclerView.Adapter<KirimSPKAdapter.ViewH
 
     @Override
     public void onBindViewHolder(KirimSPKAdapter.ViewHolder holder, int position) {
-        final SPK listitem = listSPK.get(position);
 
-        holder.btnSpk.setText(listitem.getNomor_spk());
-        final Intent intent = new Intent(context, BarudataPelActivity.class);
+        final FormData listitem = listformdata.get(position);
+        final SPK listitem2 = listspk.get(position);
+
+        String textButton = listitem.getSPK();
+        holder.btnSpk.setText(textButton);
         holder.btnSpk.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                intent.putExtra("SPK_ID", String.valueOf(listitem.getId()));
-                intent.putExtra("SPK", listitem.getNomor_spk());
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BarudataPelKirimActivity.class);
+                intent.putExtra("SPK_ID", String.valueOf(listitem2.getId()));
+                intent.putExtra("spk", listitem.getSPK());
                 context.startActivity(intent);
             }
         });
@@ -49,7 +60,7 @@ public class KirimSPKAdapter extends  RecyclerView.Adapter<KirimSPKAdapter.ViewH
 
     @Override
     public int getItemCount() {
-        return listSPK.size();
+        return listformdata.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

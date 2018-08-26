@@ -28,7 +28,7 @@
         <activity android:name=".activity.baru.TerimaActivity" />
         <activity android:name=".activity.baru.ProsesActivity" />
         <activity android:name=".activity.baru.KirimActivity" />
-        <activity android:name=".activity.revisi.TerimaActivity" />
+        <activity android:name=".activity.revisi.RevTerimaActivity" />
         <activity android:name=".activity.revisi.ProsesActivity" />
         <activity android:name=".activity.revisi.KirimActivity" />
         <activity android:name=".activity.baru.FormRealisasiActivity" />
@@ -38,7 +38,8 @@
         <activity android:name=".activity.revisi.FormRealRevActivity" />
         <activity android:name=".activity.revisi.FormRealProsesRevActivity" />
         <activity android:name=".activity.baru.BarudataPelProsesActivity" />
-        <activity android:name=".activity.baru.FormRealisasiKirimActivity"></activity>
+        <activity android:name=".activity.baru.FormRealisasiKirimActivity" />
+        <activity android:name=".activity.baru.BarudataPelKirimActivity"></activity>
     </application>
 
 </manifest>

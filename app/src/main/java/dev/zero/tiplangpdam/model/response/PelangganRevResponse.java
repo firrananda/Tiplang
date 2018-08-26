@@ -1,15 +1,13 @@
 package dev.zero.tiplangpdam.model.response;
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 
-import dev.zero.tiplangpdam.model.List_Realisasi;
+import dev.zero.tiplangpdam.model.PelangganRev;
 
-public class List_RealisasiResponse {
+public class PelangganRevResponse {
     private Integer code;
     private String description, messaage;
-    private ArrayList <List_Realisasi> list;
+    private ArrayList<PelangganRev> list;
 
     public Integer getCode() {
         return code;
@@ -23,7 +21,7 @@ public class List_RealisasiResponse {
         return messaage;
     }
 
-    public ArrayList<List_Realisasi> getList() {
+    public ArrayList<PelangganRev> getList() {
         return list;
     }
 }

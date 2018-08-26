@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,12 +15,7 @@ import butterknife.Unbinder;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.activity.revisi.KirimActivity;
 import dev.zero.tiplangpdam.activity.revisi.ProsesActivity;
-import dev.zero.tiplangpdam.activity.revisi.TerimaActivity;
-import dev.zero.tiplangpdam.model.response.CountRevisiResponse;
-import dev.zero.tiplangpdam.service.ApiService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import dev.zero.tiplangpdam.activity.revisi.RevTerimaActivity;
 
 public class RevisiFragment extends Fragment {
 
@@ -74,7 +68,7 @@ public class RevisiFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cv_terima:
-                getActivity().startActivity(new Intent(getActivity(), TerimaActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), RevTerimaActivity.class));
                 break;
             case R.id.cv_proses:
                 getActivity().startActivity(new Intent(getActivity(), ProsesActivity.class));
