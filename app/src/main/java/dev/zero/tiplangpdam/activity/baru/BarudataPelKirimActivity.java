@@ -35,30 +35,30 @@ public class BarudataPelKirimActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barudata_pel_kirim);
 
-        ButterKnife.bind(this);
-        String spk_id = getIntent().getStringExtra("SPK_ID");
-        sessionManager = new SessionManager(this);
-
-        ApiService.service_get.getListRealisasi(spk_id).enqueue(new Callback<List_RealisasiResponse>() {
-            @Override
-            public void onResponse(Call<List_RealisasiResponse> call, Response<List_RealisasiResponse> response) {
-                if (response.body().getCode() == 302 ){
-                    ArrayList <List_Realisasi> listpelanggan = response.body().getList();
-                    rvDatapel.setHasFixedSize(true);
-                    rvDatapel.setLayoutManager(new LinearLayoutManager(BarudataPelKirimActivity.this));
-                    //adapter = new KirimPelangganAdapter(BarudataPelKirimActivity.this, listpelanggan);
-                    rvDatapel.setAdapter(adapter);
-                }
-                else {
-                    Toast.makeText(BarudataPelKirimActivity.this, response.body().getMessaage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List_RealisasiResponse> call, Throwable t) {
-                Toast.makeText(BarudataPelKirimActivity.this, "Gagal menghubung ke server", Toast.LENGTH_SHORT).show();
-                call.cancel();
-            }
-        });
+//        ButterKnife.bind(this);
+//        String spk_id = getIntent().getStringExtra("SPK_ID");
+//        sessionManager = new SessionManager(this);
+//
+//        ApiService.service_get.getListRealisasi(spk_id).enqueue(new Callback<List_RealisasiResponse>() {
+//            @Override
+//            public void onResponse(Call<List_RealisasiResponse> call, Response<List_RealisasiResponse> response) {
+//                if (response.body().getCode() == 302 ){
+//                    ArrayList <List_Realisasi> listpelanggan = response.body().getList();
+//                    rvDatapel.setHasFixedSize(true);
+//                    rvDatapel.setLayoutManager(new LinearLayoutManager(BarudataPelKirimActivity.this));
+//                    //adapter = new KirimPelangganAdapter(BarudataPelKirimActivity.this, listpelanggan);
+//                    rvDatapel.setAdapter(adapter);
+//                }
+//                else {
+//                    Toast.makeText(BarudataPelKirimActivity.this, response.body().getMessaage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List_RealisasiResponse> call, Throwable t) {
+//                Toast.makeText(BarudataPelKirimActivity.this, "Gagal menghubung ke server", Toast.LENGTH_SHORT).show();
+//                call.cancel();
+//            }
+//        });
     }
 }

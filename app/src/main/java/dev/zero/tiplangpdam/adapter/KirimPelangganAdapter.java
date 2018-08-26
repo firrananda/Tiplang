@@ -22,10 +22,10 @@ import dev.zero.tiplangpdam.model.local.FormData;
 
 public class KirimPelangganAdapter extends RecyclerView.Adapter<KirimPelangganAdapter.ViewHolder>{
 
-    private ArrayList<FormData> listPelanggan;
+    private ArrayList<List_Realisasi> listPelanggan;
     private Context context;
 
-    public KirimPelangganAdapter(ArrayList<FormData> listPelanggan, Context context) {
+    public KirimPelangganAdapter(ArrayList<List_Realisasi> listPelanggan, Context context) {
         this.listPelanggan = listPelanggan;
         this.context = context;
     }
@@ -39,11 +39,11 @@ public class KirimPelangganAdapter extends RecyclerView.Adapter<KirimPelangganAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final FormData data = listPelanggan.get(position);
-        holder.tvBatdpel.setText(data.getNo_batd());
+        final List_Realisasi data = listPelanggan.get(position);
+        holder.tvBatdpel.setText(data.getNomor_batd());
         holder.tvTglBatd.setText(data.getTanggal_batd());
-        holder.tvNopel.setText(data.getNo_pelanggan());
-        holder.tvNamapel.setText(data.getNama_pelanggan());
+        holder.tvNopel.setText(data.getNomor_pelanggan());
+        holder.tvNamapel.setText(data.getNama());
         holder.tvAlamat.setText(data.getJalan());
 
         final Intent intent = new Intent(context, FormRealisasiKirimActivity.class);

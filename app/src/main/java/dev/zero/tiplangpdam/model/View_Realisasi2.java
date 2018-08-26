@@ -2,7 +2,11 @@ package dev.zero.tiplangpdam.model;
 
 public class View_Realisasi2 {
     private int id, no_meter, angka_angkat, batd_id, pelanggaran_id, status_baru, status_revisi;
-    private String tanggal_realisasi, hasil, kondisi_stan_meter, catatan_stan_meter, tangal_angkat, ukuran_meter, merk_meter;
+    private String tanggal_realisasi, hasil, kondisi_stan_meter, catatan_stan_meter, tangal_angkat, ukuran_meter, merk_meter, ket_realisasi;
+
+    public String getKet_realisasi() {
+        return ket_realisasi;
+    }
 
     public int getId() {
         return id;
