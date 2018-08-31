@@ -15,7 +15,6 @@ public class FormDataSaveHelper {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormData data = realm.createObject(FormData.class);
-        Log.d("tatat", "addDataString: " + dataSave.get("catatan_stan_meter"));
         data.setHasil(dataSave.get("hasil"));
         data.setSPK(dataSave.get("spk"));
         data.setNo_batd(dataSave.get("no_batd"));

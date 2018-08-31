@@ -73,12 +73,12 @@ public class FormRealisasiKirimActivity extends AppCompatActivity {
                 if (response.body().getCode() == 302){
                     Toast.makeText(FormRealisasiKirimActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
                         tvHasilRealisasi.setText(response.body().getData().getHasil());
- //                       tvPelanggaran.setText(response.body().getData().getPelanggaran_id());
+                        tvPelanggaran.setText(String.valueOf(response.body().getData().getPelanggaran_id()));
                         tvKondisi.setText(response.body().getData().getKondisi_stan_meter());
                         tvCatatan.setText(response.body().getData().getCatatan_stan_meter());
                         tvTglAngkat.setText(response.body().getData().getTangal_angkat());
                         tvUkuranMeter.setText(response.body().getData().getUkuran_meter());
-                        tvAngkaAngkat.setText(response.body().getData().getAngka_angkat());
+                        tvAngkaAngkat.setText(String.valueOf(response.body().getData().getAngka_angkat()));
                         tvMerkMeteran.setText(response.body().getData().getMerk_meter());
                 }
                 else {

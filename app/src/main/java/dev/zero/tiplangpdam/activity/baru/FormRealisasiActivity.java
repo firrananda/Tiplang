@@ -151,37 +151,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
         StrictMode.setVmPolicy(builder.build());
         isWriteStoragePermissionGranted();
 
-        ApiService.service_get.getPelanggaran().enqueue(new Callback<PelanggaranResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<PelanggaranResponse> call, @NonNull Response<PelanggaranResponse> response) {
-                if (response.body().getCode() == 302) {
-                    listPelanggaran = response.body().getData();
-                    ArrayList<String> pelanggaran = new ArrayList<>();
-                    for (Pelanggaran listPelanggaran2 : listPelanggaran)
-                        pelanggaran.add(listPelanggaran2.getKeterangan());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(FormRealisasiActivity.this, android.R.layout.simple_list_item_1, pelanggaran);
-                    spnPelanggaran.setAdapter(adapter);
-                    spnPelanggaran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            pelanggaranId = String.valueOf(listPelanggaran.get(i).getId());
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
-                    Log.d("Get Pelanggaran", "onResponse: " + response.body().getMessage());
-                } else {
-                    Log.d("Get Pelanggaran", "onResponse: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PelanggaranResponse> call, Throwable t) {
-                Log.d("Get Pelanggaran", "onFailure: " + t.getMessage());
-            }
-        });
+        getPelanggaran();
     }
 
     @OnClick({R.id.btn_proses, R.id.btn_kirim, R.id.btn_foto1, R.id.btn_foto2, R.id.btn_foto3, R.id.btn_foto4})
@@ -204,9 +174,8 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 paramsSave.put("ukuran_meter", edtUkuranMeter.getText().toString());
                 paramsSave.put("angka_angkat", edtAngkaAngkat.getText().toString());
                 paramsSave.put("merk_meter", edtMerkMeteran.getText().toString());
-                paramsSave.put("batd_id", BATD_ID);
+                paramsSave.put("batd_id", String.valueOf(dataPelanggan.getBatd_id()));
                 paramsSave.put("pelanggaran_id", spnPelanggaran.getSelectedItem().toString());
-                //paramsSave.put("pelanggaran", edtTglBa.getText().toString());
 
                 FormDataSaveHelper.addDataString(paramsSave);
                 finish();
@@ -251,7 +220,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         if (response.code() == 200) {
                             if (response.body().getCode() == 302) {
                                 Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                            finish();
+                                finish();
                             } else {
                                 Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 Log.d("Send Form Realisasi", "onResponse: " + response.body().getCode());
@@ -532,5 +501,39 @@ public class FormRealisasiActivity extends AppCompatActivity {
             ivFotohasil4.setImageBitmap(f);
             saveImageFile(bitmap4, tvbatd.getText().toString() + "4.jpg");
         }
+    }
+
+    public void getPelanggaran() {
+        ApiService.service_get.getPelanggaran().enqueue(new Callback<PelanggaranResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PelanggaranResponse> call, @NonNull Response<PelanggaranResponse> response) {
+                if (response.body().getCode() == 302) {
+                    listPelanggaran = response.body().getData();
+                    ArrayList<String> pelanggaran = new ArrayList<>();
+                    for (Pelanggaran listPelanggaran2 : listPelanggaran)
+                        pelanggaran.add(listPelanggaran2.getKeterangan());
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(FormRealisasiActivity.this, android.R.layout.simple_list_item_1, pelanggaran);
+                    spnPelanggaran.setAdapter(adapter);
+                    spnPelanggaran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            pelanggaranId = String.valueOf(listPelanggaran.get(i).getId());
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+                    Log.d("Get Pelanggaran", "onResponse: " + response.body().getMessage());
+                } else {
+                    Log.d("Get Pelanggaran", "onResponse: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PelanggaranResponse> call, Throwable t) {
+                Log.d("Get Pelanggaran", "onFailure: " + t.getMessage());
+            }
+        });
     }
 }
