@@ -3,7 +3,9 @@ package dev.zero.tiplangpdam.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class View_Realisasi2 {
+import java.util.ArrayList;
+
+public class DataListRealisasi {
     private int id, no_meter, angka_angkat, batd_id, pelanggaran_id, status_baru, status_revisi;
     private String tanggal_realisasi, hasil, kondisi_stan_meter, catatan_stan_meter, tangal_angkat, ukuran_meter, merk_meter, ket_realisasi, pict1 , pict2 , pict3, pict4;
 
@@ -70,4 +72,5 @@ public class View_Realisasi2 {
     }
 
     public String getKet_realisasi() { return ket_realisasi; }
+
 }

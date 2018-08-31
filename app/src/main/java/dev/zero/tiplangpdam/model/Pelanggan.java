@@ -33,9 +33,7 @@ public class Pelanggan implements Parcelable {
         return nomor_pelanggan;
     }
 
-    public String getNama_pelanggan() {
-        return nama_pelanggan;
-    }
+    public String getNama_pelanggan() { return nama_pelanggan; }
 
     public String getZona() {
         return zona;

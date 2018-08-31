@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.activity.revisi.FormRealRevActivity;
 import dev.zero.tiplangpdam.activity.revisi.RevTerimaActivity;
 import dev.zero.tiplangpdam.model.PelangganRev;
 
@@ -45,7 +46,7 @@ public class RevPelangganAdapter extends RecyclerView.Adapter<RevPelangganAdapte
         holder.tvNamaPel.setText(listitem.getNama());
         holder.tvJalan.setText(listitem.getJalan());
 
-        final Intent intent = new Intent(context, RevTerimaActivity.class);
+        final Intent intent = new Intent(context, FormRealRevActivity.class);
         holder.btnEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

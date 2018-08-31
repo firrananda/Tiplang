@@ -4,9 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,10 +71,11 @@ public class KirimActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List_RealisasiResponse> call, Response<List_RealisasiResponse> response) {
                 if (response.body().getCode() == 302 ){
-                    ArrayList <List_Realisasi> listpelanggan = response.body().getList();
+                    List<List_Realisasi> listpelanggan = response.body().getList();
+                    Log.d("Debug",listpelanggan.toString());
                     rvSPKKirim.setHasFixedSize(true);
                     rvSPKKirim.setLayoutManager(new LinearLayoutManager(KirimActivity.this));
-                    adapter = new KirimPelangganAdapter(listpelanggan, KirimActivity.this);
+                    adapter = new KirimPelangganAdapter(new ArrayList<List_Realisasi>(listpelanggan), KirimActivity.this);
                     rvSPKKirim.setAdapter(adapter);
                 }
                 else {
@@ -82,6 +85,7 @@ public class KirimActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List_RealisasiResponse> call, Throwable t) {
+                Log.d("Error",t.toString() + t.getMessage() + t.getLocalizedMessage());
                 Toast.makeText(KirimActivity.this, "Gagal menghubung ke server", Toast.LENGTH_SHORT).show();
                 call.cancel();
             }

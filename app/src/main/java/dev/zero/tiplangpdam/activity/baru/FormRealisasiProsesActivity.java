@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggaran;
 import dev.zero.tiplangpdam.model.local.FormData;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
@@ -115,6 +116,7 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
             }
         });
         initLastData();
+        Toast.makeText(this, "" + data.getSPK(), Toast.LENGTH_SHORT).show();
     }
 
     private void initLastData() {
@@ -131,29 +133,6 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         edtMerkMeteran.setText(data.getMerk_meter());
     }
 
-    @OnClick(R.id.btn_kirim)
-    public void onViewClicked() {
-        HashMap<String, RequestBody> params = new HashMap<>();
-        ArrayList<MultipartBody.Part> parts = new ArrayList<>();
-        ApiService.service_post.postForm(params).enqueue(new Callback<RealisasiResponse>() {
-            @Override
-            public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
-                if (response.body().getCode() == 302) {
-                    Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    FormDataSaveHelper.deleteDataPerBATD(data.getBatdId());
-                    finish();
-                } else {
-                    Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RealisasiResponse> call, Throwable t) {
-                Toast.makeText(FormRealisasiProsesActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     @OnClick({R.id.btn_foto1, R.id.btn_foto2, R.id.btn_foto3, R.id.btn_foto4, R.id.btn_kirim})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -166,7 +145,28 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
             case R.id.btn_foto4:
                 break;
             case R.id.btn_kirim:
-                break;
+                FormDataSaveHelper.deleteDataPerNoPel(data.getNo_pelanggan());
+                finish();
+//                HashMap<String, RequestBody> params = new HashMap<>();
+//                ArrayList<MultipartBody.Part> parts = new ArrayList<>();
+//                ApiService.service_post.postForm(params).enqueue(new Callback<RealisasiResponse>() {
+//                    @Override
+//                    public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
+//                        if (response.body().getCode() == 302) {
+//                            Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                            FormDataSaveHelper.deleteDataPerNoPel(data.getNo_pelanggan());
+//                            finish();
+//                        } else {
+//                            Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<RealisasiResponse> call, Throwable t) {
+//                        Toast.makeText(FormRealisasiProsesActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                break;
         }
     }
 }

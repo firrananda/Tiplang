@@ -12,6 +12,7 @@ import dev.zero.tiplangpdam.model.response.PelangganRevResponse;
 import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
 import dev.zero.tiplangpdam.model.response.SPKResponse;
+import dev.zero.tiplangpdam.model.response.View_RealisasiResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -26,8 +27,8 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
 public class ApiService {
-    public static String BASE_URL = "http://222.124.168.221";
-//    public static String BASE_URL = "http://192.168.43.21";
+    //public static String BASE_URL = "http://222.124.168.221";
+    public static String BASE_URL = "http://192.168.43.21";
 
     public static PostService service_post = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -68,5 +69,8 @@ public class ApiService {
 
         @GET("tiplang/api/list-revisi/{id}")
         Call<PelangganRevResponse> getPelangganRev(@Path("id") String id);
+
+        @GET("tiplang/api/view-realisasi/{id}")
+        Call<View_RealisasiResponse> getViewRealisasi(@Path("id")String id);
     }
 }

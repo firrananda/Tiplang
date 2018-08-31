@@ -1,10 +1,13 @@
 package dev.zero.tiplangpdam.helper;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import dev.zero.tiplangpdam.model.local.FormData;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import okhttp3.RequestBody;
 
 public class FormDataSaveHelper {
@@ -12,6 +15,7 @@ public class FormDataSaveHelper {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormData data = realm.createObject(FormData.class);
+        Log.d("tatat", "addDataString: " + dataSave.get("catatan_stan_meter"));
         data.setHasil(dataSave.get("hasil"));
         data.setSPK(dataSave.get("spk"));
         data.setNo_batd(dataSave.get("no_batd"));
@@ -32,13 +36,21 @@ public class FormDataSaveHelper {
         realm.commitTransaction();
         realm.close();
     }
-    public static void deleteDataPerBATD(String batdId){
+    public static void deleteDataPerNoPel(String noPel){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormData data = realm.where(FormData.class)
-                .equalTo("batd_id", batdId).findFirst();
+                .equalTo("no_pelanggan", noPel).findFirst();
         data.deleteFromRealm();
         realm.commitTransaction();
         realm.close();
+    }
+
+    public static ArrayList<FormData> getData(){
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<FormData> data = realm.where(FormData.class).findAll();
+        ArrayList<FormData> formData = new ArrayList<>();
+        formData.addAll(data);
+        return formData;
     }
 }

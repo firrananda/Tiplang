@@ -44,9 +44,13 @@ public class KirimPelangganAdapter extends RecyclerView.Adapter<KirimPelangganAd
         holder.tvTglBatd.setText(data.getTanggal_batd());
         holder.tvNopel.setText(data.getNomor_pelanggan());
         holder.tvNamapel.setText(data.getNama());
+        holder.tvZona.setText(data.getZona());
         holder.tvAlamat.setText(data.getJalan());
 
         final Intent intent = new Intent(context, FormRealisasiKirimActivity.class);
+        //intent.putExtra("id_form",22);
+        intent.putExtra("datapel", data);
+        intent.putExtra("FORM_ID", String.valueOf(data.getId_realisasi()));
 
         holder.btnLihatData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +76,8 @@ public class KirimPelangganAdapter extends RecyclerView.Adapter<KirimPelangganAd
         TextView tvNopel;
         @BindView(R.id.tv_namapel)
         TextView tvNamapel;
-//        @BindView(R.id.tv_zona)
-//        TextView tvZona;
+        @BindView(R.id.tv_zona)
+        TextView tvZona;
         @BindView(R.id.tv_alamat)
         TextView tvAlamat;
         @BindView(R.id.btn_lihatdata)

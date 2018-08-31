@@ -199,7 +199,8 @@
                     <EditText
                         android:id="@+id/edt_no_meter"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -221,7 +222,8 @@
                     <EditText
                         android:id="@+id/edt_angka_angkat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
 
                     <TextView
                         android:layout_width="match_parent"

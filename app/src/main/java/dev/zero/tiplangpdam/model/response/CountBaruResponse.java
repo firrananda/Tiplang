@@ -2,7 +2,7 @@ package dev.zero.tiplangpdam.model.response;
 
 public class CountBaruResponse {
     private Integer code, kirim;
-    private String description, messaage;
+    private String description, message;
 
     public Integer getCode() {
         return code;
@@ -16,7 +16,7 @@ public class CountBaruResponse {
         return description;
     }
 
-    public String getMessaage() {
-        return messaage;
+    public String getMessage() {
+        return message;
     }
 }

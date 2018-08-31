@@ -99,7 +99,9 @@
                     <TextView
                         android:id="@+id/tv_hasil_realisasi"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="50dp"
+                        android:hint="Hasil Realisasi"
+                        android:gravity="center_vertical"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -132,11 +134,13 @@
                         android:text="Pelanggaran"
                         android:textColor="@color/black" />
 
-                    <Spinner
-                        android:id="@+id/spn_pelanggaran"
+                    <TextView
+                        android:id="@+id/tv_pelanggaran"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/test2"/>
+                        android:layout_height="50dp"
+                        android:hint="Pelanggaran"
+                        android:gravity="center_vertical"
+                       />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -147,7 +151,9 @@
                     <TextView
                         android:id="@+id/tv_kondisi"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="50dp"
+                        android:hint="Kondisi Stan Meter"
+                        android:gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -158,7 +164,10 @@
                     <TextView
                         android:id="@+id/tv_catatan"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:hint="Catatan"
+                        android:gravity="center_vertical"/>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -185,8 +194,10 @@
                     <TextView
                         android:id="@+id/tv_tgl_angkat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="date"/>
+                        android:layout_height="50dp"
+                        android:hint="Tanggal Angkat"
+                        android:gravity="center_vertical"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -197,7 +208,9 @@
                     <TextView
                         android:id="@+id/tv_no_meter"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="50dp"
+                        android:hint="No Meter"
+                        android:gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -208,7 +221,9 @@
                     <TextView
                         android:id="@+id/tv_ukuran_meter"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="50dp"
+                        android:hint="Ukuran Meter"
+                        android:gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -219,7 +234,9 @@
                     <TextView
                         android:id="@+id/tv_angka_angkat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="50dp"
+                        android:hint="Angka Angkat"
+                        android:gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -230,7 +247,9 @@
                     <TextView
                         android:id="@+id/tv_merk_meteran"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="50dp"
+                        android:hint="Merk Meter"
+                        android:gravity="center_vertical"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -245,13 +264,13 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="5dp"
                         />
-                    <Button
-                        android:id="@+id/btn_foto1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Camera 1"
-                        android:drawableLeft="@drawable/ic_camera" />
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_foto1"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:text="Camera 1"-->
+                        <!--android:drawableLeft="@drawable/ic_camera" />-->
 
                     <TextView
                         android:layout_width="match_parent"
@@ -266,13 +285,13 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="5dp"
                         />
-                    <Button
-                        android:id="@+id/btn_foto2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Camera 2"
-                        android:drawableLeft="@drawable/ic_camera" />
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_foto2"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:text="Camera 2"-->
+                        <!--android:drawableLeft="@drawable/ic_camera" />-->
 
                     <TextView
                         android:layout_width="match_parent"
@@ -287,13 +306,13 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="5dp"
                         />
-                    <Button
-                        android:id="@+id/btn_foto3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Camera 3"
-                        android:drawableLeft="@drawable/ic_camera" />
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_foto3"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:text="Camera 3"-->
+                        <!--android:drawableLeft="@drawable/ic_camera" />-->
 
                     <TextView
                         android:layout_width="match_parent"
@@ -308,13 +327,13 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="5dp"
                         />
-                    <Button
-                        android:id="@+id/btn_foto4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Camera 4"
-                        android:drawableLeft="@drawable/ic_camera" />
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_foto4"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:text="Camera 4"-->
+                        <!--android:drawableLeft="@drawable/ic_camera" />-->
 
                 </LinearLayout>
 

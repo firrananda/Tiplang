@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,6 +17,11 @@ import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.activity.revisi.KirimActivity;
 import dev.zero.tiplangpdam.activity.revisi.ProsesActivity;
 import dev.zero.tiplangpdam.activity.revisi.RevTerimaActivity;
+import dev.zero.tiplangpdam.model.response.CountRevisiResponse;
+import dev.zero.tiplangpdam.service.ApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RevisiFragment extends Fragment {
 
@@ -37,24 +43,26 @@ public class RevisiFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_revisi, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-//        ApiService.service_get.getCountRevisi().enqueue(new Callback<CountRevisiResponse>() {
-//            @Override
-//            public void onResponse(Call<CountRevisiResponse> call, Response<CountRevisiResponse> response) {
-//                if (response.body().getCode() == 302) {
-//                    tvCountterima.setText(response.body().getBaru().toString());
-//                    tvCountkirim.setText(response.body().getKirim().toString());
-//                    Toast.makeText(getContext(), response.body().getMessaage(), Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(getContext(), response.body().getMessaage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CountRevisiResponse> call, Throwable t) {
-//
-//            }
-//        });
+        ApiService.service_get.getCountRevisi().enqueue(new Callback<CountRevisiResponse>() {
+            @Override
+            public void onResponse(Call<CountRevisiResponse> call, Response<CountRevisiResponse> response) {
+                if (response.code()== 200){
+                    if (response.body().getCode() == 302){
+                        tvCountterima.setText(response.body().getBaru().toString());
+                        tvCountkirim.setText(response.body().getKirim().toString());
+                        Toast.makeText(getContext(), response.body().getMessaage(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), response.body().getMessaage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CountRevisiResponse> call, Throwable t) {
+
+            }
+        });
+
         return view;
     }
 

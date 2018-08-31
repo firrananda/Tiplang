@@ -14,7 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.adapter.PelangganAdapter;
+import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggan;
+import dev.zero.tiplangpdam.model.local.FormData;
 import dev.zero.tiplangpdam.model.response.PelangganResponse;
 import dev.zero.tiplangpdam.service.ApiService;
 import dev.zero.tiplangpdam.service.SessionManager;
@@ -41,10 +43,24 @@ public class BarudataPelActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PelangganResponse> call, Response<PelangganResponse> response) {
                 if (response.body().getCode() == 302){
-                    ArrayList<Pelanggan> listPelanggan = response.body().getData();
+                    ArrayList<Pelanggan> listPelanggan2 = new ArrayList<>();
+                    ArrayList<FormData> formData = FormDataSaveHelper.getData();
+                    for (Pelanggan pelanggan: response.body().getData()) {
+                        for (int i =0 ; i<=formData.size(); i++) {
+                            if (i<formData.size()) {
+                                if (String.valueOf(pelanggan.getNomor_pelanggan()).equals(formData.get(i).getNo_pelanggan())) {
+                                    break;
+                                }
+                            }else{
+                                listPelanggan2.add(pelanggan);
+                            }
+
+                        }
+                    }
+
                     rv_datapel.setHasFixedSize(true);
                     rv_datapel.setLayoutManager(new LinearLayoutManager(BarudataPelActivity.this));
-                    adapter = new PelangganAdapter(BarudataPelActivity.this, listPelanggan);
+                    adapter = new PelangganAdapter(BarudataPelActivity.this, listPelanggan2);
                     rv_datapel.setAdapter(adapter);
                 }
                 else{

@@ -35,7 +35,9 @@ public class FormData extends RealmObject implements Parcelable {
         this.SPK = SPK;
     }
 
-    public String getNo_batd() { return no_batd; }
+    public String getNo_batd() {
+        return no_batd;
+    }
 
     public void setNo_batd(String no_batd) {
         this.no_batd = no_batd;
@@ -65,9 +67,13 @@ public class FormData extends RealmObject implements Parcelable {
         this.nama_pelanggan = nama_pelanggan;
     }
 
-    public String getZona() { return zona; }
+    public String getZona() {
+        return zona;
+    }
 
-    public void setZona(String zona) { this.zona = zona; }
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
 
     public String getJalan() {
         return jalan;
@@ -168,6 +174,7 @@ public class FormData extends RealmObject implements Parcelable {
         dest.writeString(this.no_batd);
         dest.writeString(this.tanggal_batd);
         dest.writeString(this.no_pelanggan);
+        dest.writeString(this.nama_pelanggan);
         dest.writeString(this.zona);
         dest.writeString(this.jalan);
         dest.writeString(this.hasil);
