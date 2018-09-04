@@ -18,7 +18,9 @@ import dev.zero.tiplangpdam.activity.revisi.KirimActivity;
 import dev.zero.tiplangpdam.activity.revisi.ProsesActivity;
 import dev.zero.tiplangpdam.activity.revisi.RevTerimaActivity;
 import dev.zero.tiplangpdam.model.response.CountRevisiResponse;
+import dev.zero.tiplangpdam.model.response.PelangganRevResponse;
 import dev.zero.tiplangpdam.service.ApiService;
+import dev.zero.tiplangpdam.service.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +34,7 @@ public class RevisiFragment extends Fragment {
     TextView tvCountproses;
     @BindView(R.id.tv_countkirim)
     TextView tvCountkirim;
+    SessionManager sessionManager;
 
     public RevisiFragment() {
         // Required empty public constructor
@@ -43,25 +46,7 @@ public class RevisiFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_revisi, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        ApiService.service_get.getCountRevisi().enqueue(new Callback<CountRevisiResponse>() {
-            @Override
-            public void onResponse(Call<CountRevisiResponse> call, Response<CountRevisiResponse> response) {
-                if (response.code()== 200){
-                    if (response.body().getCode() == 302){
-                        tvCountterima.setText(response.body().getBaru().toString());
-                        tvCountkirim.setText(response.body().getKirim().toString());
-                        Toast.makeText(getContext(), response.body().getMessaage(), Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getContext(), response.body().getMessaage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CountRevisiResponse> call, Throwable t) {
-
-            }
-        });
+        sessionManager = new SessionManager(getContext());
 
         return view;
     }
@@ -70,6 +55,11 @@ public class RevisiFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void onResume (){
+        super.onResume();
+        getCount();
     }
 
     @OnClick({R.id.cv_terima, R.id.cv_proses, R.id.cv_kirim})
@@ -85,5 +75,30 @@ public class RevisiFragment extends Fragment {
                 getActivity().startActivity(new Intent(getActivity(), KirimActivity.class));
                 break;
         }
+    }
+
+    public void getCount(){
+
+        //count revisi terima
+        ApiService.service_get.getPelangganRev(sessionManager.getKeyId()).enqueue(new Callback<PelangganRevResponse>() {
+            @Override
+            public void onResponse(Call<PelangganRevResponse> call, Response<PelangganRevResponse> response) {
+                if (response.code() == 200){
+                    if (response.body().getCode() == 302){
+                        tvCountterima.setText(String.valueOf(response.body().getList().size()));
+                    }else{
+                        Toast.makeText(getContext(), "Error " + response.body().getCode() + " : " + response.body().getMessaage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "Error " + response.code() + " : " + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PelangganRevResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                call.cancel();
+            }
+        });
     }
 }

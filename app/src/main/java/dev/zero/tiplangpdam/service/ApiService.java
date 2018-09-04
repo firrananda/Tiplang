@@ -3,6 +3,7 @@ package dev.zero.tiplangpdam.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import dev.zero.tiplangpdam.model.List_Realisasi;
 import dev.zero.tiplangpdam.model.response.CountBaruResponse;
 import dev.zero.tiplangpdam.model.response.CountRevisiResponse;
 import dev.zero.tiplangpdam.model.response.List_RealisasiResponse;
@@ -67,10 +68,12 @@ public class ApiService {
         @GET("tiplang/api/list-realisasi/{id}")
         Call<List_RealisasiResponse> getListRealisasi(@Path("id")String id);
 
-        @GET("tiplang/api/list-revisi/{id}")
-        Call<PelangganRevResponse> getPelangganRev(@Path("id") String id);
-
         @GET("tiplang/api/view-realisasi/{id}")
         Call<View_RealisasiResponse> getViewRealisasi(@Path("id")String id);
+
+        @GET("tiplang/api/list-revisi-baru/{id}")
+        Call<PelangganRevResponse> getPelangganRev(@Path("id") String id);
+
+
     }
 }

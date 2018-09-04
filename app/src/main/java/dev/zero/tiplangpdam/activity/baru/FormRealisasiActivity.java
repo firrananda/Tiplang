@@ -91,6 +91,8 @@ public class FormRealisasiActivity extends AppCompatActivity {
     @BindView(R.id.cardtambahan)
     CardView cardtambahan;
 
+    MultipartBody.Part pict1, pict2, pict3, pict4;
+
     //Uri capturedImageUri;
     //Uri capturedImageUri;
     static Uri capturedImageUri = null;
@@ -197,13 +199,20 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 imagePath2 = new File(filename2);
                 imagePath3 = new File(filename3);
                 imagePath4 = new File(filename4);
-                RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
-                RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
-                RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
-                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
+
+                params.put("pict1", RequestBody.create(MediaType.parse("image/*"), imagePath1));
+                params.put("pict2", RequestBody.create(MediaType.parse("image/*"), imagePath2));
+                params.put("pict3", RequestBody.create(MediaType.parse("image/*"), imagePath3));
+                params.put("pict4", RequestBody.create(MediaType.parse("image/*"), imagePath4));
+
+
+//                RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
+//                RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
+//                RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
+//                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
 //                HashMap<String, MultipartBody.Part> parts = new HashMap<>();
 //
-//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath1.getName(), file1));
+//                parts.add(MultipartBody.Part.createFormData("pict1", imagePath1.getName(), file1));
 //                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath2.getName(), file2));
 //                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath3.getName(), file3));
 //                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath4.getName(), file4));

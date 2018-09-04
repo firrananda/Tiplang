@@ -77,6 +77,7 @@ public class FormRealisasiKirimActivity extends AppCompatActivity {
                         tvKondisi.setText(response.body().getData().getKondisi_stan_meter());
                         tvCatatan.setText(response.body().getData().getCatatan_stan_meter());
                         tvTglAngkat.setText(response.body().getData().getTangal_angkat());
+                        // tvNoMeter.setText(response.body().getData().getNo_meter());
                         tvUkuranMeter.setText(response.body().getData().getUkuran_meter());
                         tvAngkaAngkat.setText(String.valueOf(response.body().getData().getAngka_angkat()));
                         tvMerkMeteran.setText(response.body().getData().getMerk_meter());
