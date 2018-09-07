@@ -45,11 +45,11 @@ public class KirimActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List_RealisasiResponse> call, Response<List_RealisasiResponse> response) {
                 if (response.body().getCode() == 302 ){
-                    List<List_Realisasi> listpelanggan = response.body().getList();
+                    ArrayList<List_Realisasi> listpelanggan = response.body().getList();
                     Log.d("Debug",listpelanggan.toString());
                     rvSPKKirim.setHasFixedSize(true);
                     rvSPKKirim.setLayoutManager(new LinearLayoutManager(KirimActivity.this));
-                    adapter = new KirimPelangganAdapter(new ArrayList<List_Realisasi>(listpelanggan), KirimActivity.this);
+                    adapter = new KirimPelangganAdapter(listpelanggan, KirimActivity.this);
                     rvSPKKirim.setAdapter(adapter);
                 }
                 else {

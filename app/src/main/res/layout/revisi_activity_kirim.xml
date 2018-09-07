@@ -6,4 +6,4 @@
     android:layout_height="match_parent"
     android:id="@+id/rv_kirim"
     android:padding="10dp"
-    tools:context=".activity.revisi.KirimActivity"/>
+    tools:context=".activity.revisi.RevKirimActivity"/>

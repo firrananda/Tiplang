@@ -71,13 +71,13 @@ public class FormRealisasiKirimActivity extends AppCompatActivity {
             public void onResponse(Call<View_RealisasiResponse> call, Response<View_RealisasiResponse> response) {
                 Log.d("get List" , "onresponse :" +response.body().getMessage());
                 if (response.body().getCode() == 302){
-                    Toast.makeText(FormRealisasiKirimActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(FormRealisasiKirimActivity.this, "berhasil", Toast.LENGTH_SHORT).show();
                         tvHasilRealisasi.setText(response.body().getData().getHasil());
                         tvPelanggaran.setText(String.valueOf(response.body().getData().getPelanggaran_id()));
                         tvKondisi.setText(response.body().getData().getKondisi_stan_meter());
                         tvCatatan.setText(response.body().getData().getCatatan_stan_meter());
                         tvTglAngkat.setText(response.body().getData().getTangal_angkat());
-                        // tvNoMeter.setText(response.body().getData().getNo_meter());
+                        tvNoMeter.setText(String.valueOf(response.body().getData().getNo_meter()));
                         tvUkuranMeter.setText(response.body().getData().getUkuran_meter());
                         tvAngkaAngkat.setText(String.valueOf(response.body().getData().getAngka_angkat()));
                         tvMerkMeteran.setText(response.body().getData().getMerk_meter());

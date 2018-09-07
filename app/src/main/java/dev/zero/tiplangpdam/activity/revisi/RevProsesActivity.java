@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import dev.zero.tiplangpdam.R;
 
-public class KirimActivity extends AppCompatActivity {
+public class RevProsesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.revisi_activity_kirim);
+        setContentView(R.layout.revisi_activity_proses);
     }
 }

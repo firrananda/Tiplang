@@ -101,16 +101,16 @@ public class FormRealisasiActivity extends AppCompatActivity {
     static Uri capturedImageUri4 = null;
     //static boolean imageLoaded = false;
 //    File file=null;File file2 = null;
-    File imagePath1 = null;
-    File imagePath2 = null;
-    File imagePath4 = null;
-    File imagePath3 = null;
+    File imagePath1;
+    File imagePath2;
+    File imagePath4;
+    File imagePath3;
     String BATD_ID;
     String idPel = null;
-    String filename = null;
-    String filename2 = null;
-    String filename3 = null;
-    String filename4 = null;
+    String filename;
+    String filename2;
+    String filename3;
+    String filename4;
     //File file;
     //String lokasiGambar = null;
     //Context context;
@@ -195,27 +195,26 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(dataPelanggan.getBatd_id())));
                 params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
 
-                imagePath1 = new File(filename);
-                imagePath2 = new File(filename2);
-                imagePath3 = new File(filename3);
-                imagePath4 = new File(filename4);
+//                imagePath1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "1.jpg");
+//                imagePath2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "2.jpg");
+//                imagePath3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "3.jpg");
+//                imagePath4 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "4.jpg");
 
-                params.put("pict1", RequestBody.create(MediaType.parse("image/*"), imagePath1));
-                params.put("pict2", RequestBody.create(MediaType.parse("image/*"), imagePath2));
-                params.put("pict3", RequestBody.create(MediaType.parse("image/*"), imagePath3));
-                params.put("pict4", RequestBody.create(MediaType.parse("image/*"), imagePath4));
-
+//                params.put("pict1", RequestBody.create(MediaType.parse("image/*"), imagePath1));
+//                params.put("pict2", RequestBody.create(MediaType.parse("image/*"), imagePath2));
+//                params.put("pict3", RequestBody.create(MediaType.parse("image/*"), imagePath3));
+//                params.put("pict4", RequestBody.create(MediaType.parse("image/*"), imagePath4));
 
 //                RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
 //                RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
 //                RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
 //                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
-//                HashMap<String, MultipartBody.Part> parts = new HashMap<>();
-//
-//                parts.add(MultipartBody.Part.createFormData("pict1", imagePath1.getName(), file1));
-//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath2.getName(), file2));
-//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath3.getName(), file3));
-//                parts.add(MultipartBody.Part.createFormData("foto_realisasi[]", imagePath4.getName(), file4));
+                //HashMap<String, MultipartBody.Part> parts = new HashMap<>();
+
+//                parts.put(MultipartBody.Part.createFormData("pict1", imagePath1.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath1)));
+//                parts.put(MultipartBody.Part.createFormData("pict2", imagePath2.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath2));
+//                parts.put(MultipartBody.Part.createFormData("pict3", imagePath3.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath3));
+//                parts.put(MultipartBody.Part.createFormData("pict4", imagePath4.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath4));
 
                 final ProgressDialog dialog = new ProgressDialog(this);
                 dialog.setCancelable(false);
@@ -228,6 +227,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         dialog.dismiss();
                         if (response.code() == 200) {
                             if (response.body().getCode() == 302) {
+                                Toast.makeText(FormRealisasiActivity.this, imagePath1.toString(), Toast.LENGTH_SHORT).show();
                                 Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
@@ -479,6 +479,8 @@ public class FormRealisasiActivity extends AppCompatActivity {
             Bitmap c = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "1.jpg");
             ivFotohasil1.setImageBitmap(c);
             saveImageFile(bitmap, tvbatd.getText().toString() + "1.jpg");
+            imagePath1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "1.jpg");
+
         } else if (requestCode == 1889) {
             try {
                 bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri2);
@@ -489,6 +491,8 @@ public class FormRealisasiActivity extends AppCompatActivity {
             Bitmap d = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "2.jpg");
             ivFotohasil2.setImageBitmap(d);
             saveImageFile(bitmap2, tvbatd.getText().toString() + "2.jpg");
+            imagePath2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "2.jpg");
+
         } else if (requestCode == 1890) {
             try {
                 bitmap3 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri3);
@@ -499,6 +503,8 @@ public class FormRealisasiActivity extends AppCompatActivity {
             Bitmap e = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "3.jpg");
             ivFotohasil3.setImageBitmap(e);
             saveImageFile(bitmap3, tvbatd.getText().toString() + "3.jpg");
+            imagePath3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "3.jpg");
+
         } else if (requestCode == 1891) {
             try {
                 bitmap4 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri4);
@@ -509,6 +515,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
             Bitmap f = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "4.jpg");
             ivFotohasil4.setImageBitmap(f);
             saveImageFile(bitmap4, tvbatd.getText().toString() + "4.jpg");
+            imagePath4 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/" + tvbatd.getText().toString() + "4.jpg");
         }
     }
 
