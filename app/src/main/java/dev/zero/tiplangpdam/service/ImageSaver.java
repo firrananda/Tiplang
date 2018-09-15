@@ -29,6 +29,7 @@ import java.util.Calendar;
 public class ImageSaver {
     private String directoryName = "Tutup Dinas";
     private String fileName = "image.jpg";
+    private static String contentqr;
     private Context context;
     private boolean external = true;
     private Uri savedImageURI = null;
@@ -49,6 +50,11 @@ public class ImageSaver {
         return this;
     }
 
+    public ImageSaver setContentQR (String contentqr){
+        this.contentqr=contentqr;
+        return this;
+    }
+
     public ImageSaver setDirectoryName(String directoryName) {
         this.directoryName = directoryName;
         return this;
@@ -59,6 +65,11 @@ public class ImageSaver {
         this.maxHeight = maxHeight;
         this.adjustResolution = true;
         return this;
+    }
+
+    public static String Contentqr(){
+        String content=contentqr;
+        return content;
     }
 
     private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
@@ -95,7 +106,7 @@ public class ImageSaver {
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
             try {
-                BitMatrix bitMatrix = multiFormatWriter.encode("oke nanti diganti"+ dateTime, BarcodeFormat.QR_CODE, 100, 100);
+                BitMatrix bitMatrix = multiFormatWriter.encode(Contentqr()+ dateTime, BarcodeFormat.QR_CODE, 100, 100);
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 bitmap3 = barcodeEncoder.createBitmap(bitMatrix);
             } catch (WriterException e) {

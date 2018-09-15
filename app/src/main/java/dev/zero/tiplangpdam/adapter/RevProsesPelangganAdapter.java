@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,8 +31,10 @@ public class RevProsesPelangganAdapter extends RecyclerView.Adapter<RevProsesPel
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_datapel, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -57,7 +60,7 @@ public class RevProsesPelangganAdapter extends RecyclerView.Adapter<RevProsesPel
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listpelanggan.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

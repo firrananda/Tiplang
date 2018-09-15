@@ -12,7 +12,7 @@ public class FormDataRevSaveHelper {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         FormDataRev data = realm.createObject(FormDataRev.class);
-        data.setKet_realisasi(dataSave.get("ket_realisasi"));
+        data.setKet_realisasi(dataSave.get("ket_real"));
         data.setHasil(dataSave.get("hasil"));
         data.setNo_batd(dataSave.get("no_batd"));
         data.setTanggal_batd(dataSave.get("tanggal_batd"));

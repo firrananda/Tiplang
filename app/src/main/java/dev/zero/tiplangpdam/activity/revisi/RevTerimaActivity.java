@@ -33,9 +33,11 @@ public class RevTerimaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.revisi_activity_terima);
         ButterKnife.bind(this);
+
         rv_terima.setLayoutManager(new LinearLayoutManager(this));
         rv_terima.setHasFixedSize(true);
         sessionManager = new SessionManager(this);
+
         ApiService.service_get.getPelangganRev(sessionManager.getKeyId()).enqueue(new Callback<PelangganRevResponse>() {
             @Override
             public void onResponse(Call<PelangganRevResponse> call, Response<PelangganRevResponse> response) {

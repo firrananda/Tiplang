@@ -39,14 +39,15 @@ public class RevKirimActivity extends AppCompatActivity {
         rvKirim.setHasFixedSize(true);
         sessionManager = new SessionManager(this);
 
+        Log.d("test", "onCreate: " + sessionManager.getKeyId());
         ApiService.service_get.getPelangganRevKirim(sessionManager.getKeyId()).enqueue(new Callback<PelangganRevKirimResponse>() {
             @Override
             public void onResponse(Call<PelangganRevKirimResponse> call, Response<PelangganRevKirimResponse> response) {
                 if (response.code() == 200 ){
                     if (response.body().getCode() == 302){
-                        ArrayList<PelangganRevKirim> listPelangganRev = response.body().getList();
-                        Log.d("Get List", "onResponse :" + listPelangganRev.size());
-                        adapter = new RevKirimPelangganAdapter(listPelangganRev, RevKirimActivity.this);
+                        ArrayList<PelangganRevKirim> listPelangganRevKirim = response.body().getList();
+                        Log.d("Get List", "onResponse :" + listPelangganRevKirim.size());
+                        adapter = new RevKirimPelangganAdapter(listPelangganRevKirim, RevKirimActivity.this);
                         rvKirim.setAdapter(adapter);
                     }
                     else {
@@ -55,14 +56,14 @@ public class RevKirimActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    Log.d("Get List", "onResponse :" +response.message());
+                    Log.d("Get List", "onResponse2 :" +response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<PelangganRevKirimResponse> call, Throwable t) {
                 Toast.makeText(RevKirimActivity.this, "Gagal Menghubung Ke Server" , Toast.LENGTH_SHORT).show();
-                Log.e("Get List", "OnResponse : "+t.getMessage(),t);
+                Log.e("Get List", "OnFailure : "+t.getMessage(),t);
                 call.cancel();
             }
         });

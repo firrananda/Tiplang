@@ -21,7 +21,6 @@ import dev.zero.tiplangpdam.model.local.FormData;
 
 public class ProsesPelangganAdapter extends RecyclerView.Adapter<ProsesPelangganAdapter.ViewHolder> {
 
-
     private ArrayList<FormData> listpelanggan;
     private Context context;
 

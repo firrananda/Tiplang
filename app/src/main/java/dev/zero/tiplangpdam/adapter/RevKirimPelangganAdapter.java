@@ -21,11 +21,11 @@ import dev.zero.tiplangpdam.model.PelangganRevKirim;
 
 public class RevKirimPelangganAdapter extends RecyclerView.Adapter<RevKirimPelangganAdapter.ViewHolder> {
 
-    private ArrayList<PelangganRevKirim> listpelanggan;
+    private ArrayList<PelangganRevKirim> listpelangganRevKirim;
     private Context context;
 
     public RevKirimPelangganAdapter(ArrayList<PelangganRevKirim> listpelanggan, Context context) {
-        this.listpelanggan = listpelanggan;
+        this.listpelangganRevKirim = listpelanggan;
         this.context = context;
     }
 
@@ -38,7 +38,7 @@ public class RevKirimPelangganAdapter extends RecyclerView.Adapter<RevKirimPelan
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final PelangganRevKirim data = listpelanggan.get(position);
+        final PelangganRevKirim data = listpelangganRevKirim.get(position);
 
         holder.tvBatdpel.setText(data.getNomor_batd());
         holder.tvTglBatd.setText(data.getTanggal_batd());
@@ -62,7 +62,7 @@ public class RevKirimPelangganAdapter extends RecyclerView.Adapter<RevKirimPelan
 
     @Override
     public int getItemCount() {
-        return listpelanggan.size();
+        return listpelangganRevKirim.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{

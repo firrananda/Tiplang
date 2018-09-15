@@ -25,40 +25,28 @@ public class FormDataRev extends RealmObject implements Parcelable {
     private String pelanggaran;
 
     public FormDataRev() {
-
     }
 
-    protected FormDataRev(Parcel in) {
-        no_batd = in.readString();
-        tanggal_batd = in.readString();
-        no_pelanggan = in.readString();
-        nama_pelanggan = in.readString();
-        zona = in.readString();
-        jalan = in.readString();
-        ket_realisasi = in.readString();
-        hasil = in.readString();
-        kondisi_stan_meter = in.readString();
-        catatan_stan_meter = in.readString();
-        tanggal_angkat = in.readString();
-        no_meter = in.readString();
-        ukuran_meter = in.readString();
-        angka_angkat = in.readString();
-        merk_meter = in.readString();
-        batd_id = in.readString();
-        pelanggaran = in.readString();
+    public FormDataRev(String no_batd, String tanggal_batd, String no_pelanggan, String nama_pelanggan, String zona, String jalan, String ket_realisasi, String hasil, String kondisi_stan_meter, String catatan_stan_meter, String tanggal_angkat, String no_meter, String ukuran_meter, String angka_angkat, String merk_meter, String batd_id, String pelanggaran) {
+
+        this.no_batd = no_batd;
+        this.tanggal_batd = tanggal_batd;
+        this.no_pelanggan = no_pelanggan;
+        this.nama_pelanggan = nama_pelanggan;
+        this.zona = zona;
+        this.jalan = jalan;
+        this.ket_realisasi = ket_realisasi;
+        this.hasil = hasil;
+        this.kondisi_stan_meter = kondisi_stan_meter;
+        this.catatan_stan_meter = catatan_stan_meter;
+        this.tanggal_angkat = tanggal_angkat;
+        this.no_meter = no_meter;
+        this.ukuran_meter = ukuran_meter;
+        this.angka_angkat = angka_angkat;
+        this.merk_meter = merk_meter;
+        this.batd_id = batd_id;
+        this.pelanggaran = pelanggaran;
     }
-
-    public static final Parcelable.Creator<FormDataRev> CREATOR = new Parcelable.Creator<FormDataRev>() {
-        @Override
-        public FormDataRev createFromParcel(Parcel in) {
-            return new FormDataRev(in);
-        }
-
-        @Override
-        public FormDataRev[] newArray(int size) {
-            return new FormDataRev[size];
-        }
-    };
 
     public String getNo_batd() {
         return no_batd;
@@ -106,6 +94,14 @@ public class FormDataRev extends RealmObject implements Parcelable {
 
     public void setJalan(String jalan) {
         this.jalan = jalan;
+    }
+
+    public String getKet_realisasi() {
+        return ket_realisasi;
+    }
+
+    public void setKet_realisasi(String ket_realisasi) {
+        this.ket_realisasi = ket_realisasi;
     }
 
     public String getHasil() {
@@ -188,14 +184,6 @@ public class FormDataRev extends RealmObject implements Parcelable {
         this.pelanggaran = pelanggaran;
     }
 
-    public String getKet_realisasi() {
-        return ket_realisasi;
-    }
-
-    public void setKet_realisasi(String ket_realisasi) {
-        this.ket_realisasi = ket_realisasi;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -203,22 +191,54 @@ public class FormDataRev extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(no_batd);
-        dest.writeString(tanggal_batd);
-        dest.writeString(no_pelanggan);
-        dest.writeString(nama_pelanggan);
-        dest.writeString(zona);
-        dest.writeString(jalan);
-        dest.writeString(ket_realisasi);
-        dest.writeString(hasil);
-        dest.writeString(kondisi_stan_meter);
-        dest.writeString(catatan_stan_meter);
-        dest.writeString(tanggal_angkat);
-        dest.writeString(no_meter);
-        dest.writeString(ukuran_meter);
-        dest.writeString(angka_angkat);
-        dest.writeString(merk_meter);
-        dest.writeString(batd_id);
-        dest.writeString(pelanggaran);
+        dest.writeString(this.no_batd);
+        dest.writeString(this.tanggal_batd);
+        dest.writeString(this.no_pelanggan);
+        dest.writeString(this.nama_pelanggan);
+        dest.writeString(this.zona);
+        dest.writeString(this.jalan);
+        dest.writeString(this.ket_realisasi);
+        dest.writeString(this.hasil);
+        dest.writeString(this.kondisi_stan_meter);
+        dest.writeString(this.catatan_stan_meter);
+        dest.writeString(this.tanggal_angkat);
+        dest.writeString(this.no_meter);
+        dest.writeString(this.ukuran_meter);
+        dest.writeString(this.angka_angkat);
+        dest.writeString(this.merk_meter);
+        dest.writeString(this.batd_id);
+        dest.writeString(this.pelanggaran);
     }
+
+    protected FormDataRev(Parcel in) {
+        this.no_batd = in.readString();
+        this.tanggal_batd = in.readString();
+        this.no_pelanggan = in.readString();
+        this.nama_pelanggan = in.readString();
+        this.zona = in.readString();
+        this.jalan = in.readString();
+        this.ket_realisasi = in.readString();
+        this.hasil = in.readString();
+        this.kondisi_stan_meter = in.readString();
+        this.catatan_stan_meter = in.readString();
+        this.tanggal_angkat = in.readString();
+        this.no_meter = in.readString();
+        this.ukuran_meter = in.readString();
+        this.angka_angkat = in.readString();
+        this.merk_meter = in.readString();
+        this.batd_id = in.readString();
+        this.pelanggaran = in.readString();
+    }
+
+    public static final Creator<FormDataRev> CREATOR = new Creator<FormDataRev>() {
+        @Override
+        public FormDataRev createFromParcel(Parcel source) {
+            return new FormDataRev(source);
+        }
+
+        @Override
+        public FormDataRev[] newArray(int size) {
+            return new FormDataRev[size];
+        }
+    };
 }

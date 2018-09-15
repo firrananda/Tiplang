@@ -29,12 +29,13 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
 public class ApiService {
-    public static String BASE_URL = "http://222.124.168.221";
-    //public static String BASE_URL = "http://192.168.43.21/";
+    //public static String BASE_URL = "http://222.124.168.221";
+    public static String BASE_URL = "http://192.168.43.21";
 
     public static PostService service_post = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -51,11 +52,16 @@ public class ApiService {
 
         @Multipart
         @POST("tiplang/api/add-realisasi")
-        Call<RealisasiResponse> postForm(@PartMap Map<String, RequestBody> params);
+        Call<RealisasiResponse> postForm(@PartMap Map<String, RequestBody> params,
+                                         @Part MultipartBody.Part pict1,
+                                         @Part MultipartBody.Part pict2,
+                                         @Part MultipartBody.Part pict3,
+                                         @Part MultipartBody.Part pict4);
 
         @Multipart
         @POST("tiplang/api/update-realisasi/{id}")
-        Call<Update_RealisasiResponse> updateForm (@Path("id") String id, @PartMap Map<String, RequestBody> params);
+        Call<Update_RealisasiResponse> updateForm (@Path("id") String id,
+                                                   @PartMap Map<String, RequestBody> params);
 
     }
 
@@ -87,7 +93,7 @@ public class ApiService {
         @GET("tiplang/api/view-realisasi-revisi-baru/{id}")
         Call<ViewRealRevBaruResponse> getViewRealRevBaru(@Path("id") String id);
 
-        @GET("tiplang/api/list-revisi-kirim{id}")
+        @GET("tiplang/api/list-revisi-kirim/{id}")
         Call<PelangganRevKirimResponse> getPelangganRevKirim(@Path("id") String id);
 
         @GET("tiplang/api/view-realisasi-revisi-kirim/{id}")
