@@ -178,6 +178,10 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 paramsSave.put("merk_meter", edtMerkMeteran.getText().toString());
                 paramsSave.put("batd_id", String.valueOf(dataPelanggan.getBatd_id()));
                 paramsSave.put("pelanggaran_id", spnPelanggaran.getSelectedItem().toString());
+                paramsSave.put("pict1", imagePath1.getAbsolutePath());
+                paramsSave.put("pict2", imagePath2.getAbsolutePath());
+                paramsSave.put("pict3", imagePath3.getAbsolutePath());
+                paramsSave.put("pict4", imagePath4.getAbsolutePath());
 
                 FormDataSaveHelper.addDataString(paramsSave);
                 finish();
@@ -453,6 +457,10 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 capturedImageUri2 = Uri.fromFile(new File(filename2));
                 capturedImageUri3 = Uri.fromFile(new File(filename3));
                 capturedImageUri4 = Uri.fromFile(new File(filename4));
+                Log.d("Test path pict", "onCreate: 1" + capturedImageUri.getPath());
+                Log.d("Test path pict", "onCreate: 2" + capturedImageUri2.getPath());
+                Log.d("Test path pict", "onCreate: 3" + capturedImageUri3.getPath());
+                Log.d("Test path pict", "onCreate: 4" + capturedImageUri4.getPath());
                 return true;
             } else {
 
@@ -472,6 +480,11 @@ public class FormRealisasiActivity extends AppCompatActivity {
             capturedImageUri2 = Uri.fromFile(new File(filename2));
             capturedImageUri3 = Uri.fromFile(new File(filename3));
             capturedImageUri4 = Uri.fromFile(new File(filename4));
+
+            Log.d("Test path pict", "onCreate: 1" + capturedImageUri.getPath());
+            Log.d("Test path pict", "onCreate: 2" + capturedImageUri2.getPath());
+            Log.d("Test path pict", "onCreate: 3" + capturedImageUri3.getPath());
+            Log.d("Test path pict", "onCreate: 4" + capturedImageUri4.getPath());
             return true;
         }
     }

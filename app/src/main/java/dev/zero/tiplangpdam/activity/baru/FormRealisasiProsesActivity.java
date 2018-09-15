@@ -132,6 +132,11 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         params.put("merk_meter", RequestBody.create(MediaType.parse("text/plain"), edtMerkMeteran.getText().toString()));
         params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(data.getBatd_id())));
         params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
+        String TAG = "test image path";
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
 
 //        imagePath1 = new File(filename);
 //        imagePath2 = new File(filename2);
