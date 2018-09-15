@@ -15,30 +15,31 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
-import dev.zero.tiplangpdam.activity.baru.FormRealisasiActivity;
 import dev.zero.tiplangpdam.activity.baru.FormRealisasiProsesActivity;
+import dev.zero.tiplangpdam.activity.revisi.FormRealProsesRevActivity;
 import dev.zero.tiplangpdam.model.local.FormData;
+import dev.zero.tiplangpdam.model.local.FormDataRev;
 
-public class ProsesPelangganAdapter extends RecyclerView.Adapter<ProsesPelangganAdapter.ViewHolder> {
-
-    private ArrayList<FormData> listpelanggan;
+public class RevProsesPelangganAdapter extends RecyclerView.Adapter<RevProsesPelangganAdapter.ViewHolder> {
+    private ArrayList<FormDataRev> listpelanggan;
     private Context context;
 
-    public ProsesPelangganAdapter(ArrayList<FormData> listpelanggan, Context context) {
+    public RevProsesPelangganAdapter(ArrayList<FormDataRev> listpelanggan, Context context) {
         this.listpelanggan = listpelanggan;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_datapel, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final FormData data = listpelanggan.get(position);
+        final FormDataRev data = listpelanggan.get(position);
         holder.tvBatdpel.setText(data.getNo_batd());
         holder.tvTglBatd.setText(data.getTanggal_batd());
         holder.tvNopel.setText(data.getNo_pelanggan());
@@ -46,7 +47,7 @@ public class ProsesPelangganAdapter extends RecyclerView.Adapter<ProsesPelanggan
         holder.tvZona.setText(data.getZona());
         holder.tvAlamat.setText(data.getJalan());
 
-        final Intent intent = new Intent(context, FormRealisasiProsesActivity.class);
+        final Intent intent = new Intent(context, FormRealProsesRevActivity.class);
 
         holder.btnEntry.setOnClickListener(new View.OnClickListener() {
             @Override

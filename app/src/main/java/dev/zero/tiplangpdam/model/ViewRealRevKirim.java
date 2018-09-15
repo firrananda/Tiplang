@@ -1,23 +1,12 @@
 package dev.zero.tiplangpdam.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-
-public class DataListRealisasi {
+public class ViewRealRevKirim {
     private int id, no_meter, angka_angkat, batd_id, pelanggaran_id, status_baru, status_revisi;
-    private String tanggal_realisasi, hasil, kondisi_stan_meter, catatan_stan_meter, tanggal_angkat, ukuran_meter, merk_meter, ket_realisasi, pict1 , pict2 , pict3, pict4;
+    private String tanggal_realisasi, hasil, kondisi_stan_meter, catatan_stan_meter, tanggal_angkat, ukuran_meter, merk_meter, ket_realisasi, pict1, pict2, pict3, pict4;
 
-    public int getId() { return id; }
-
-    public String getPict1() { return pict1; }
-
-    public String getPict2() { return pict2; }
-
-    public String getPict3() { return pict3; }
-
-    public String getPict4() { return pict4; }
+    public int getId() {
+        return id;
+    }
 
     public int getNo_meter() {
         return no_meter;
@@ -59,7 +48,9 @@ public class DataListRealisasi {
         return catatan_stan_meter;
     }
 
-    public String getTanggal_angkat() { return tanggal_angkat; }
+    public String getTanggal_angkat() {
+        return tanggal_angkat;
+    }
 
     public String getUkuran_meter() {
         return ukuran_meter;
@@ -69,6 +60,23 @@ public class DataListRealisasi {
         return merk_meter;
     }
 
-    public String getKet_realisasi() { return ket_realisasi; }
+    public String getKet_realisasi() {
+        return ket_realisasi;
+    }
 
+    public String getPict1() {
+        return pict1;
+    }
+
+    public String getPict2() {
+        return pict2;
+    }
+
+    public String getPict3() {
+        return pict3;
+    }
+
+    public String getPict4() {
+        return pict4;
+    }
 }

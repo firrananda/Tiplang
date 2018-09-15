@@ -3,11 +3,13 @@ package dev.zero.tiplangpdam.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PelangganRev implements Parcelable{
+import java.util.ArrayList;
+
+public class PelangganRevKirim implements Parcelable{
     private int id_batd, id_realisasi;
     private String nomor_batd, tanggal_batd, nomor_pelanggan, nama, zona, jalan;
 
-    protected PelangganRev(Parcel in) {
+    protected PelangganRevKirim(Parcel in) {
         id_batd = in.readInt();
         id_realisasi = in.readInt();
         nomor_batd = in.readString();
@@ -18,23 +20,25 @@ public class PelangganRev implements Parcelable{
         jalan = in.readString();
     }
 
-    public static final Parcelable.Creator<PelangganRev> CREATOR = new Parcelable.Creator<PelangganRev>() {
+    public static final Parcelable.Creator<PelangganRevKirim> CREATOR = new Parcelable.Creator<PelangganRevKirim>() {
         @Override
-        public PelangganRev createFromParcel(Parcel in) {
-            return new PelangganRev(in);
+        public PelangganRevKirim createFromParcel(Parcel in) {
+            return new PelangganRevKirim(in);
         }
 
         @Override
-        public PelangganRev[] newArray(int size) {
-            return new PelangganRev[size];
+        public PelangganRevKirim[] newArray(int size) {
+            return new PelangganRevKirim[size];
         }
     };
 
-    public int getId_batd() { return id_batd; }
+    public int getId_batd() {
+        return id_batd;
+    }
 
-    public int getId_realisasi() { return id_realisasi; }
-
-    public String getZona() { return zona; }
+    public int getId_realisasi() {
+        return id_realisasi;
+    }
 
     public String getNomor_batd() {
         return nomor_batd;
@@ -50,6 +54,10 @@ public class PelangganRev implements Parcelable{
 
     public String getNama() {
         return nama;
+    }
+
+    public String getZona() {
+        return zona;
     }
 
     public String getJalan() {

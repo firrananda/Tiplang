@@ -1,22 +1,19 @@
 package dev.zero.tiplangpdam.helper;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import dev.zero.tiplangpdam.model.local.FormData;
+import dev.zero.tiplangpdam.model.local.FormDataRev;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import okhttp3.RequestBody;
 
-public class FormDataSaveHelper {
+public class FormDataRevSaveHelper {
     public static void addDataString (HashMap<String, String> dataSave){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        FormData data = realm.createObject(FormData.class);
+        FormDataRev data = realm.createObject(FormDataRev.class);
+        data.setKet_realisasi(dataSave.get("ket_real"));
         data.setHasil(dataSave.get("hasil"));
-        data.setSPK(dataSave.get("spk"));
         data.setNo_batd(dataSave.get("no_batd"));
         data.setTanggal_batd(dataSave.get("tanggal_batd"));
         data.setNo_pelanggan(dataSave.get("no_pelanggan"));
@@ -32,28 +29,25 @@ public class FormDataSaveHelper {
         data.setMerk_meter(dataSave.get("merk_meter"));
         data.setBatd_id(dataSave.get("batd_id"));
         data.setPelanggaran(dataSave.get("pelanggaran_id"));
-        data.setPict1(dataSave.get("pict1"));
-        data.setPict2(dataSave.get("pict2"));
-        data.setPict3(dataSave.get("pict3"));
-        data.setPict4(dataSave.get("pict4"));
         realm.commitTransaction();
         realm.close();
     }
+
     public static void deleteDataPerNoPel(String noPel){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        FormData data = realm.where(FormData.class)
+        FormDataRev data = realm.where(FormDataRev.class)
                 .equalTo("no_pelanggan", noPel).findFirst();
         data.deleteFromRealm();
         realm.commitTransaction();
         realm.close();
     }
 
-    public static ArrayList<FormData> getData(){
+    public static ArrayList<FormDataRev> getData(){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<FormData> data = realm.where(FormData.class).findAll();
-        ArrayList<FormData> formData = new ArrayList<>();
-        formData.addAll(data);
-        return formData;
+        RealmResults<FormDataRev> data = realm.where(FormDataRev.class).findAll();
+        ArrayList<FormDataRev> formDataRev = new ArrayList<>();
+        formDataRev.addAll(data);
+        return formDataRev;
     }
 }

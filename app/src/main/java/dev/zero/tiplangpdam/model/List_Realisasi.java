@@ -4,12 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class List_Realisasi implements Parcelable {
-    private int id;
-    private String nomor_batd, tanggal_batd, nomor_pelanggan, nama, jalan, id_realisasi , zona;
+    private int id_batd, id_realisasi;
+    private String nomor_batd, tanggal_batd, nomor_pelanggan, nama, jalan, zona;
 
-    public int getId() {
-        return id;
-    }
+    public int getId_batd() { return id_batd; }
+
+    public int getId_realisasi() { return id_realisasi; }
 
     public String getNomor_batd() {
         return nomor_batd;
@@ -33,17 +33,16 @@ public class List_Realisasi implements Parcelable {
         return jalan;
     }
 
-    public String getId_realisasi() { return id_realisasi; }
 
     protected List_Realisasi(Parcel in) {
-        id = in.readInt();
+        id_batd = in.readInt();
+        id_realisasi = in.readInt();
         nomor_batd = in.readString();
         tanggal_batd = in.readString();
         nomor_pelanggan = in.readString();
         nama = in.readString();
         zona = in.readString();
         jalan = in.readString();
-        id_realisasi = in.readString();
     }
 
     public static final Parcelable.Creator<List_Realisasi> CREATOR = new Parcelable.Creator<List_Realisasi>() {
@@ -65,13 +64,13 @@ public class List_Realisasi implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeInt(id_batd);
+        dest.writeInt(id_realisasi);
         dest.writeString(nomor_batd);
         dest.writeString(tanggal_batd);
         dest.writeString(nomor_pelanggan);
         dest.writeString(nama);
         dest.writeString(zona);
         dest.writeString(jalan);
-        dest.writeString(id_realisasi);
     }
 }

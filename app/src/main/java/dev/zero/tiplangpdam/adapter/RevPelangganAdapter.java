@@ -44,9 +44,12 @@ public class RevPelangganAdapter extends RecyclerView.Adapter<RevPelangganAdapte
         holder.tvTanggalBatdpel.setText(listitem.getTanggal_batd());
         holder.tvNomorPel.setText(listitem.getNomor_pelanggan());
         holder.tvNamaPel.setText(listitem.getNama());
+        holder.tvzona.setText(listitem.getZona());
         holder.tvJalan.setText(listitem.getJalan());
 
         final Intent intent = new Intent(context, FormRealRevActivity.class);
+        intent.putExtra("datapel", listitem);
+        intent.putExtra("FORM_ID", String.valueOf(listitem.getId_realisasi()));
         holder.btnEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +72,8 @@ public class RevPelangganAdapter extends RecyclerView.Adapter<RevPelangganAdapte
         TextView tvNomorPel;
         @BindView(R.id.tv_namapel)
         TextView tvNamaPel;
+        @BindView(R.id.tv_zona)
+        TextView tvzona;
         @BindView(R.id.tv_alamat)
         TextView tvJalan;
         @BindView(R.id.btn_entry)

@@ -1,17 +1,14 @@
 package dev.zero.tiplangpdam.model.response;
 
-public class CountBaruResponse {
-    private Integer code, baru, kirim;
+import dev.zero.tiplangpdam.model.ViewRealRevKirim;
+
+public class ViewRealRevKirimResponse {
+    private Integer code;
     private String description, message;
+    private ViewRealRevKirim data;
 
     public Integer getCode() {
         return code;
-    }
-
-    public Integer getBaru() { return baru; }
-
-    public Integer getKirim() {
-        return kirim;
     }
 
     public String getDescription() {
@@ -20,5 +17,9 @@ public class CountBaruResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public ViewRealRevKirim getData() {
+        return data;
     }
 }

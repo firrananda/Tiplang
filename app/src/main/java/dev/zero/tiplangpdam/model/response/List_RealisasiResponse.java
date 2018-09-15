@@ -10,7 +10,7 @@ import dev.zero.tiplangpdam.model.List_Realisasi;
 public class List_RealisasiResponse {
     private Integer code;
     private String description, messaage;
-    private List<List_Realisasi> list;
+    private ArrayList<List_Realisasi> list;
 
     public Integer getCode() {
         return code;
@@ -24,7 +24,7 @@ public class List_RealisasiResponse {
         return messaage;
     }
 
-    public List<List_Realisasi> getList() {
+    public ArrayList<List_Realisasi> getList() {
         return list;
     }
 }

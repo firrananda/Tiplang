@@ -132,6 +132,11 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         params.put("merk_meter", RequestBody.create(MediaType.parse("text/plain"), edtMerkMeteran.getText().toString()));
         params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(data.getBatd_id())));
         params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
+        String TAG = "test image path";
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
+        Log.d(TAG, "sendRealisasi: 1" + data.getPict1());
 
 //        imagePath1 = new File(filename);
 //        imagePath2 = new File(filename2);
@@ -153,35 +158,35 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         dialog.setMessage("Loading...");
         dialog.setTitle("Mengirim data");
         dialog.show();
-        ApiService.service_post.postForm(params).enqueue(new Callback<RealisasiResponse>() {
-            @Override
-            public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
-                dialog.dismiss();
-                if (response.code() == 200) {
-                    if (response.body().getCode() == 302) {
-                        Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        FormDataSaveHelper.deleteDataPerNoPel(data.getNo_pelanggan());
-                        finish();
-                    } else {
-                        Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("Send Form Realisasi", "onResponse: " + response.body().getCode());
-                        Log.d("Send Form Realisasi", "onResponse: " + response.body().getMessage());
-                        Log.d("Send Form Realisasi", "onResponse: " + response.body().getDescription());
-                    }
-                }else {
-                    Toast.makeText(FormRealisasiProsesActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                    Log.d("Send Form Realisasi", "onResponse: " + response.code());
-                    Log.d("Send Form Realisasi", "onResponse: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RealisasiResponse> call, Throwable t) {
-                dialog.dismiss();
-                Log.e("Error Send Form", "onFailure: " + t.getMessage(), t);
-                Toast.makeText(FormRealisasiProsesActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        ApiService.service_post.postForm(params).enqueue(new Callback<RealisasiResponse>() {
+//            @Override
+//            public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
+//                dialog.dismiss();
+//                if (response.code() == 200) {
+//                    if (response.body().getCode() == 302) {
+//                        Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        FormDataSaveHelper.deleteDataPerNoPel(data.getNo_pelanggan());
+//                        finish();
+//                    } else {
+//                        Toast.makeText(FormRealisasiProsesActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        Log.d("Send Form Realisasi", "onResponse: " + response.body().getCode());
+//                        Log.d("Send Form Realisasi", "onResponse: " + response.body().getMessage());
+//                        Log.d("Send Form Realisasi", "onResponse: " + response.body().getDescription());
+//                    }
+//                }else {
+//                    Toast.makeText(FormRealisasiProsesActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+//                    Log.d("Send Form Realisasi", "onResponse: " + response.code());
+//                    Log.d("Send Form Realisasi", "onResponse: " + response.message());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RealisasiResponse> call, Throwable t) {
+//                dialog.dismiss();
+//                Log.e("Error Send Form", "onFailure: " + t.getMessage(), t);
+//                Toast.makeText(FormRealisasiProsesActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     public void getPelanggaran() {
