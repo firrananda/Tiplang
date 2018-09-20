@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.net.Uri;
@@ -30,14 +31,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.activity.TandaTanganActivity;
 import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggan;
 import dev.zero.tiplangpdam.model.Pelanggaran;
@@ -45,14 +59,22 @@ import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
 import dev.zero.tiplangpdam.service.ApiService;
 import dev.zero.tiplangpdam.service.ImageSaver;
+import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import pl.aprilapps.easyphotopicker.EasyImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FormRealisasiActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_PICTURE_1 = 1;
+    private static final int REQUEST_CODE_PICTURE_2 = 2;
+    private static final int REQUEST_CODE_PICTURE_3 = 3;
+    private static final int REQUEST_CODE_PICTURE_4 = 4;
+    public static final int TandaTangan_Activity = 5;
 
     @BindView(R.id.tv_batd)
     TextView tvbatd;
@@ -90,37 +112,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
     ImageView ivFotohasil4;
     @BindView(R.id.cardtambahan)
     CardView cardtambahan;
-
-    MultipartBody.Part pict1, pict2, pict3, pict4;
-
-    //Uri capturedImageUri;
-    //Uri capturedImageUri;
-    Uri capturedImageUri;
-    Uri capturedImageUri2;
-    Uri capturedImageUri3;
-    Uri capturedImageUri4;
-    //static boolean imageLoaded = false;
-//    File file=null;File file2 = null;
-    File imagePath1;
-    File imagePath2;
-    File imagePath4;
-    File imagePath3;
-    String BATD_ID;
-    String idPel = null;
-    String filename;
-    String filename2;
-    String filename3;
-    String filename4;
-    //File file;
-    //String lokasiGambar = null;
-    //Context context;
-
-    float scale;
-    String nolang = "12345_.jpg";
-    Bitmap bitmap, bitmap2, bitmap3, bitmap4;
-    int w, h;
-    Matrix matrix;
-    RectF r;
     @BindView(R.id.tv_tgl_ba)
     TextView tvTglBa;
     @BindView(R.id.btn_foto1)
@@ -135,7 +126,14 @@ public class FormRealisasiActivity extends AppCompatActivity {
     Button btnProses;
     @BindView(R.id.btn_kirim)
     Button btnKirim;
+
+    MultipartBody.Part pict1, pict2, pict3, pict4;
+    File imagePath1, imagePath2, imagePath3, imagePath4;
+    Bitmap bitmap;
     Pelanggan dataPelanggan;
+    private static final int MY_CAMERA_REQUEST_CODE = 100;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,13 +144,13 @@ public class FormRealisasiActivity extends AppCompatActivity {
 
         tvbatd.setText(dataPelanggan.getNomor_batd());
         tvTglBa.setText(dataPelanggan.getTanggal_batd());
-
-        idPel = nolang;
-
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        isWriteStoragePermissionGranted();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        MY_CAMERA_REQUEST_CODE);
+            }
+        }
         getPelanggaran();
     }
 
@@ -178,10 +176,10 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 paramsSave.put("merk_meter", edtMerkMeteran.getText().toString());
                 paramsSave.put("batd_id", String.valueOf(dataPelanggan.getBatd_id()));
                 paramsSave.put("pelanggaran_id", spnPelanggaran.getSelectedItem().toString());
-                paramsSave.put("pict1", imagePath1.getAbsolutePath());
-                paramsSave.put("pict2", imagePath2.getAbsolutePath());
-                paramsSave.put("pict3", imagePath3.getAbsolutePath());
-                paramsSave.put("pict4", imagePath4.getAbsolutePath());
+                if(imagePath1 != null) paramsSave.put("pict1", imagePath1.getAbsolutePath());
+                if(imagePath2 != null) paramsSave.put("pict2", imagePath2.getAbsolutePath());
+                if(imagePath3 != null) paramsSave.put("pict3", imagePath3.getAbsolutePath());
+                if(imagePath4 != null) paramsSave.put("pict4", imagePath4.getAbsolutePath());
 
                 FormDataSaveHelper.addDataString(paramsSave);
                 finish();
@@ -199,35 +197,15 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(dataPelanggan.getBatd_id())));
                 params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
 
-                imagePath1 = new File(capturedImageUri.getPath());
-                imagePath2 = new File(capturedImageUri2.getPath());
-                imagePath3 = new File(capturedImageUri3.getPath());
-                imagePath4 = new File(capturedImageUri4.getPath());
                 RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
                 RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
                 RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
                 RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
 
-
                 pict1=MultipartBody.Part.createFormData("pict1",imagePath1.getName(),file1);
                 pict2=MultipartBody.Part.createFormData("pict2",imagePath2.getName(),file2);
                 pict3=MultipartBody.Part.createFormData("pict3",imagePath3.getName(),file3);
                 pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
-//                params.put("pict1", RequestBody.create(MediaType.parse("image/*"), imagePath1.getName()));
-//                params.put("pict2", RequestBody.create(MediaType.parse("image/*"), imagePath2.getName()));
-//                params.put("pict3", RequestBody.create(MediaType.parse("image/*"), imagePath3.getName()));
-//                params.put("pict4", RequestBody.create(MediaType.parse("image/*"), imagePath4.getName()));
-
-//                RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
-//                RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
-//                RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
-//                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
-                //HashMap<String, MultipartBody.Part> parts = new HashMap<>();
-
-//                parts.put(MultipartBody.Part.createFormData("pict1", imagePath1.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath1)));
-//                parts.put(MultipartBody.Part.createFormData("pict2", imagePath2.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath2));
-//                parts.put(MultipartBody.Part.createFormData("pict3", imagePath3.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath3));
-//                parts.put(MultipartBody.Part.createFormData("pict4", imagePath4.getName(), RequestBody.create(MediaType.parse("image/*"), imagePath4));
 
                 final ProgressDialog dialog = new ProgressDialog(this);
                 dialog.setCancelable(false);
@@ -240,7 +218,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
                         dialog.dismiss();
                         if (response.code() == 200) {
                             if (response.body().getCode() == 302) {
-                                //Toast.makeText(FormRealisasiActivity.this, imagePath1.toString(), Toast.LENGTH_SHORT).show();
                                 Toast.makeText(FormRealisasiActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
@@ -265,281 +242,86 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 });
                 break;
             case R.id.btn_foto1:
-                TakePicture();
+                EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_1);
+                Log.d("get foto Realisasi", "respon: hahah ");
                 break;
             case R.id.btn_foto2:
-                TakePicture2();
+                EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_2);
                 break;
             case R.id.btn_foto3:
-                TakePicture3();
+                EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_3);
                 break;
             case R.id.btn_foto4:
-                TakePicture4();
+                //EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_4);
+                Intent intent = new Intent(FormRealisasiActivity.this, TandaTanganActivity.class);
+                startActivityForResult(intent, TandaTangan_Activity);
                 break;
         }
     }
 
-
-    private void TakePicture() {
-
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1001);
-            }
-
-        } else {
-            // Check Camera
-            if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri);
-                startActivityForResult(cameraIntent, 1888);
-            } else {
-                Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-
-    private void TakePicture2() {
-
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1002);
-            }
-
-        } else {
-            // Check Camera
-            if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                Intent cameraIntent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                cameraIntent2.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri2);
-                startActivityForResult(cameraIntent2, 1889);
-            } else {
-                Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void TakePicture3() {
-
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1003);
-            }
-
-        } else {
-            // Check Camera
-            if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                Intent cameraIntent3 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                cameraIntent3.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri3);
-                startActivityForResult(cameraIntent3, 1890);
-            } else {
-                Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void TakePicture4() {
-
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1004);
-            }
-
-        } else {
-            // Check Camera
-            if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                Intent cameraIntent4 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                cameraIntent4.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri4);
-                startActivityForResult(cameraIntent4, 1891);
-            } else {
-                Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private Uri saveImageFile(Bitmap bitmap_data, String filename) {
-        Uri imageUri = new ImageSaver(getApplicationContext())
-                .setFileName(filename)
-                .setDirectoryName("Tutup Dinas")
-                .setResolution(1024, 768)
-                .setContentQR(tvbatd.getText().toString())
-                .save(bitmap_data);
-        return imageUri;
-    }
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED) {
-            if (requestCode == 1001) {
-                if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri);
-                    startActivityForResult(cameraIntent, 1888);
-                } else {
-                    Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-                }
-            }
-            if (requestCode == 1002) {
-                if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                    Intent cameraIntent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntent2.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri2);
-                    startActivityForResult(cameraIntent2, 1889);
-                } else {
-                    Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-                }
-            }
-            if (requestCode == 1003) {
-                if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                    Intent cameraIntent3 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntent3.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri3);
-                    startActivityForResult(cameraIntent3, 1890);
-                } else {
-                    Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            if (requestCode == 1004) {
-                if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                    Intent cameraIntent4 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    cameraIntent4.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri3);
-                    startActivityForResult(cameraIntent4, 1891);
-                } else {
-                    Toast.makeText(getApplication(), "Camera not supported", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/");
-            boolean success = true;
-            if (!folder.exists()) {
-                Toast.makeText(FormRealisasiActivity.this, "Directory Does Not Exist, Create It", Toast.LENGTH_SHORT).show();
-                success = folder.mkdir();
-            }
-            if (success) {
-                Toast.makeText(FormRealisasiActivity.this, "Directory Created", Toast.LENGTH_SHORT).show();
-            } else {
-                //Toast.makeText(MainActivity.this, "Failed - Error", Toast.LENGTH_SHORT).show();
-            }
-            Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public boolean isWriteStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-//                Log.v(TAG,"Permission is granted2");
-                filename = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_1.jpg";
-                filename2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_2.jpg";
-                filename3 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_3.jpg";
-                filename4 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_4.jpg";
-
-                //Environment.getExternalStorageDirectory().getPath() + "/folder/testfile.jpg";
-                capturedImageUri = Uri.fromFile(new File(filename));
-                capturedImageUri2 = Uri.fromFile(new File(filename2));
-                capturedImageUri3 = Uri.fromFile(new File(filename3));
-                capturedImageUri4 = Uri.fromFile(new File(filename4));
-                Log.d("Test path pict", "onCreate: 1" + capturedImageUri.getPath());
-                Log.d("Test path pict", "onCreate: 2" + capturedImageUri2.getPath());
-                Log.d("Test path pict", "onCreate: 3" + capturedImageUri3.getPath());
-                Log.d("Test path pict", "onCreate: 4" + capturedImageUri4.getPath());
-                return true;
-            } else {
-
-//                Log.v(TAG,"Permission is revoked2");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-                return false;
-            }
-        } else { //permission is automatically granted on sdk<23 upon installation
-//            Log.v(TAG,"Permission is granted2");
-            filename = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_1.jpg";
-            filename2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_2.jpg";
-            filename3 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_3.jpg";
-            filename4 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_4.jpg";
-
-            //Environment.getExternalStorageDirectory().getPath() + "/folder/testfile.jpg";
-            capturedImageUri = Uri.fromFile(new File(filename));
-            capturedImageUri2 = Uri.fromFile(new File(filename2));
-            capturedImageUri3 = Uri.fromFile(new File(filename3));
-            capturedImageUri4 = Uri.fromFile(new File(filename4));
-
-            Log.d("Test path pict", "onCreate: 1" + capturedImageUri.getPath());
-            Log.d("Test path pict", "onCreate: 2" + capturedImageUri2.getPath());
-            Log.d("Test path pict", "onCreate: 3" + capturedImageUri3.getPath());
-            Log.d("Test path pict", "onCreate: 4" + capturedImageUri4.getPath());
-            return true;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1888) {
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri);
-            } catch (Exception e) {
-                bitmap = null;
-//                Log.e(TAG,"Gagal ambil data gambar");
-            }
-            Bitmap c = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_1.jpg");
-            ivFotohasil1.setImageBitmap(c);
-            saveImageFile(bitmap, tvbatd.getText().toString()+"_1.jpg");
-            imagePath1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_1.jpg");
 
-        } else if (requestCode == 1889) {
-            try {
-                bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri2);
-            } catch (Exception e) {
-                bitmap2 = null;
-//                Log.e(TAG,"Gagal ambil data gambar");
-            }
-            Bitmap d = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/Tutup Dinas/"+tvbatd.getText().toString()+"_2.jpg");
-            ivFotohasil2.setImageBitmap(d);
-            saveImageFile(bitmap2, tvbatd.getText().toString()+"_2.jpg");
-            imagePath2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/"+tvbatd.getText().toString()+"_2.jpg");
+        if (requestCode == TandaTangan_Activity){
+            String path = getIntent().getStringExtra("mypath");
+            Log.d("Path", "onActivityResult: " + path);
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+//            bitmap = Bitmap.createScaledBitmap(bitmap, 786,1024, true );
 
-        } else if (requestCode == 1890) {
-            try {
-                bitmap3 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri3);
-            } catch (Exception e) {
-                bitmap3 = null;
-//                Log.e(TAG,"Gagal ambil data gambar");
-            }
-            Bitmap e = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/"+tvbatd.getText().toString()+"_3.jpg");
-            ivFotohasil3.setImageBitmap(e);
-            saveImageFile(bitmap3, tvbatd.getText().toString()+"_3.jpg");
-            imagePath3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/"+tvbatd.getText().toString()+"_3.jpg");
-
-        } else if (requestCode == 1891) {
-            try {
-                bitmap4 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), capturedImageUri4);
-            } catch (Exception e) {
-                bitmap4 = null;
-//                Log.e(TAG,"Gagal ambil data gambar");
-            }
-            Bitmap f = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/"+tvbatd.getText().toString()+"_4.jpg");
-            ivFotohasil4.setImageBitmap(f);
-            saveImageFile(bitmap4, tvbatd.getText().toString()+"_4.jpg");
-            imagePath4 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Tutup Dinas/"+tvbatd.getText().toString()+"_4.jpg");
+            Glide.with(FormRealisasiActivity.this)
+                    .load(bitmap)
+                    .into(ivFotohasil4);
+//            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature.jpg");
         }
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                switch (type){
+                    case REQUEST_CODE_PICTURE_1:
+                        Glide.with(FormRealisasiActivity.this)
+                                .load(imageFile)
+                                .into(ivFotohasil1);
+                        bitmap = ImageSaver.createImageWithBarcode(imageFile,tvbatd.getText().toString());
+                        imagePath1 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+ "_1");
+                        break;
+                    case REQUEST_CODE_PICTURE_2:
+                        Glide.with(FormRealisasiActivity.this)
+                                .load(imageFile)
+                                .into(ivFotohasil2);
+                        bitmap = ImageSaver.createImageWithBarcode(imageFile,tvbatd.getText().toString());
+                        imagePath2 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+ "_2");
+                        break;
+                    case REQUEST_CODE_PICTURE_3:
+                        Glide.with(FormRealisasiActivity.this)
+                                .load(imageFile)
+                                .into(ivFotohasil3);
+                        bitmap = ImageSaver.createImageWithBarcode(imageFile,tvbatd.getText().toString());
+                        imagePath3 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+ "_3");
+                        break;
+//                    case REQUEST_CODE_PICTURE_4:
+//                        Glide.with(FormRealisasiActivity.this)
+//                                .load(imageFile)
+//                                .into(ivFotohasil4);
+//                        imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this,bitmap, tvbatd.getText().toString()+ "_3");
+//                        break;
+
+                }
+                Log.d("Path", "onImagePicked: " + imageFile.getAbsolutePath());
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toasty.error(FormRealisasiActivity.this, "Kenapa nggak jadi ambil foto kwkw");
+            }
+        });
     }
 
     public void getPelanggaran() {
@@ -575,4 +357,24 @@ public class FormRealisasiActivity extends AppCompatActivity {
             }
         });
     }
-}
+
+    @Override
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == MY_CAMERA_REQUEST_CODE) {
+
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+
+            } else {
+
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
+}}

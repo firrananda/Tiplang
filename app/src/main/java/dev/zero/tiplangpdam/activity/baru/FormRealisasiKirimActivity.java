@@ -20,7 +20,6 @@ import dev.zero.tiplangpdam.service.SessionManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.squareup.picasso.Picasso;
 
 public class FormRealisasiKirimActivity extends AppCompatActivity {
 
@@ -86,7 +85,6 @@ public class FormRealisasiKirimActivity extends AppCompatActivity {
                         tvUkuranMeter.setText(response.body().getData().getUkuran_meter());
                         tvAngkaAngkat.setText(String.valueOf(response.body().getData().getAngka_angkat()));
                         tvMerkMeteran.setText(response.body().getData().getMerk_meter());
-
 
                         Toast.makeText(FormRealisasiKirimActivity.this, response.body().getData().getPict1(), Toast.LENGTH_SHORT).show();
                         Glide.with(FormRealisasiKirimActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict1() ).into(ivFotohasil1);

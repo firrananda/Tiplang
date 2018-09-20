@@ -29,6 +29,10 @@ public class FormDataRevSaveHelper {
         data.setMerk_meter(dataSave.get("merk_meter"));
         data.setBatd_id(dataSave.get("batd_id"));
         data.setPelanggaran(dataSave.get("pelanggaran_id"));
+        data.setPict1(dataSave.get("pict1"));
+        data.setPict2(dataSave.get("pict2"));
+        data.setPict3(dataSave.get("pict3"));
+        data.setPict4(dataSave.get("pict4"));
         realm.commitTransaction();
         realm.close();
     }

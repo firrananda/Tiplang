@@ -23,6 +23,10 @@ public class FormDataRev extends RealmObject implements Parcelable {
     private String merk_meter;
     private String batd_id;
     private String pelanggaran;
+    private String pict1;
+    private String pict2;
+    private String pict3;
+    private String pict4;
 
     public FormDataRev() {
     }
@@ -184,6 +188,38 @@ public class FormDataRev extends RealmObject implements Parcelable {
         this.pelanggaran = pelanggaran;
     }
 
+    public String getPict1() {
+        return pict1;
+    }
+
+    public void setPict1(String pict1) {
+        this.pict1 = pict1;
+    }
+
+    public String getPict2() {
+        return pict2;
+    }
+
+    public void setPict2(String pict2) {
+        this.pict2 = pict2;
+    }
+
+    public String getPict3() {
+        return pict3;
+    }
+
+    public void setPict3(String pict3) {
+        this.pict3 = pict3;
+    }
+
+    public String getPict4() {
+        return pict4;
+    }
+
+    public void setPict4(String pict4) {
+        this.pict4 = pict4;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -208,6 +244,10 @@ public class FormDataRev extends RealmObject implements Parcelable {
         dest.writeString(this.merk_meter);
         dest.writeString(this.batd_id);
         dest.writeString(this.pelanggaran);
+        dest.writeString(this.pict1);
+        dest.writeString(this.pict2);
+        dest.writeString(this.pict3);
+        dest.writeString(this.pict4);
     }
 
     protected FormDataRev(Parcel in) {
@@ -228,6 +268,10 @@ public class FormDataRev extends RealmObject implements Parcelable {
         this.merk_meter = in.readString();
         this.batd_id = in.readString();
         this.pelanggaran = in.readString();
+        this.pict1 = in.readString();
+        this.pict2 = in.readString();
+        this.pict3 = in.readString();
+        this.pict4 = in.readString();
     }
 
     public static final Creator<FormDataRev> CREATOR = new Creator<FormDataRev>() {

@@ -40,7 +40,9 @@
         <activity android:name=".activity.baru.BarudataPelProsesActivity" />
         <activity android:name=".activity.baru.FormRealisasiKirimActivity" />
         <activity android:name=".activity.baru.BarudataPelKirimActivity" />
-        <activity android:name=".activity.revisi.FormRealKirimRevActivity"></activity>
+        <activity android:name=".activity.revisi.FormRealKirimRevActivity" />
+        <activity android:name=".activity.TandaTanganActivity" />
+        <activity android:name=".SignatureActivity"></activity>
     </application>
 
 </manifest>

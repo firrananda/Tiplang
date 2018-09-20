@@ -184,6 +184,10 @@ public class FormRealRevActivity extends AppCompatActivity {
                 paramsSave.put("merk_meter", edtMerkMeteran.getText().toString());
                 paramsSave.put("batd_id", String.valueOf(datapelrev.getId_batd()));
                 paramsSave.put("pelanggaran_id", spnPelanggaran.getSelectedItem().toString());
+                paramsSave.put("pict1", imagePath1.getAbsolutePath());
+                paramsSave.put("pict2", imagePath2.getAbsolutePath());
+                paramsSave.put("pict3", imagePath3.getAbsolutePath());
+                paramsSave.put("pict4", imagePath4.getAbsolutePath());
 
                 FormDataRevSaveHelper.addDataString(paramsSave);
                 finish();
