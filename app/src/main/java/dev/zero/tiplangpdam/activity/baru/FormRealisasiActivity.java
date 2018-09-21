@@ -51,6 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.SignatureActivity;
 import dev.zero.tiplangpdam.activity.TandaTanganActivity;
 import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggan;
@@ -253,7 +254,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 break;
             case R.id.btn_foto4:
                 //EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_4);
-                Intent intent = new Intent(FormRealisasiActivity.this, TandaTanganActivity.class);
+                Intent intent = new Intent(FormRealisasiActivity.this, SignatureActivity.class);
                 startActivityForResult(intent, TandaTangan_Activity);
                 break;
         }
@@ -264,16 +265,16 @@ public class FormRealisasiActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == TandaTangan_Activity){
-            String path = getIntent().getStringExtra("mypath");
+            String path = data.getStringExtra("sign");
             Log.d("Path", "onActivityResult: " + path);
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-//            bitmap = Bitmap.createScaledBitmap(bitmap, 786,1024, true );
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 786,1024, true );
 
             Glide.with(FormRealisasiActivity.this)
                     .load(bitmap)
                     .into(ivFotohasil4);
-//            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature.jpg");
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature"+ tvbatd.getText().toString() +".jpg");
         }
 
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
