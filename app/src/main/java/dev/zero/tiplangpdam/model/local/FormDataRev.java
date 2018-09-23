@@ -31,26 +31,26 @@ public class FormDataRev extends RealmObject implements Parcelable {
     public FormDataRev() {
     }
 
-    public FormDataRev(String no_batd, String tanggal_batd, String no_pelanggan, String nama_pelanggan, String zona, String jalan, String ket_realisasi, String hasil, String kondisi_stan_meter, String catatan_stan_meter, String tanggal_angkat, String no_meter, String ukuran_meter, String angka_angkat, String merk_meter, String batd_id, String pelanggaran) {
-
-        this.no_batd = no_batd;
-        this.tanggal_batd = tanggal_batd;
-        this.no_pelanggan = no_pelanggan;
-        this.nama_pelanggan = nama_pelanggan;
-        this.zona = zona;
-        this.jalan = jalan;
-        this.ket_realisasi = ket_realisasi;
-        this.hasil = hasil;
-        this.kondisi_stan_meter = kondisi_stan_meter;
-        this.catatan_stan_meter = catatan_stan_meter;
-        this.tanggal_angkat = tanggal_angkat;
-        this.no_meter = no_meter;
-        this.ukuran_meter = ukuran_meter;
-        this.angka_angkat = angka_angkat;
-        this.merk_meter = merk_meter;
-        this.batd_id = batd_id;
-        this.pelanggaran = pelanggaran;
-    }
+//    public FormDataRev(String no_batd, String tanggal_batd, String no_pelanggan, String nama_pelanggan, String zona, String jalan, String ket_realisasi, String hasil, String kondisi_stan_meter, String catatan_stan_meter, String tanggal_angkat, String no_meter, String ukuran_meter, String angka_angkat, String merk_meter, String batd_id, String pelanggaran) {
+//
+//        this.no_batd = no_batd;
+//        this.tanggal_batd = tanggal_batd;
+//        this.no_pelanggan = no_pelanggan;
+//        this.nama_pelanggan = nama_pelanggan;
+//        this.zona = zona;
+//        this.jalan = jalan;
+//        this.ket_realisasi = ket_realisasi;
+//        this.hasil = hasil;
+//        this.kondisi_stan_meter = kondisi_stan_meter;
+//        this.catatan_stan_meter = catatan_stan_meter;
+//        this.tanggal_angkat = tanggal_angkat;
+//        this.no_meter = no_meter;
+//        this.ukuran_meter = ukuran_meter;
+//        this.angka_angkat = angka_angkat;
+//        this.merk_meter = merk_meter;
+//        this.batd_id = batd_id;
+//        this.pelanggaran = pelanggaran;
+//    }
 
     public String getNo_batd() {
         return no_batd;

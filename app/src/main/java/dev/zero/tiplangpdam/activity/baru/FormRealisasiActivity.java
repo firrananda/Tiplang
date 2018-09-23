@@ -51,6 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.SignatureActivity;
 import dev.zero.tiplangpdam.activity.TandaTanganActivity;
 import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggan;
@@ -133,8 +134,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
     Pelanggan dataPelanggan;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,19 +199,19 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
                 RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
                 RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
-                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
+                //RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
 
                 pict1=MultipartBody.Part.createFormData("pict1",imagePath1.getName(),file1);
                 pict2=MultipartBody.Part.createFormData("pict2",imagePath2.getName(),file2);
                 pict3=MultipartBody.Part.createFormData("pict3",imagePath3.getName(),file3);
-                pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
+                //pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
 
                 final ProgressDialog dialog = new ProgressDialog(this);
                 dialog.setCancelable(false);
                 dialog.setMessage("Loading...");
                 dialog.setTitle("Mengirim data");
                 dialog.show();
-                ApiService.service_post.postForm(params,pict1,pict2,pict3,pict4).enqueue(new Callback<RealisasiResponse>() {
+                ApiService.service_post.postForm(params,pict1,pict2,pict3).enqueue(new Callback<RealisasiResponse>() {
                     @Override
                     public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
                         dialog.dismiss();
@@ -253,7 +252,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 break;
             case R.id.btn_foto4:
                 //EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_4);
-                Intent intent = new Intent(FormRealisasiActivity.this, TandaTanganActivity.class);
+                Intent intent = new Intent(FormRealisasiActivity.this, SignatureActivity.class);
                 startActivityForResult(intent, TandaTangan_Activity);
                 break;
         }
@@ -264,48 +263,42 @@ public class FormRealisasiActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == TandaTangan_Activity){
-            String path = getIntent().getStringExtra("mypath");
+            String path = getIntent().getStringExtra("sign");
             Log.d("Path", "onActivityResult: " + path);
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-//            bitmap = Bitmap.createScaledBitmap(bitmap, 786,1024, true );
+            Bitmap bitmapImage = BitmapFactory.decodeFile(path);
+            imagePath4 = ImageSaver.convertBitmapToFile(this,bitmapImage,"sign");
+        }else {
 
-            Glide.with(FormRealisasiActivity.this)
-                    .load(bitmap)
-                    .into(ivFotohasil4);
-//            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature.jpg");
-        }
+            EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                    e.printStackTrace();
+                }
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                switch (type){
-                    case REQUEST_CODE_PICTURE_1:
-                        Glide.with(FormRealisasiActivity.this)
-                                .load(imageFile)
-                                .into(ivFotohasil1);
-                        bitmap = ImageSaver.createImageWithBarcode(imageFile,tvbatd.getText().toString());
-                        imagePath1 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+ "_1");
-                        break;
-                    case REQUEST_CODE_PICTURE_2:
-                        Glide.with(FormRealisasiActivity.this)
-                                .load(imageFile)
-                                .into(ivFotohasil2);
-                        bitmap = ImageSaver.createImageWithBarcode(imageFile,tvbatd.getText().toString());
-                        imagePath2 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+ "_2");
-                        break;
-                    case REQUEST_CODE_PICTURE_3:
-                        Glide.with(FormRealisasiActivity.this)
-                                .load(imageFile)
-                                .into(ivFotohasil3);
-                        bitmap = ImageSaver.createImageWithBarcode(imageFile,tvbatd.getText().toString());
-                        imagePath3 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+ "_3");
-                        break;
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                    switch (type) {
+                        case REQUEST_CODE_PICTURE_1:
+                            Glide.with(FormRealisasiActivity.this)
+                                    .load(imageFile)
+                                    .into(ivFotohasil1);
+                            bitmap = ImageSaver.createImageWithBarcode(imageFile, tvbatd.getText().toString());
+                            imagePath1 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+"_1");
+                            break;
+                        case REQUEST_CODE_PICTURE_2:
+                            Glide.with(FormRealisasiActivity.this)
+                                    .load(imageFile)
+                                    .into(ivFotohasil2);
+                            bitmap = ImageSaver.createImageWithBarcode(imageFile, tvbatd.getText().toString());
+                            imagePath2 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+"_2");
+                            break;
+                        case REQUEST_CODE_PICTURE_3:
+                            Glide.with(FormRealisasiActivity.this)
+                                    .load(imageFile)
+                                    .into(ivFotohasil3);
+                            bitmap = ImageSaver.createImageWithBarcode(imageFile, tvbatd.getText().toString());
+                            imagePath3 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, tvbatd.getText().toString()+"_3");
+                            break;
 //                    case REQUEST_CODE_PICTURE_4:
 //                        Glide.with(FormRealisasiActivity.this)
 //                                .load(imageFile)
@@ -313,15 +306,16 @@ public class FormRealisasiActivity extends AppCompatActivity {
 //                        imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this,bitmap, tvbatd.getText().toString()+ "_3");
 //                        break;
 
+                    }
+                    Log.d("Path", "onImagePicked: " + imageFile.getAbsolutePath());
                 }
-                Log.d("Path", "onImagePicked: " + imageFile.getAbsolutePath());
-            }
 
-            @Override
-            public void onCanceled(EasyImage.ImageSource source, int type) {
-                Toasty.error(FormRealisasiActivity.this, "Kenapa nggak jadi ambil foto kwkw");
-            }
-        });
+                @Override
+                public void onCanceled(EasyImage.ImageSource source, int type) {
+                    Toasty.error(FormRealisasiActivity.this, "Kenapa nggak jadi ambil foto kwkw");
+                }
+            });
+        }
     }
 
     public void getPelanggaran() {
@@ -377,4 +371,5 @@ public class FormRealisasiActivity extends AppCompatActivity {
             }
 
         }
-}}
+    }
+}

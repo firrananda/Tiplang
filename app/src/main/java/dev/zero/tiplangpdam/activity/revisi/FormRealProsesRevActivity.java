@@ -1,15 +1,23 @@
 package dev.zero.tiplangpdam.activity.revisi;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,10 +25,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.activity.baru.FormRealisasiProsesActivity;
 import dev.zero.tiplangpdam.model.Pelanggaran;
 import dev.zero.tiplangpdam.model.local.FormDataRev;
+import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
+import dev.zero.tiplangpdam.service.ApiService;
+import dev.zero.tiplangpdam.service.ImageSaver;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FormRealProsesRevActivity extends AppCompatActivity {
 
@@ -68,6 +84,10 @@ public class FormRealProsesRevActivity extends AppCompatActivity {
     @BindView(R.id.tv_ket_realisasi)
     TextView tvKetRealisasi;
 
+    MultipartBody.Part pict1, pict2, pict3, pict4;
+    File imagePath1, imagePath2, imagePath3, imagePath4;
+    Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +95,7 @@ public class FormRealProsesRevActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         data = getIntent().getParcelableExtra("data");
+        getPelanggaran();
         initLastData();
 
     }
@@ -92,6 +113,26 @@ public class FormRealProsesRevActivity extends AppCompatActivity {
         edtUkuranMeter.setText(data.getUkuran_meter());
         edtAngkaAngkat.setText(data.getAngka_angkat());
         edtMerkMeteran.setText(data.getMerk_meter());
+        if (data.getPict1() != null) {
+            Glide.with(this).load(new File(data.getPict1())).into(ivFotohasil1);
+            bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict1()),tvBatd.getText().toString());
+            imagePath1 = ImageSaver.convertBitmapToFile(FormRealProsesRevActivity.this, bitmap, tvBatd.getText().toString()+ "_1");
+        }
+        if (data.getPict2() != null) {
+            Glide.with(this).load(new File(data.getPict2())).into(ivFotohasil2);
+            bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict2()),tvBatd.getText().toString());
+            imagePath2 = ImageSaver.convertBitmapToFile(FormRealProsesRevActivity.this, bitmap, tvBatd.getText().toString()+ "_2");
+        }
+        if (data.getPict3() != null) {
+            Glide.with(this).load(new File(data.getPict3())).into(ivFotohasil3);
+            bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict3()),tvBatd.getText().toString());
+            imagePath3 = ImageSaver.convertBitmapToFile(FormRealProsesRevActivity.this, bitmap, tvBatd.getText().toString()+ "_3");
+        }
+        if (data.getPict4() != null) {
+            Glide.with(this).load(new File(data.getPict4())).into(ivFotohasil4);
+            bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict4()),tvBatd.getText().toString());
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealProsesRevActivity.this, bitmap, tvBatd.getText().toString()+ "_4");
+        }
     }
 
     @OnClick({R.id.btn_foto1, R.id.btn_foto2, R.id.btn_foto3, R.id.btn_foto4, R.id.btn_kirim})
@@ -106,7 +147,7 @@ public class FormRealProsesRevActivity extends AppCompatActivity {
             case R.id.btn_foto4:
                 break;
             case R.id.btn_kirim:
-                break;
+                sendRealisasi();
         }
     }
 
@@ -124,10 +165,56 @@ public class FormRealProsesRevActivity extends AppCompatActivity {
         params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(data.getBatd_id())));
         params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
 
+        RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
+        RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
+        RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
+        RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
+
+        pict1=MultipartBody.Part.createFormData("pict1",imagePath1.getName(),file1);
+        pict2=MultipartBody.Part.createFormData("pict2",imagePath2.getName(),file2);
+        pict3=MultipartBody.Part.createFormData("pict3",imagePath3.getName(),file3);
+        pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
+
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
         dialog.setMessage("Loading...");
         dialog.setTitle("Mengirim data");
         dialog.show();
+    }
+
+    public void getPelanggaran() {
+        ApiService.service_get.getPelanggaran().enqueue(new Callback<PelanggaranResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PelanggaranResponse> call, @NonNull Response<PelanggaranResponse> response) {
+                if (response.body().getCode() == 302) {
+                    listPelanggaran = response.body().getData();
+                    ArrayList<String> pelanggaran = new ArrayList<>();
+                    for (Pelanggaran listPelanggaran2 : listPelanggaran)
+                        pelanggaran.add(listPelanggaran2.getKeterangan());
+                    ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(FormRealProsesRevActivity.this, android.R.layout.simple_list_item_1, pelanggaran);
+                    spnPelanggaran.setAdapter(stringArrayAdapter);
+                    spnPelanggaran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            pelanggaranId = String.valueOf(listPelanggaran.get(i).getId());
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            pelanggaranId = "";
+                        }
+                    });
+                    Log.d("Get Pelanggaran", "onResponse: " + response.body().getMessage());
+                } else {
+                    Log.d("Get Pelanggaran", "onResponse: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PelanggaranResponse> call, Throwable t) {
+                Log.d("Get Pelanggaran", "onFailure: " + t.getMessage());
+                call.cancel();
+            }
+        });
     }
 }

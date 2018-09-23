@@ -34,8 +34,8 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
 public class ApiService {
-    //public static String BASE_URL = "http://222.124.168.221";
-    public static String BASE_URL = "http://192.168.43.21 ";
+    public static String BASE_URL = "http://222.124.168.221";
+//    public static String BASE_URL = "http://192.168.43.21 ";
 
     public static PostService service_post = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -55,13 +55,22 @@ public class ApiService {
         Call<RealisasiResponse> postForm(@PartMap Map<String, RequestBody> params,
                                          @Part MultipartBody.Part pict1,
                                          @Part MultipartBody.Part pict2,
+                                         @Part MultipartBody.Part pict3);
+        @Multipart
+        @POST("tiplang/api/add-realisasi")
+        Call<RealisasiResponse> postForm(@PartMap Map<String, RequestBody> params,
+                                         @Part MultipartBody.Part pict1,
+                                         @Part MultipartBody.Part pict2,
                                          @Part MultipartBody.Part pict3,
                                          @Part MultipartBody.Part pict4);
 
         @Multipart
         @POST("tiplang/api/update-realisasi/{id}")
         Call<Update_RealisasiResponse> updateForm (@Path("id") String id,
-                                                   @PartMap Map<String, RequestBody> params);
+                                                   @PartMap Map<String, RequestBody> params,
+                                                   @Part MultipartBody.Part pict1,
+                                                   @Part MultipartBody.Part pict2,
+                                                   @Part MultipartBody.Part pict3);
 
     }
 
