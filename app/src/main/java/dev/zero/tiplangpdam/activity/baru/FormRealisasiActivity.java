@@ -263,6 +263,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == TandaTangan_Activity){
+
             String path = getIntent().getStringExtra("sign");
             Log.d("Path", "onActivityResult: " + path);
             Bitmap bitmapImage = BitmapFactory.decodeFile(path);
@@ -274,6 +275,25 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
                     e.printStackTrace();
                 }
+
+            String path = data.getStringExtra("sign");
+            Log.d("Path", "onActivityResult: " + path);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 786,1024, true );
+
+            Glide.with(FormRealisasiActivity.this)
+                    .load(bitmap)
+                    .into(ivFotohasil4);
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature"+ tvbatd.getText().toString() +".jpg");
+        }
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                e.printStackTrace();
+            }
+
 
                 @Override
                 public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
