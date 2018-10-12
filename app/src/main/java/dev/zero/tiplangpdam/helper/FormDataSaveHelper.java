@@ -51,6 +51,7 @@ public class FormDataSaveHelper {
 
     public static ArrayList<FormData> getData(){
         Realm realm = Realm.getDefaultInstance();
+        //Realm realm = Realm.getDefaultInstance();
         RealmResults<FormData> data = realm.where(FormData.class).findAll();
         ArrayList<FormData> formData = new ArrayList<>();
         formData.addAll(data);

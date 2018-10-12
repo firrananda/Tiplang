@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/helpcard1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp">
@@ -27,7 +27,7 @@
                     <ImageView
                         android:id="@+id/helplogin"
                         android:layout_width="400dp"
-                        android:layout_height="300dp"
+                        android:layout_height="350dp"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/helplogin" />
 
@@ -36,16 +36,204 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/helplogin"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/helplogintext"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
 
-        </RelativeLayout>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/helpbaruterima"
+                        android:layout_width="400dp"
+                        android:layout_height="350dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/help_baru" />
+
+                    <TextView
+                        android:id="@+id/helpbaruterimatext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/helpbaruterima"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/helpBarutext"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/helprevterima"
+                        android:layout_width="400dp"
+                        android:layout_height="350dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/help_revisi" />
+
+                    <TextView
+                        android:id="@+id/helprevterimatext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/helprevterima"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/helpRevisitext"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/helpSPK"
+                        android:layout_width="400dp"
+                        android:layout_height="350dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/help_spk" />
+
+                    <TextView
+                        android:id="@+id/helpSPKtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/helpSPK"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/helpSPKtext"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/helpbarubatd"
+                        android:layout_width="400dp"
+                        android:layout_height="350dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/help_batd" />
+
+                    <TextView
+                        android:id="@+id/helpbarubatdtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/helpbarubatd"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/helpBATDtext"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/helpbaruform"
+                        android:layout_width="400dp"
+                        android:layout_height="350dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/help_form" />
+
+                    <TextView
+                        android:id="@+id/helpbaruformtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/helpFormtext"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/helpprof"
+                        android:layout_width="400dp"
+                        android:layout_height="350dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/help_profile" />
+
+                    <TextView
+                        android:id="@+id/helpproftext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/helpprof"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/helpProfiltext"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
 
     </ScrollView>
 

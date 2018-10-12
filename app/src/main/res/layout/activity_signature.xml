@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/darkblue"
     tools:context=".SignatureActivity">
 
     <ja.burhanrashid52.photoeditor.PhotoEditorView
         android:id="@+id/photoEditorView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:photo_src="@drawable/bg_white"
         />
 
     <LinearLayout
         android:id="@+id/containerButton"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
@@ -25,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:background="@drawable/bgbutton"
             android:text="HAPUS" />
 
         <Button
@@ -32,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:background="@drawable/bgbutton"
             android:text="SIMPAN" />
     </LinearLayout>
 

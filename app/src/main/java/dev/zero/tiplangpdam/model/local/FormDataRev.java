@@ -21,13 +21,13 @@ public class FormDataRev extends RealmObject implements Parcelable {
     private String ukuran_meter;
     private String angka_angkat;
     private String merk_meter;
+    private String real_id;
     private String batd_id;
     private String pelanggaran;
     private String pict1;
     private String pict2;
     private String pict3;
     private String pict4;
-
     public FormDataRev() {
     }
 
@@ -172,6 +172,14 @@ public class FormDataRev extends RealmObject implements Parcelable {
         this.merk_meter = merk_meter;
     }
 
+    public String getReal_id() {
+        return real_id;
+    }
+
+    public void setReal_id(String real_id) {
+        this.real_id = real_id;
+    }
+
     public String getBatd_id() {
         return batd_id;
     }
@@ -242,6 +250,7 @@ public class FormDataRev extends RealmObject implements Parcelable {
         dest.writeString(this.ukuran_meter);
         dest.writeString(this.angka_angkat);
         dest.writeString(this.merk_meter);
+        dest.writeString(this.real_id);
         dest.writeString(this.batd_id);
         dest.writeString(this.pelanggaran);
         dest.writeString(this.pict1);
@@ -266,6 +275,7 @@ public class FormDataRev extends RealmObject implements Parcelable {
         this.ukuran_meter = in.readString();
         this.angka_angkat = in.readString();
         this.merk_meter = in.readString();
+        this.real_id = in.readString();
         this.batd_id = in.readString();
         this.pelanggaran = in.readString();
         this.pict1 = in.readString();

@@ -3,9 +3,13 @@
     <string name="title_activity_login">Sign in</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="helplogintext">Pertama-tama silahkan login dengan mengisikan NIP dan password</string>
-    <string name="helpbaruterimatext">fhgsdfhbwfw</string>
-    <string name="helpbaruprosestext">fugabjfafuaerea</string>
+    <string name="helplogintext">Silahkan Login dengan mengisikan NIP dan password</string>
+    <string name="helpSPKtext">Anda bisa melihat memilih tugas berdasarkan nomor Surat Perintah Kerja</string>
+    <string name="helpBATDtext">Daftar Data Identitas Pelanggan PDAM</string>
+    <string name="helpFormtext">Form Berita Acara Tutup Dinas yang harus Anda lengkapi</string>
+    <string name="helpProfiltext">Identitas Anda dan terdapat opsi Logout</string>
+    <string name="helpBarutext">Menu Tugas Baru (Terima, Proses, Kirim) beserta jumlah tugasnya</string>
+    <string name="helpRevisitext">Menu Tugas yang di Revisi (Terima, Proses, Kirim) beserta jumlah tugasnya</string>
     <string-array name="test1">
         <item>no 1</item>
         <item>no 2</item>

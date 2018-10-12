@@ -53,7 +53,6 @@ public class FormRealisasiKirimActivity extends AppCompatActivity {
     @BindView(R.id.iv_fotohasil4)
     ImageView ivFotohasil4;
 
-    SessionManager sessionManager;
     List_Realisasi datapelkirim;
     @BindView(R.id.iv_fotohasil1)
     ImageView ivFotohasil1;
@@ -63,7 +62,6 @@ public class FormRealisasiKirimActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_realisasi_kirim);
         ButterKnife.bind(this);
-        sessionManager = new SessionManager(this);
         String id_form = getIntent().getStringExtra("FORM_ID");
         datapelkirim = getIntent().getParcelableExtra("datapel");
         tvBatd.setText(datapelkirim.getNomor_batd());

@@ -13,7 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
 import dev.zero.tiplangpdam.adapter.RevPelangganAdapter;
+import dev.zero.tiplangpdam.helper.FormDataRevSaveHelper;
 import dev.zero.tiplangpdam.model.PelangganRev;
+import dev.zero.tiplangpdam.model.local.FormDataRev;
 import dev.zero.tiplangpdam.model.response.PelangganRevResponse;
 import dev.zero.tiplangpdam.service.ApiService;
 import dev.zero.tiplangpdam.service.SessionManager;
@@ -34,8 +36,6 @@ public class RevTerimaActivity extends AppCompatActivity {
         setContentView(R.layout.revisi_activity_terima);
         ButterKnife.bind(this);
 
-        rv_terima.setLayoutManager(new LinearLayoutManager(this));
-        rv_terima.setHasFixedSize(true);
         sessionManager = new SessionManager(this);
 
         ApiService.service_get.getPelangganRev(sessionManager.getKeyId()).enqueue(new Callback<PelangganRevResponse>() {
@@ -43,8 +43,26 @@ public class RevTerimaActivity extends AppCompatActivity {
             public void onResponse(Call<PelangganRevResponse> call, Response<PelangganRevResponse> response) {
                 if (response.code()== 200){
                     if (response.body().getCode()== 302){
-                        ArrayList<PelangganRev> listpelangganrev = response.body().getList();
+                        ArrayList<PelangganRev> listpelangganrev = new ArrayList<>();
                         Log.d("Get List", "onResponse :" + listpelangganrev.size());
+
+                        ArrayList<FormDataRev> formDataRev = FormDataRevSaveHelper.getData();
+                        for (PelangganRev pelanggan: response.body().getList()) {
+                            for (int i =0 ; i<=formDataRev.size(); i++) {
+                                if (i<formDataRev.size()) {
+                                    if (String.valueOf(pelanggan.getNomor_pelanggan()).equals(formDataRev.get(i).getNo_pelanggan())) {
+                                        break;
+                                    }
+                                }else{
+                                    listpelangganrev.add(pelanggan);
+                                }
+
+                            }
+                        }
+
+
+                        rv_terima.setLayoutManager(new LinearLayoutManager(RevTerimaActivity.this));
+                        rv_terima.setHasFixedSize(true);
                         adapter = new RevPelangganAdapter(listpelangganrev, RevTerimaActivity.this);
                         rv_terima.setAdapter(adapter);
                     } else {

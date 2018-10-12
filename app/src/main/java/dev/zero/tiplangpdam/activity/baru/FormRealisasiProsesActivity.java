@@ -1,8 +1,12 @@
 package dev.zero.tiplangpdam.activity.baru;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.zero.tiplangpdam.R;
+import dev.zero.tiplangpdam.SignatureActivity;
 import dev.zero.tiplangpdam.activity.revisi.FormRealRevActivity;
 import dev.zero.tiplangpdam.helper.FormDataSaveHelper;
 import dev.zero.tiplangpdam.model.Pelanggaran;
@@ -35,6 +40,7 @@ import dev.zero.tiplangpdam.model.response.PelanggaranResponse;
 import dev.zero.tiplangpdam.model.response.RealisasiResponse;
 import dev.zero.tiplangpdam.service.ApiService;
 import dev.zero.tiplangpdam.service.ImageSaver;
+import es.dmoral.toasty.Toasty;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -90,6 +96,11 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     MultipartBody.Part pict1, pict2, pict3, pict4;
     File imagePath1, imagePath2, imagePath3, imagePath4;
     Bitmap bitmap;
+    private static final int REQUEST_CODE_PICTURE_1 = 1;
+    private static final int REQUEST_CODE_PICTURE_2 = 2;
+    private static final int REQUEST_CODE_PICTURE_3 = 3;
+    private static final int REQUEST_CODE_PICTURE_4 = 4;
+    public static final int TandaTangan_Activity = 5;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
 
     @Override
@@ -98,6 +109,15 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form_realisasi_proses);
         ButterKnife.bind(this);
         data = getIntent().getParcelableExtra("data");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        MY_CAMERA_REQUEST_CODE);
+            }
+        }
+
         getPelanggaran();
         initLastData();
     }
@@ -117,22 +137,26 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         if (data.getPict1() != null) {
             Glide.with(this).load(new File(data.getPict1())).into(ivFotohasil1);
             bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict1()),tvBatd.getText().toString());
-            imagePath1 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+ "_1");
+            imagePath1 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+"_1");
         }
         if (data.getPict2() != null) {
             Glide.with(this).load(new File(data.getPict2())).into(ivFotohasil2);
             bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict2()),tvBatd.getText().toString());
-            imagePath2 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+ "_2");
+            imagePath2 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+"_2");
         }
         if (data.getPict3() != null) {
             Glide.with(this).load(new File(data.getPict3())).into(ivFotohasil3);
             bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict3()),tvBatd.getText().toString());
-            imagePath3 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+ "_3");
+            imagePath3 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+"_3");
         }
         if (data.getPict4() != null) {
             Glide.with(this).load(new File(data.getPict4())).into(ivFotohasil4);
             bitmap = ImageSaver.createImageWithBarcode(new File(data.getPict4()),tvBatd.getText().toString());
-            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+ "_4");
+//            String path = getIntent().getStringExtra("sign");
+//            BitmapFactory.Options options = new BitmapFactory.Options();
+//            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+//            bitmap = Bitmap.createScaledBitmap(bitmap, 786, 1024, true);
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap,"signature" +tvBatd.getText().toString()+"_4");
         }
     }
 
@@ -140,12 +164,17 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_foto1:
+                EasyImage.openCamera(FormRealisasiProsesActivity.this,REQUEST_CODE_PICTURE_1);
                 break;
             case R.id.btn_foto2:
+                EasyImage.openCamera(FormRealisasiProsesActivity.this,REQUEST_CODE_PICTURE_2);
                 break;
             case R.id.btn_foto3:
+                EasyImage.openCamera(FormRealisasiProsesActivity.this,REQUEST_CODE_PICTURE_3);
                 break;
             case R.id.btn_foto4:
+                Intent intent = new Intent(FormRealisasiProsesActivity.this, SignatureActivity.class);
+                startActivityForResult(intent, TandaTangan_Activity);
                 break;
             case R.id.btn_kirim:
                 sendRealisasi();
@@ -254,17 +283,77 @@ public class FormRealisasiProsesActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == MY_CAMERA_REQUEST_CODE) {
-
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
-
             } else {
-
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
+    @Override
+    protected void onActivityResult(final int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == TandaTangan_Activity) {
+
+            String path = data.getStringExtra("sign");
+            Log.d("Path", "onActivityResult: " + path);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 786, 1024, true);
+
+            Glide.with(FormRealisasiProsesActivity.this)
+                    .load(bitmap)
+                    .into(ivFotohasil4);
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, "signature" + tvBatd.getText().toString()+"_4.jpg");
+        }
+
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                e.printStackTrace();
             }
 
-        }
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                switch (type) {
+                    case REQUEST_CODE_PICTURE_1:
+                        Glide.with(FormRealisasiProsesActivity.this)
+                                .load(imageFile)
+                                .into(ivFotohasil1);
+                        bitmap = ImageSaver.createImageWithBarcode(imageFile, tvBatd.getText().toString());
+                        imagePath1 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+"_1");
+                        break;
+                    case REQUEST_CODE_PICTURE_2:
+                        Glide.with(FormRealisasiProsesActivity.this)
+                                .load(imageFile)
+                                .into(ivFotohasil2);
+                        bitmap = ImageSaver.createImageWithBarcode(imageFile, tvBatd.getText().toString());
+                        imagePath2 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+"_2");
+                        break;
+                    case REQUEST_CODE_PICTURE_3:
+                        Glide.with(FormRealisasiProsesActivity.this)
+                                .load(imageFile)
+                                .into(ivFotohasil3);
+                        bitmap = ImageSaver.createImageWithBarcode(imageFile, tvBatd.getText().toString());
+                        imagePath3 = ImageSaver.convertBitmapToFile(FormRealisasiProsesActivity.this, bitmap, tvBatd.getText().toString()+"_3");
+                        break;
+//                    case REQUEST_CODE_PICTURE_4:
+//                        Glide.with(FormRealisasiActivity.this)
+//                                .load(imageFile)
+//                                .into(ivFotohasil4);
+//                        imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this,bitmap, tvbatd.getText().toString()+ "_3");
+//                        break;
+
+                }
+                Log.d("Path", "onImagePicked: " + imageFile.getAbsolutePath());
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toasty.error(FormRealisasiProsesActivity.this, "Kenapa nggak jadi ambil foto kwkw");
+            }
+        });
     }
 }

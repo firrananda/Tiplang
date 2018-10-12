@@ -53,6 +53,8 @@ public class RevProsesPelangganAdapter extends RecyclerView.Adapter<RevProsesPel
             @Override
             public void onClick(View v) {
                 intent.putExtra("data", data);
+                intent.putExtra("FORM_ID", String.valueOf(data.getReal_id()));
+                intent.putExtra("batd_id", String.valueOf(data.getBatd_id()));
                 context.startActivity(intent);
             }
         });

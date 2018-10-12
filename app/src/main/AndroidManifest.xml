@@ -34,7 +34,6 @@
         <activity android:name=".activity.baru.FormRealisasiActivity" />
         <activity android:name=".activity.baru.FormRealisasiProsesActivity" />
         <activity android:name=".activity.baru.BarudataPelActivity" />
-        <activity android:name=".activity.revisi.RevdataPelActivity" />
         <activity android:name=".activity.revisi.FormRealRevActivity" />
         <activity android:name=".activity.revisi.FormRealProsesRevActivity" />
         <activity android:name=".activity.baru.BarudataPelProsesActivity" />

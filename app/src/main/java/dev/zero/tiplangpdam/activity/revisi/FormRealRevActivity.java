@@ -69,8 +69,6 @@ public class FormRealRevActivity extends AppCompatActivity {
     EditText edtHasilRealisasi;
     @BindView(R.id.kodepelanggaran)
     TextView kodepelanggaran;
-    @BindView(R.id.tv_pelanggaran)
-    TextView tvPelanggaran;
     @BindView(R.id.spn_pelanggaran)
     Spinner spnPelanggaran;
     ArrayList<Pelanggaran> listPelanggaran;
@@ -153,9 +151,9 @@ public class FormRealRevActivity extends AppCompatActivity {
                     edtAngkaAngkat.setText(String.valueOf(response.body().getData().getAngka_angkat()));
                     edtMerkMeteran.setText(response.body().getData().getMerk_meter());
                     Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict1()).into(ivFotohasil1);
-                    Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict1()).into(ivFotohasil2);
-                    Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict1()).into(ivFotohasil3);
-                    Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict1()).into(ivFotohasil4);
+                    Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict2()).into(ivFotohasil2);
+                    Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict3()).into(ivFotohasil3);
+                    Glide.with(FormRealRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict4()).into(ivFotohasil4);
                 } else {
                     Toast.makeText(FormRealRevActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
@@ -201,6 +199,7 @@ public class FormRealRevActivity extends AppCompatActivity {
                 paramsSave.put("ukuran_meter", edtUkuranMeter.getText().toString());
                 paramsSave.put("angka_angkat", edtAngkaAngkat.getText().toString());
                 paramsSave.put("merk_meter", edtMerkMeteran.getText().toString());
+                paramsSave.put("real_id", String.valueOf(datapelrev.getId_realisasi()));
                 paramsSave.put("batd_id", String.valueOf(datapelrev.getId_batd()));
                 paramsSave.put("pelanggaran_id", spnPelanggaran.getSelectedItem().toString());
                 if(imagePath1 != null) paramsSave.put("pict1", imagePath1.getAbsolutePath());
@@ -221,25 +220,27 @@ public class FormRealRevActivity extends AppCompatActivity {
                 params.put("ukuran_meter", RequestBody.create(MediaType.parse("text/plain"), edtUkuranMeter.getText().toString()));
                 params.put("angka_angkat", RequestBody.create(MediaType.parse("text/plain"), edtAngkaAngkat.getText().toString()));
                 params.put("merk_meter", RequestBody.create(MediaType.parse("text/plain"), edtMerkMeteran.getText().toString()));
+                params.put("real_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(datapelrev.getId_realisasi())));
                 params.put("batd_id", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(datapelrev.getId_batd())));
                 params.put("pelanggaran_id", RequestBody.create(MediaType.parse("text/plain"), pelanggaranId));
 
                 RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
                 RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
                 RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
-                //RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
+                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
 
                 pict1=MultipartBody.Part.createFormData("pict1",imagePath1.getName(),file1);
                 pict2=MultipartBody.Part.createFormData("pict2",imagePath2.getName(),file2);
                 pict3=MultipartBody.Part.createFormData("pict3",imagePath3.getName(),file3);
-                //pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
+                pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
 
                 final ProgressDialog dialog = new ProgressDialog(this);
                 dialog.setCancelable(false);
                 dialog.setMessage("Loading...");
                 dialog.setTitle("Mengirim data");
                 dialog.show();
-                ApiService.service_post.updateForm(String.valueOf(id_form),params, pict1, pict2, pict3).enqueue(new Callback<Update_RealisasiResponse>() {
+
+                ApiService.service_post.updateForm(String.valueOf(id_form),params, pict1, pict2, pict3, pict4).enqueue(new Callback<Update_RealisasiResponse>() {
                     @Override
                     public void onResponse(Call<Update_RealisasiResponse> call, Response<Update_RealisasiResponse> response) {
                         dialog.dismiss();
@@ -276,11 +277,19 @@ public class FormRealRevActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == TandaTangan_Activity){
-            String path = getIntent().getStringExtra("sign");
+            String path = data.getStringExtra("sign");
             Log.d("Path", "onActivityResult: " + path);
-            Bitmap bitmapImage = BitmapFactory.decodeFile(path);
-            imagePath4 = ImageSaver.convertBitmapToFile(this,bitmapImage,"sign");
-        }else {
+            //BitmapFactory.Options options = new BitmapFactory.Options();
+            Bitmap bitmap = ImageSaver.createImageWithBarcode(new File(path), "signature" + tvBatd.getText().toString()+"_4.jpg");
+            //bitmap = Bitmap.createScaledBitmap(bitmap, 786, 1024, true);
+
+            Glide.with(FormRealRevActivity.this)
+                    .load(bitmap)
+                    .into(ivFotohasil4);
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealRevActivity.this,bitmap,"signature" + tvBatd.getText().toString()+"_4.jpg");
+        }
+
+        else {
 
             EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
                 @Override

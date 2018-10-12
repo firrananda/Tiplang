@@ -147,14 +147,6 @@
                         android:text="Pelanggaran"
                         android:textColor="@color/black" />
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/tv_pelanggaran"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="50dp"-->
-                        <!--android:hint="pelanggaran"-->
-                        <!--android:gravity="center_vertical"-->
-                        <!--/>-->
-
                     <Spinner
                         android:id="@+id/spn_pelanggaran"
                         android:layout_width="match_parent"

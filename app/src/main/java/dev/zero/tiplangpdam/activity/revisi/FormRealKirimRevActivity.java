@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.zero.tiplangpdam.R;
@@ -80,6 +82,11 @@ public class FormRealKirimRevActivity extends AppCompatActivity {
                     tvUkuranMeter.setText(response.body().getData().getUkuran_meter());
                     tvAngkaAngkat.setText(String.valueOf(response.body().getData().getAngka_angkat()));
                     tvMerkMeteran.setText(response.body().getData().getMerk_meter());
+                    Glide.with(FormRealKirimRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict1() ).into(ivFotohasil1);
+                    Glide.with(FormRealKirimRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict2() ).into(ivFotohasil2);
+                    Glide.with(FormRealKirimRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict3() ).into(ivFotohasil3);
+                    Glide.with(FormRealKirimRevActivity.this).load(ApiService.BASE_URL+"/tiplang/" + response.body().getData().getPict4() ).into(ivFotohasil4);
+
                 }
                 else {
                     Toast.makeText(FormRealKirimRevActivity.this, "error nih", Toast.LENGTH_SHORT).show();

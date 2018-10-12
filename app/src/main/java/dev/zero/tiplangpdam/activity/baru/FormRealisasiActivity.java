@@ -143,6 +143,7 @@ public class FormRealisasiActivity extends AppCompatActivity {
 
         tvbatd.setText(dataPelanggan.getNomor_batd());
         tvTglBa.setText(dataPelanggan.getTanggal_batd());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -199,19 +200,20 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 RequestBody file1 = RequestBody.create(MediaType.parse("image/*"), imagePath1);
                 RequestBody file2 = RequestBody.create(MediaType.parse("image/*"), imagePath2);
                 RequestBody file3 = RequestBody.create(MediaType.parse("image/*"), imagePath3);
-                //RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
+                RequestBody file4 = RequestBody.create(MediaType.parse("image/*"), imagePath4);
 
                 pict1=MultipartBody.Part.createFormData("pict1",imagePath1.getName(),file1);
                 pict2=MultipartBody.Part.createFormData("pict2",imagePath2.getName(),file2);
                 pict3=MultipartBody.Part.createFormData("pict3",imagePath3.getName(),file3);
-                //pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
+                pict4=MultipartBody.Part.createFormData("pict4",imagePath4.getName(),file4);
 
                 final ProgressDialog dialog = new ProgressDialog(this);
                 dialog.setCancelable(false);
                 dialog.setMessage("Loading...");
                 dialog.setTitle("Mengirim data");
                 dialog.show();
-                ApiService.service_post.postForm(params,pict1,pict2,pict3).enqueue(new Callback<RealisasiResponse>() {
+
+                ApiService.service_post.postForm(params,pict1,pict2,pict3,pict4).enqueue(new Callback<RealisasiResponse>() {
                     @Override
                     public void onResponse(Call<RealisasiResponse> call, Response<RealisasiResponse> response) {
                         dialog.dismiss();
@@ -242,7 +244,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 break;
             case R.id.btn_foto1:
                 EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_1);
-                Log.d("get foto Realisasi", "respon: hahah ");
                 break;
             case R.id.btn_foto2:
                 EasyImage.openCamera(FormRealisasiActivity.this,REQUEST_CODE_PICTURE_2);
@@ -259,33 +260,18 @@ public class FormRealisasiActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == TandaTangan_Activity){
-
-            String path = getIntent().getStringExtra("sign");
-            Log.d("Path", "onActivityResult: " + path);
-            Bitmap bitmapImage = BitmapFactory.decodeFile(path);
-            imagePath4 = ImageSaver.convertBitmapToFile(this,bitmapImage,"sign");
-        }else {
-
-            EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
-                @Override
-                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                    e.printStackTrace();
-                }
+        if (requestCode == TandaTangan_Activity) {
 
             String path = data.getStringExtra("sign");
             Log.d("Path", "onActivityResult: " + path);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 786,1024, true );
-
+            Bitmap bitmap = ImageSaver.createImageWithBarcode(new File(path),"signature"+tvbatd.getText().toString()+"_4.jpg");
             Glide.with(FormRealisasiActivity.this)
                     .load(bitmap)
                     .into(ivFotohasil4);
-            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature"+ tvbatd.getText().toString() +".jpg");
+            imagePath4 = ImageSaver.convertBitmapToFile(FormRealisasiActivity.this, bitmap, "signature"+tvbatd.getText().toString()+"_4.jpg");
         }
 
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
@@ -293,7 +279,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
                 e.printStackTrace();
             }
-
 
                 @Override
                 public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
@@ -336,7 +321,6 @@ public class FormRealisasiActivity extends AppCompatActivity {
                 }
             });
         }
-    }
 
     public void getPelanggaran() {
         ApiService.service_get.getPelanggaran().enqueue(new Callback<PelanggaranResponse>() {
@@ -373,23 +357,14 @@ public class FormRealisasiActivity extends AppCompatActivity {
     }
 
     @Override
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (requestCode == MY_CAMERA_REQUEST_CODE) {
-
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
-
             } else {
-
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
-
             }
-
         }
     }
 }

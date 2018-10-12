@@ -27,6 +27,7 @@ public class FormDataRevSaveHelper {
         data.setUkuran_meter(dataSave.get("ukuran_meter"));
         data.setAngka_angkat(dataSave.get("angka_angkat"));
         data.setMerk_meter(dataSave.get("merk_meter"));
+        data.setReal_id(dataSave.get("real_id"));
         data.setBatd_id(dataSave.get("batd_id"));
         data.setPelanggaran(dataSave.get("pelanggaran_id"));
         data.setPict1(dataSave.get("pict1"));
